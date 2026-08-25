@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: "Iluminación 3D & Shaders",
   description: "Portal académico interactivo para videojuegos - Profesor Daniel Rojas (UNIACC)",
-  base: "/iluminacion3d/", // Nombre del repo en GitHub
+  base: "/iluminacion3D/", // Nombre exacto del repo en GitHub
   cleanUrls: true,
   themeConfig: {
     logo: { text: "⚡ 3D LIGHTING & SHADERS" },

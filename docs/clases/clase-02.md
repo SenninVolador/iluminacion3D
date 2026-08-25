@@ -25,6 +25,10 @@ El ejercicio consiste en construir la volumetría de un busto tridimensional par
 * **Directional Light (Luz Solar)**: Modela una fuente situada en el infinito; emite rayos rigurosamente paralelos. La traslación espacial carece de efecto; el cálculo depende exclusivamente del **vector de rotación** (atajo de calibración: `Ctrl + L`).
 * **Sky Light (Luz de Cielo / Hemisférica)**: Captura la radiancia difusa de la bóveda celeste para bañar las superficies en sombra, **evitando valores de negro absoluto ($RGB = 0, 0, 0$)**.
 
+<ClientOnly>
+  <SunShadowViewer />
+</ClientOnly>
+
 ---
 
 ## 3. Matriz de Movilidad Técnica (Rendimiento vs. Interactividad)

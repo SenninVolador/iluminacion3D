@@ -4,6 +4,7 @@ import ThreePointLightingViewer from './components/ThreePointLightingViewer.vue'
 import KelvinViewer from './components/KelvinViewer.vue';
 import AttenuationViewer from './components/AttenuationViewer.vue';
 import NormalMapViewer from './components/NormalMapViewer.vue';
+import SunShadowViewer from './components/SunShadowViewer.vue';
 import './custom.css';
 
 export default {
@@ -14,5 +15,6 @@ export default {
     app.component('KelvinViewer', KelvinViewer);
     app.component('AttenuationViewer', AttenuationViewer);
     app.component('NormalMapViewer', NormalMapViewer);
+    app.component('SunShadowViewer', SunShadowViewer);
   }
 };

@@ -13,7 +13,7 @@ El sombreado basado en la física modela la microestructura del material mediant
 </ClientOnly>
 
 ### Empaquetado de Canales de Textura (ORM):
-A fin de optimizar el ancho de banda de memoria de vídeo (VRAM), se combinan tres mapas escalares de 8 bits en una única textura de tres canales RGB:
+A fin de optimizar el ancho de banda de memoria de video (VRAM), se combinan tres mapas escalares de 8 bits en una única textura de tres canales RGB:
 * **Canal R (Rojo)**: Ambient Occlusion (Oclusión Ambiental).
 * **Canal G (Verde)**: Roughness (Rugosidad / Distribución de microfacetas).
 * **Canal B (Azul)**: Metallic (Comportamiento metálico vs. dieléctrico).
@@ -21,6 +21,10 @@ A fin de optimizar el ancho de banda de memoria de vídeo (VRAM), se combinan tr
 ### Arquitectura de Shaders en Unreal Engine 5:
 * **Master Material (`M_Master_PBR`)**: Contiene las ecuaciones matemáticas y slots de muestreo de texturas. Se compila una sola vez en el proyecto.
 * **Material Instances (`MI_Busto`)**: Permiten vestir el busto con distintas respuestas ópticas (piel mate, metal pulido, cerámica) en tiempo real sin tiempos de compilación.
+
+<ClientOnly>
+  <NormalMapViewer />
+</ClientOnly>
 
 ---
 
@@ -41,6 +45,10 @@ A fin de optimizar el ancho de banda de memoria de vídeo (VRAM), se combinan tr
 | **Point Light** | Esfera omnidireccional ($360^\circ$) | Simulación de fuentes próximas (velas, antorchas) | `Attenuation Radius` |
 | **Spot Light** | Cono direccional acotado | Luz de acento y brillo corneal (*Eye Catchlight*) | `Inner/Outer Cone`, `IES` |
 | **Rect Light** | Plano rectangular (área) | Luz difusa de estudio para reflejos suaves | `Source Width / Height` |
+
+<ClientOnly>
+  <AttenuationViewer />
+</ClientOnly>
 
 ---
 

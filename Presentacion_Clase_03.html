@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentación Clase 03 — Shaders PBR en el Busto 3D</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b0d13;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* CONTENEDOR 16:9 */
+    .slide-deck {
+      width: 1120px;
+      height: 630px;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 38px 50px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* HEADER */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #111827;
+    }
+
+    .slide-course {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+
+    .slide-index {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* CUERPO */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #111827;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #4b5563;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px;
+      background: #fafafa;
+    }
+
+    .card-flat {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+    }
+
+    .card h3, .card-flat h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .card p, .card-flat p {
+      font-size: 11.5px;
+      color: #4b5563;
+      line-height: 1.45;
+    }
+
+    .example-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      color: #1e3a8a;
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #111827;
+      margin: 12px 0;
+      text-align: center;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.clean-list li {
+      font-size: 11.5px;
+      color: #374151;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 12px;
+      line-height: 1.4;
+    }
+
+    ul.clean-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 10.5px;
+      color: #111827;
+    }
+
+    /* LINKS EXTERNOS */
+    .game-link {
+      color: #111827;
+      text-decoration: none;
+      border-bottom: 1.5px solid #111827;
+      padding-bottom: 1px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .game-link:hover {
+      color: #2563eb;
+      border-color: #2563eb;
+    }
+
+    .game-link::after {
+      content: " ↗";
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    /* FOOTER */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+
+    .controls-hint {
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+
+    /* BOTONES */
+    .nav-buttons {
+      position: fixed;
+      bottom: 16px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: #1e293b;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- DIAPOSITIVA 1: PORTADA -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="slide-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="slide-index">01 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Shaders PBR en el Busto 3D: Sol, Cielo y Luces</h1>
+        <p class="subtitle">Clase 03 — Construcción de Master Materials, Texturas ORM y Fuentes Lumínicas</p>
+
+        <div class="formula-box">
+          M_Master_PBR ──► MI_Busto_Piel / MI_Busto_Metal ──► Sol + SkyLight + Acentos
+        </div>
+
+        <div class="grid-2" style="margin-top: 8px;">
+          <div class="card-flat">
+            <h3>🧱 Master Materials & ORM</h3>
+            <p>Vestimos el busto 3D de la Clase 02 con un sombreador profesional y texturas empaquetadas de alto rendimiento.</p>
+          </div>
+          <div class="card-flat">
+            <h3>☀️ Iluminación Natural y Acentos</h3>
+            <p>Evaluamos cómo reaccionan las normales y rugosidades del busto bajo el Sol (Directional), Cielo (Sky) y focos locales.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Instructor · Unreal Engine 5 & PBR Pipeline</span>
+        <span class="controls-hint">Usa [ ← / → ] o Espacio para navegar</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 2: TEXTURAS ORM -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-course">Pipeline PBR & Optimización</div>
+        <div class="slide-index">02 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Texturas Empaquetadas en el Busto (ORM)</h1>
+        <p class="subtitle">Cómo alimentar los canales del busto 3D con una sola textura RGB.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="example-tag">Canal R (Rojo)</span>
+            <h3>Ambient Occlusion (AO)</h3>
+            <p>Sombras suaves en los pliegues de la nariz, cuencas de los ojos y arrugas del busto donde no llega la luz difusa.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Canal G (Verde)</span>
+            <h3>Roughness (Rugosidad)</h3>
+            <p>Define la micro-textura: piel mate ($0.75$) vs cromo brillante ($0.10$) vs bronce pulido ($0.35$).</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Canal B (Azul)</span>
+            <h3>Metallic (Metalicidad)</h3>
+            <p>Distingue el material orgánico ($0.0$) de armaduras o esculturas metálicas puras ($1.0$).</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Optimización de Texturas en GPU</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 3: MASTER MATERIAL VS INSTANCES -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-course">Shader Graph en Unreal Engine</div>
+        <div class="slide-index">03 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Master Material vs. Instancias en el Busto</h1>
+        <p class="subtitle">Crear infinitas variantes de materiales sin esperar tiempos de compilación.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Base Centralizada</span>
+            <h3>Master Material (M_Master_PBR)</h3>
+            <ul class="clean-list">
+              <li>Contiene las matemáticas y slots de <em>BaseColor</em>, <em>ORM</em> y <em>Normal</em>.</li>
+              <li>Expone parámetros de <code>Roughness_Scale</code>, <code>Metallic_Scale</code> y <code>Tiling_UV</code>.</li>
+              <li>Se compila una sola vez en el proyecto.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Variación en el Busto</span>
+            <h3>Material Instances (MI_Busto)</h3>
+            <ul class="clean-list">
+              <li><span class="badge">MI_Busto_PielMate</span>: Piel orgánica y porosa.</li>
+              <li><span class="badge">MI_Busto_Cromo</span>: Armadura metálica reflectante.</li>
+              <li><span class="badge">MI_Busto_Oro</span>: Escultura clásica con tinte dorado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Flujo de Trabajo Profesional</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 4: DIRECTIONAL LIGHT EN EL BUSTO -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-course">Luz Natural & Shader</div>
+        <div class="slide-index">04 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>El Busto bajo Directional Light (El Sol)</h1>
+        <p class="subtitle">Cómo los rayos paralelos del sol interactúan con el mapa de normales del modelo.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Normal Map & Ángulo Solar</span>
+            <h3>Relieve y Luz Rasante</h3>
+            <p style="margin-bottom: 8px;">Al rotar el sol con <span class="badge">Ctrl + L</span>, el ángulo rasante de la luz revela las arrugas, poros y detalles del <em>Normal Map</em> del busto.</p>
+            <ul class="clean-list">
+              <li><strong>Iluminación Rembrandt:</strong> Sol a 45° lateral generando un triángulo de luz en la mejilla opuesta.</li>
+              <li><strong>Contraluz Solar:</strong> Silueta dorada brillante en los hombros.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Shader Response</span>
+            <h3>Efecto del Roughness en el Sol</h3>
+            <ul class="clean-list">
+              <li><strong>Roughness 0.1:</strong> El sol se refleja como un punto brillante nítido (disco solar).</li>
+              <li><strong>Roughness 0.8:</strong> El sol se difumina creando un degradado suave a lo largo del rostro.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Dirección Solar & Relieve Tridimensional</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 5: SKY LIGHT EN EL BUSTO -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-course">Luz Ambiental & Coherencia</div>
+        <div class="slide-index">05 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>El Busto bajo Sky Light (Cúpula Celeste)</h1>
+        <p class="subtitle">El relleno natural que evita sombras 100% negras en el rostro.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Luz Hemisférica Difusa</span>
+            <h3>Relleno Ambiental en Penumbras</h3>
+            <p style="margin-bottom: 8px;">La <strong>Sky Light</strong> captura el cielo azul (o mapa HDRI) y baña el lado oscuro del busto con luz suave.</p>
+            <ul class="clean-list">
+              <li>Rescata los detalles del rostro en sombra sin necesidad de poner focos adicionales.</li>
+              <li>Aporta realismo cromático: luz solar cálida (ámbar) + sombras frías (azul cielo).</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Oclusión Ambiental (AO)</span>
+            <h3>El rol del canal R (AO) del Shader</h3>
+            <ul class="clean-list">
+              <li>La Sky Light respeta el mapa de <strong>Ambient Occlusion</strong> del busto, manteniendo oscuras las fosas nasales y cuencas oculares para no aplanar el volumen.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Captura Ambiental y Coherencia Lumínica</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 6: LUCES LOCALES DE ACENTO -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-course">Acentos & Escenografía</div>
+        <div class="slide-index">06 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Luces Locales de Acento: Point, Spot y Rect</h1>
+        <p class="subtitle">Herramientas fotográficas para destacar facciones y crear brillos en los ojos.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="example-tag">Omnidireccional</span>
+            <h3>💡 Point Light</h3>
+            <p style="margin-bottom: 6px;">Luz puntual cercana. Excelente para simular el brillo cálido de una antorcha al lado del busto.</p>
+            <p><strong>Control:</strong> <code>Attenuation Radius</code> ajustado.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Cono Acotado</span>
+            <h3>🔦 Spot Light</h3>
+            <p style="margin-bottom: 6px;">Foco de recorte o linterna. Apuntada al rostro crea el clásico brillo en la pupila (*Eye Catchlight*).</p>
+            <p><strong>Control:</strong> Perfiles IES reales.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Luz de Área</span>
+            <h3>🔲 Rect Light</h3>
+            <p style="margin-bottom: 6px;">Softbox fotográfico. Genera un reflejo rectangular suave en la frente y mejillas pulidas.</p>
+            <p><strong>Control:</strong> <code>Source Width/Height</code>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Fuentes Lumínicas de Estudio</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 7: CASOS DE ESTUDIO CON LINKS -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-course">Análisis de la Industria</div>
+        <div class="slide-index">07 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Casos Reales: Personajes, Shaders y Luz</h1>
+        <p class="subtitle">Haz clic en cada juego para inspeccionar los análisis técnicos oficiales:</p>
+
+        <div class="grid-4">
+          <div class="card">
+            <h3><a href="https://www.artstation.com/artwork/g8GZ8K" target="_blank" class="game-link">God of War Ragnarök</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Santa Monica Studio</p>
+            <p style="font-size: 11px;">Rostro de Kratos esculpido bajo sol rasante y antorchas mediante Roughness variable (piel, sudor, sangre).</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.guerrilla-games.com/read/the-technology-of-horizon-forbidden-west" target="_blank" class="game-link">Horizon Forbidden West</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Guerrilla Games</p>
+            <p style="font-size: 11px;">Sol y cielo bañando la piel mate de Aloy y sus placas mecánicas reflectantes con precisión PBR.</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.youtube.com/watch?v=k5lO_68b3cQ" target="_blank" class="game-link">Alan Wake 2</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Remedy Entertainment</p>
+            <p style="font-size: 11px;">Focos Spot con perfiles IES sobre rostros y ropa húmeda con alto contraste de Fresnel.</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.youtube.com/watch?v=J3e2Ea7vJ8Q" target="_blank" class="game-link">Gears 5</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">The Coalition</p>
+            <p style="font-size: 11px;">Luces de acento acotadas para generar siluetas en cascos y armaduras metálicas sin sobrecoste en GPU.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Dirección de Arte y Soluciones Técnicas</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 8: DESAFÍO EN CLASE -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="slide-course">Práctica y Cierre</div>
+        <div class="slide-index">08 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Desafío Práctico para los Alumnos</h1>
+        <p class="subtitle">Ejercicios sobre el busto 3D en Unreal Engine 5 durante la sesión.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Misión 1 · Shaders PBR</span>
+            <h3>Vestir el Busto 3D</h3>
+            <ul class="clean-list">
+              <li>Construir el Master Material <code>M_Master_PBR</code> con slots para BaseColor, ORM y Normal Map.</li>
+              <li>Exponer parámetros de <code>Roughness</code>, <code>Metallic</code> y <code>Tint</code>.</li>
+              <li>Crear 2 instancias (una metálica y otra de piel mate) y probarlas en el busto.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Misión 2 · Iluminación</span>
+            <h3>Sol, Cielo y Acento Local</h3>
+            <ul class="clean-list">
+              <li>Añadir <em>Directional Light</em> y <em>Sky Light</em>. Rotar el sol con <span class="badge">Ctrl + L</span> hasta lograr un ángulo Rembrandt a 45°.</li>
+              <li>Añadir una <em>Spot Light</em> o <em>Rect Light</em> lateral de acento para perfilar el borde del rostro.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Próxima Clase: Modelos de Sombreado (SSS, Foliage, Clear Coat) y Sombras VSM</span>
+        <span class="controls-hint">[ Fin de la Presentación ]</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+    <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('slide-' + index);
+      if (target) {
+        target.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

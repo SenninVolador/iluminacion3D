@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clase 02 — Iluminación 3D y Shaders para Videojuegos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 20mm 18mm 20mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111827;
+      background-color: #ffffff;
+      line-height: 1.55;
+      font-size: 12px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      page-break-after: always;
+      height: 100%;
+      min-height: 255mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* HEADER MINIMALISTA */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #111827;
+      margin-bottom: 24px;
+    }
+
+    .header-course {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* TÍTULOS Y SECCIONES */
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 20px;
+      max-width: 90%;
+    }
+
+    .subheading {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* DIAGRAMA TÉCNICO MINIMALISTA */
+    .schematic-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 24px;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* COLUMNAS CON ESPACIO */
+    .cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .text-block {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+    }
+
+    .text-block h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .text-block p {
+      font-size: 11.5px;
+      color: #4b5563;
+      margin-bottom: 6px;
+    }
+
+    .text-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .text-block li {
+      font-size: 11.5px;
+      color: #374151;
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .text-block li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    /* ENLACES EN CASOS DE ESTUDIO */
+    .doc-link {
+      color: #111827;
+      text-decoration: none;
+      border-bottom: 1px solid #111827;
+      font-weight: 600;
+    }
+
+    .doc-link:hover {
+      color: #2563eb;
+      border-color: #2563eb;
+    }
+
+    /* NOTAS Y CALLOUTS LIMPIOS */
+    .note-box {
+      border-left: 2px solid #111827;
+      padding: 10px 14px;
+      background: #f9fafb;
+      margin-top: 12px;
+      font-size: 11.5px;
+      color: #374151;
+    }
+
+    .note-box strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* TABLA EDITORIAL LIMPIA */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 24px;
+      font-size: 11.5px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+      padding: 8px 10px;
+      border-bottom: 1px solid #111827;
+      background: none;
+    }
+
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+      vertical-align: top;
+    }
+
+    .label-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .key-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 1px 4px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      color: #111827;
+    }
+
+    /* FOOTER */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 10px;
+      color: #9ca3af;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PÁGINA 1 ==================== -->
+  <div class="page">
+    <div>
+      <div class="header">
+        <div class="header-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="header-meta">Clase 02 · Taller & Fundamentos</div>
+      </div>
+
+      <h1 class="section-title">1. Esquema de Iluminación de 3 Puntos</h1>
+      <p class="section-desc">
+        Construcción de volumen, jerarquía de contraste y silueta sobre un sujeto tridimensional a partir de la oscuridad absoluta.
+      </p>
+
+      <!-- DIAGRAMA VECTORIAL TÉCNICO Y LIMPIO -->
+      <div class="schematic-box">
+        <svg viewBox="0 0 540 210" width="100%" height="200">
+          <!-- Guías técnicas -->
+          <circle cx="270" cy="100" r="70" fill="none" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="270" y1="100" x2="270" y2="185" stroke="#d1d5db" stroke-dasharray="2,2" stroke-width="1"/>
+          <line x1="270" y1="100" x2="150" y2="165" stroke="#9ca3af" stroke-width="1.2"/>
+          <line x1="270" y1="100" x2="390" y2="165" stroke="#9ca3af" stroke-width="1.2"/>
+          <line x1="270" y1="100" x2="270" y2="28" stroke="#9ca3af" stroke-width="1.2"/>
+
+          <!-- Sujeto Central -->
+          <circle cx="270" cy="100" r="20" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+          <text x="270" y="104" fill="#111827" font-size="9.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">SUJETO</text>
+
+          <!-- Key Light -->
+          <circle cx="150" cy="165" r="14" fill="#111827"/>
+          <text x="150" y="169" fill="#ffffff" font-size="8.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">KEY</text>
+          <text x="150" y="193" fill="#111827" font-size="9.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">Key Light (100%)</text>
+          <text x="150" y="204" fill="#6b7280" font-size="8.5" text-anchor="middle" font-family="Inter, sans-serif">45° lateral · Define sombra principal</text>
+
+          <!-- Fill Light -->
+          <circle cx="390" cy="165" r="12" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+          <text x="390" y="168" fill="#111827" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">FILL</text>
+          <text x="390" y="193" fill="#111827" font-size="9.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">Fill Light (25–40%)</text>
+          <text x="390" y="204" fill="#6b7280" font-size="8.5" text-anchor="middle" font-family="Inter, sans-serif">Relleno difuso · Suaviza penumbras</text>
+
+          <!-- Rim Light -->
+          <circle cx="270" cy="28" r="12" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+          <text x="270" y="31" fill="#111827" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">RIM</text>
+          <text x="270" y="12" fill="#111827" font-size="9.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">Rim / Back Light</text>
+
+          <!-- Cámara -->
+          <rect x="254" y="176" width="32" height="18" rx="2" fill="#ffffff" stroke="#111827" stroke-width="1.2"/>
+          <text x="270" y="188" fill="#111827" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">CAM</text>
+        </svg>
+      </div>
+
+      <div class="cols-2">
+        <div class="text-block">
+          <h3>Directional Light (Luz Solar)</h3>
+          <p>Simula una fuente lumínica a distancia infinita. La posición espacial no altera el cálculo; únicamente influye su <strong>rotación</strong>.</p>
+          <ul>
+            <li><strong>Atmosphere Sun Light:</strong> Integra la luz con la atmósfera física.</li>
+            <li><strong>Atajo:</strong> Mantener <span class="key-badge">Ctrl + L</span> y arrastrar el ratón para rotar el sol.</li>
+          </ul>
+        </div>
+
+        <div class="text-block">
+          <h3>Sky Light (Luz de Cielo / Ambiente)</h3>
+          <p>Captura la cúpula celeste o mapa HDRI para proyectar luz hemisférica difusa sobre las zonas no alcanzadas por el sol directo.</p>
+          <ul>
+            <li><strong>Previene negros absolutos:</strong> Tiñe sombras con el tono del cielo.</li>
+            <li><strong>Real Time Capture:</strong> Recalcula el rebote ambiental en vivo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Metodología de Taller:</strong> Comenzar siempre en oscuridad total. Añadir primero la <em>Key Light</em> para definir el eje de contraste, luego la <em>Fill Light</em> para controlar el rango de penumbra, y finalizar con la <em>Rim Light</em> para separar la silueta del fondo.
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Iluminación 3D y Shaders para Videojuegos</span>
+      <span>Página 1 de 2</span>
+    </div>
+  </div>
+
+  <!-- ==================== PÁGINA 2 ==================== -->
+  <div class="page">
+    <div>
+      <div class="header">
+        <div class="header-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="header-meta">Clase 02 · Movilidad y Análisis</div>
+      </div>
+
+      <h1 class="section-title">2. Movilidad de Luces y Análisis de Casos</h1>
+      <p class="section-desc">
+        Criterios de selección técnica de luces según el presupuesto de renderizado (GPU frametime) y las necesidades de interactividad del juego.
+      </p>
+
+      <!-- TABLA TÉCNICA LIMPIA -->
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%;">Movilidad</th>
+            <th style="width: 32%;">Método de Cálculo</th>
+            <th style="width: 18%;">Coste GPU</th>
+            <th style="width: 30%;">Aplicación Típica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="label-badge">STATIC</span></td>
+            <td>100% precalculada en mapas de textura (Lightmaps). Sin sombras dinámicas.</td>
+            <td>Cero coste en runtime</td>
+            <td>Realidad virtual (90 FPS), móviles, entornos sin cambios.</td>
+          </tr>
+          <tr>
+            <td><span class="label-badge">STATIONARY</span></td>
+            <td>Híbrido: Luz directa dinámica + rebotes indirectos horneados.</td>
+            <td>Medio</td>
+            <td>Consolas/PC. Permite variar intensidad y color, pero no mover la posición.</td>
+          </tr>
+          <tr>
+            <td><span class="label-badge">MOVABLE</span></td>
+            <td>100% tiempo real cuadro a cuadro.</td>
+            <td>Alto continuo</td>
+            <td>UE5 con Lumen, linternas del jugador, ciclos día/noche.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="subheading" style="margin-top: 16px;">Casos de Estudio en la Industria (Haz clic para ver análisis)</h2>
+
+      <div class="cols-2" style="margin-bottom: 12px;">
+        <div class="text-block">
+          <h3><a href="https://www.youtube.com/watch?v=R9_mD4oI6fU" target="_blank" class="doc-link">The Last of Us Part I / II ↗</a></h3>
+          <p><strong>Estrategia:</strong> Baking de alta precisión + Linternas móviles.</p>
+          <p>Naughty Dog precalcula la luz indirecta para lograr fotorrealismo en interiores desolados sin comprometer el frametime, usando focos dinámicos en combate.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.youtube.com/watch?v=a3YxH_xK004" target="_blank" class="doc-link">Cyberpunk 2077 ↗</a></h3>
+          <p><strong>Estrategia:</strong> Iluminación 100% Dinámica + Ray Tracing.</p>
+          <p>Night City integra miles de emisivos, clima y ciclo horario variable. Toda la iluminación y reflejos se procesan en tiempo real.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.nintendo.com/games/detail/the-legend-of-zelda-tears-of-the-kingdom-switch/" target="_blank" class="doc-link">Zelda: Tears of the Kingdom ↗</a></h3>
+          <p><strong>Estrategia:</strong> Directional + Sky con sombras en cascada.</p>
+          <p>Para hardware modesto (Switch), Nintendo optimiza sombras direccionales y utiliza un contraste limpio de colores complementarios.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.residentevil.com/re4/" target="_blank" class="doc-link">Resident Evil 4 Remake ↗</a></h3>
+          <p><strong>Estrategia:</strong> Niebla volumétrica y sombras duras.</p>
+          <p>El lenguaje de terror suprime la luz direccional y se apoya en la linterna del jugador interactuando con partículas volumétricas para generar tensión.</p>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Límite de Canales (Stationary Overlap):</strong> En el renderizador clásico de Unreal no pueden solaparse más de 4 luces <em>Stationary</em> proyectando sombras sobre el mismo espacio (canales RGBA). Si se añade una 5ª luz, se marcará con una cruz roja y pasará a modo <em>Movable</em>.
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Iluminación 3D y Shaders para Videojuegos</span>
+      <span>Página 2 de 2</span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "iluminacion-3d-shaders",
+  "version": "1.0.0",
+  "description": "Base de conocimiento interactiva de Iluminación 3D y Shaders para Videojuegos",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": ["unreal-engine", "lighting", "shaders", "pbr", "gamedev"],
+  "author": "Daniel Rojas <Daniel.rojasl@uniacc.edu>",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.6.3",
+    "three": "^0.170.0"
+  },
+  "dependencies": {
+    "three": "^0.170.0"
+  }
+}

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clase 03 — Iluminación 3D y Shaders para Videojuegos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 20mm 18mm 20mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111827;
+      background-color: #ffffff;
+      line-height: 1.55;
+      font-size: 12px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      page-break-after: always;
+      height: 100%;
+      min-height: 255mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* HEADER MINIMALISTA */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #111827;
+      margin-bottom: 24px;
+    }
+
+    .header-course {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .header-meta {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* TÍTULOS */
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 20px;
+      max-width: 90%;
+    }
+
+    .subheading {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* DIAGRAMA TÉCNICO */
+    .schematic-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 24px;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* COLUMNAS */
+    .cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .text-block {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+    }
+
+    .text-block h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .text-block p {
+      font-size: 11.5px;
+      color: #4b5563;
+      margin-bottom: 6px;
+    }
+
+    .text-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .text-block li {
+      font-size: 11.5px;
+      color: #374151;
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .text-block li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    /* ENLACES */
+    .doc-link {
+      color: #111827;
+      text-decoration: none;
+      border-bottom: 1px solid #111827;
+      font-weight: 600;
+    }
+
+    .doc-link:hover {
+      color: #2563eb;
+      border-color: #2563eb;
+    }
+
+    /* NOTAS Y CALLOUTS */
+    .note-box {
+      border-left: 2px solid #111827;
+      padding: 10px 14px;
+      background: #f9fafb;
+      margin-top: 12px;
+      font-size: 11.5px;
+      color: #374151;
+    }
+
+    .note-box strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* TABLA */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 24px;
+      font-size: 11.5px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+      padding: 8px 10px;
+      border-bottom: 1px solid #111827;
+      background: none;
+    }
+
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+      vertical-align: top;
+    }
+
+    .label-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .key-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 1px 4px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      color: #111827;
+    }
+
+    /* FOOTER */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 10px;
+      color: #9ca3af;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PÁGINA 1: MASTER MATERIAL & ORM ==================== -->
+  <div class="page">
+    <div>
+      <div class="header">
+        <div class="header-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="header-meta">Clase 03 · Shaders PBR en el Busto 3D</div>
+      </div>
+
+      <h1 class="section-title">1. Pipeline PBR: Master Materials e Instancias</h1>
+      <p class="section-desc">
+        Construcción del material maestro <code>M_Master_PBR</code> para el busto 3D: empaquetado ORM, control de rugosidad, metalicidad y mapas de normales.
+      </p>
+
+      <!-- DIAGRAMA TÉCNICO SVG -->
+      <div class="schematic-box">
+        <svg viewBox="0 0 540 180" width="100%" height="175">
+          <!-- Master Material Box -->
+          <rect x="165" y="10" width="210" height="42" rx="3" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+          <text x="270" y="27" fill="#111827" font-size="9.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">MASTER MATERIAL (M_Master_PBR)</text>
+          <text x="270" y="42" fill="#6b7280" font-size="8" text-anchor="middle" font-family="JetBrains Mono, monospace">Lógica de Nodos + Parámetros expuestos</text>
+
+          <!-- Conexión a Instancias del Busto -->
+          <line x1="270" y1="52" x2="270" y2="78" stroke="#9ca3af" stroke-width="1.2"/>
+          <line x1="90" y1="78" x2="450" y2="78" stroke="#9ca3af" stroke-width="1.2"/>
+          
+          <line x1="90" y1="78" x2="90" y2="105" stroke="#9ca3af" stroke-width="1.2"/>
+          <line x1="270" y1="78" x2="270" y2="105" stroke="#9ca3af" stroke-width="1.2"/>
+          <line x1="450" y1="78" x2="450" y2="105" stroke="#9ca3af" stroke-width="1.2"/>
+
+          <!-- Instancia 1: Busto Piel / Orgánico -->
+          <rect x="20" y="105" width="140" height="58" rx="2" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.2"/>
+          <text x="90" y="122" fill="#111827" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">MI_Busto_PielMate</text>
+          <text x="90" y="136" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Roughness: 0.75</text>
+          <text x="90" y="148" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Metallic: 0.0 (Dieléctrico)</text>
+
+          <!-- Instancia 2: Busto Cromo / Metal -->
+          <rect x="200" y="105" width="140" height="58" rx="2" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.2"/>
+          <text x="270" y="122" fill="#111827" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">MI_Busto_Cromo</text>
+          <text x="270" y="136" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Roughness: 0.10</text>
+          <text x="270" y="148" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Metallic: 1.0 (Metal puro)</text>
+
+          <!-- Instancia 3: Busto Oro / Escultura -->
+          <rect x="380" y="105" width="140" height="58" rx="2" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.2"/>
+          <text x="450" y="122" fill="#111827" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">MI_Busto_EstatuaOro</text>
+          <text x="450" y="136" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Roughness: 0.35</text>
+          <text x="450" y="148" fill="#4b5563" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono, monospace">Metallic: 1.0 · Tinte Dorado</text>
+        </svg>
+      </div>
+
+      <div class="cols-2">
+        <div class="text-block">
+          <h3>Master Materials e Instancias</h3>
+          <p>El <strong>Master Material</strong> compila la lógica pesada. Las <strong>Material Instances</strong> permiten vestir el busto y modificar texturas o brillo al instante sin recompilar.</p>
+          <ul>
+            <li><strong>Parámetros Escalares:</strong> Multiplicadores de rugosidad, metalicidad y UV Tiling.</li>
+            <li><strong>Parámetros Vectoriales:</strong> Tintes cromáticos de Base Color.</li>
+            <li><strong>Control de Normales:</strong> <code>FlattenNormal</code> para calibrar el relieve de la piel o armadura.</li>
+          </ul>
+        </div>
+
+        <div class="text-block">
+          <h3>Texturas Empaquetadas (Canales ORM)</h3>
+          <p>Combinamos tres mapas en escala de grises en una sola imagen RGB para ahorrar 2 lecturas de textura en GPU:</p>
+          <ul>
+            <li><strong>Canal R (Rojo):</strong> Ambient Occlusion (Oclusión en cavidades).</li>
+            <li><strong>Canal G (Verde):</strong> Roughness (Micro-relieve y dispersión).</li>
+            <li><strong>Canal B (Azul):</strong> Metallic (0.0 no metal vs 1.0 metal).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Metodología de Taller:</strong> Asignar <code>M_Master_PBR</code> al busto 3D. Crear una instancia de piel mate y otra metálica reflectante para observar cómo cambia el modelado de volumen bajo diferentes fuentes de luz.
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Iluminación 3D y Shaders para Videojuegos</span>
+      <span>Página 1 de 2</span>
+    </div>
+  </div>
+
+  <!-- ==================== PÁGINA 2: SOL, CIELO Y LUCES LOCALES ==================== -->
+  <div class="page">
+    <div>
+      <div class="header">
+        <div class="header-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="header-meta">Clase 03 · Sol, Cielo y Luces Locales en el Busto</div>
+      </div>
+
+      <h1 class="section-title">2. Iluminación del Busto: Sol, Cielo y Fuentes Locales</h1>
+      <p class="section-desc">
+        Interacción del shader del busto bajo la luz solar direccional, la cúpula celeste (Sky Light) y luces de acento local (*Point, Spot y Rect*).
+      </p>
+
+      <!-- TABLA DE FUENTES LUMÍNICAS SOBRE EL BUSTO -->
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 24%;">Fuente de Luz</th>
+            <th style="width: 28%;">Comportamiento Físico</th>
+            <th style="width: 22%;">Efecto en el Busto</th>
+            <th style="width: 26%;">Control Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="label-badge">DIRECTIONAL LIGHT</span></td>
+            <td>Rayos paralelos desde el infinito (Sol/Luna).</td>
+            <td>Define la sombra principal y resalta el Normal Map según el ángulo.</td>
+            <td>Rotación (<span class="key-badge">Ctrl + L</span>), <code>Atmosphere Sun</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="label-badge">SKY LIGHT</span></td>
+            <td>Cúpula celeste ambiental hemisférica.</td>
+            <td>Rellena las sombras del rostro con luz difusa azulada (evita negros puros).</td>
+            <td><code>Real Time Capture</code>, <code>Cubemap</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="label-badge">SPOT / POINT LIGHT</span></td>
+            <td>Cono direccional o esfera local de 360°.</td>
+            <td>Luz de acento fotográfico, linterna o brillo en los ojos (*Eye Catchlight*).</td>
+            <td><code>Attenuation Radius</code>, <code>IES Profile</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="label-badge">RECT LIGHT</span></td>
+            <td>Área plana rectangular (Softbox).</td>
+            <td>Reflejo suave y degradado en frentes y pómulos pulidos.</td>
+            <td><code>Source Width / Height</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="subheading" style="margin-top: 16px;">Casos de Estudio en la Industria (Haz clic para ver análisis)</h2>
+
+      <div class="cols-2" style="margin-bottom: 12px;">
+        <div class="text-block">
+          <h3><a href="https://www.artstation.com/artwork/g8GZ8K" target="_blank" class="doc-link">God of War Ragnarök ↗</a></h3>
+          <p><strong>Estrategia:</strong> Shaders de personajes y luz direccional.</p>
+          <p>Santa Monica Studio modula el roughness del rostro de Kratos (sudor/nieve) para que el sol rasante y las antorchas esculpan sus facciones con máxima intensidad.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.guerrilla-games.com/read/the-technology-of-horizon-forbidden-west" target="_blank" class="doc-link">Horizon Forbidden West ↗</a></h3>
+          <p><strong>Estrategia:</strong> Sol + Cielo sobre materiales orgánicos y metálicos.</p>
+          <p>Aloy combina shaders de piel mate con piezas de armadura metálicas pulidas que reflejan la luz del cielo y el sol de forma hiperrealista.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.youtube.com/watch?v=k5lO_68b3cQ" target="_blank" class="doc-link">Alan Wake 2 ↗</a></h3>
+          <p><strong>Estrategia:</strong> Spot Lights, IES y Shaders reflectantes.</p>
+          <p>Remedy ilumina los rostros de los personajes con linternas de haz cónico estrecho y perfiles IES reales sobre pieles húmedas con alto Fresnel.</p>
+        </div>
+
+        <div class="text-block">
+          <h3><a href="https://www.youtube.com/watch?v=J3e2Ea7vJ8Q" target="_blank" class="doc-link">Gears 5 ↗</a></h3>
+          <p><strong>Estrategia:</strong> Luces de acento y optimización de armaduras.</p>
+          <p>The Coalition utiliza focos de acento acotados para generar siluetas en los cascos y armaduras metálicas sin sobrecargar el presupuesto de GPU.</p>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Técnica de Iluminación de Personajes:</strong> Al rotar el sol con <span class="key-badge">Ctrl + L</span>, busca un ángulo lateral de 45° que genere una sombra triangular en la mejilla opuesta (iluminación <em>Rembrandt</em>). Usa la Sky Light para controlar el nivel de detalle en la sombra.
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Iluminación 3D y Shaders para Videojuegos</span>
+      <span>Página 2 de 2</span>
+    </div>
+  </div>
+
+</body>
+</html>

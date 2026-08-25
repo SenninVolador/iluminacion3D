@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentación Clase 02 — Iluminación 3D y Shaders</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b0d13;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* CONTENEDOR 16:9 */
+    .slide-deck {
+      width: 1120px;
+      height: 630px;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 38px 50px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* HEADER */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #111827;
+    }
+
+    .slide-course {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+
+    .slide-index {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* CUERPO */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #111827;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #4b5563;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px;
+      background: #fafafa;
+    }
+
+    .card-flat {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 10px;
+    }
+
+    .card h3, .card-flat h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .card p, .card-flat p {
+      font-size: 11.5px;
+      color: #4b5563;
+      line-height: 1.45;
+    }
+
+    .example-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      color: #1e3a8a;
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #111827;
+      margin: 12px 0;
+      text-align: center;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.clean-list li {
+      font-size: 11.5px;
+      color: #374151;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 12px;
+      line-height: 1.4;
+    }
+
+    ul.clean-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 10.5px;
+      color: #111827;
+    }
+
+    /* LINKS EXTERNOS */
+    .game-link {
+      color: #111827;
+      text-decoration: none;
+      border-bottom: 1.5px solid #111827;
+      padding-bottom: 1px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .game-link:hover {
+      color: #2563eb;
+      border-color: #2563eb;
+    }
+
+    .game-link::after {
+      content: " ↗";
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    /* FOOTER */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+
+    .controls-hint {
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+
+    /* BOTONES DE NAVEGACIÓN */
+    .nav-buttons {
+      position: fixed;
+      bottom: 16px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: #1e293b;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- DIAPOSITIVA 1: PORTADA -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="slide-course">Iluminación 3D y Shaders para Videojuegos</div>
+        <div class="slide-index">01 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Luz y Shaders: Dos caras de la misma moneda</h1>
+        <p class="subtitle">Clase 02 — Taller de 3 Puntos, Iluminación de Exterior y Movilidad Técnica</p>
+
+        <div class="formula-box">
+          Píxel Final = Luz (Ángulo + Color + Intensidad) × Shader (Albedo + Roughness + Normal)
+        </div>
+
+        <div class="grid-2" style="margin-top: 8px;">
+          <div class="card-flat">
+            <h3>💡 El rol de la Luz</h3>
+            <p>Define la dirección de los fotones, el contraste dramático, la escala y la hora del día en el escenario virtual.</p>
+          </div>
+          <div class="card-flat">
+            <h3>🧱 El rol del Shader</h3>
+            <p>Decide qué porcentaje de esos fotones se absorben (Albedo), cuántos rebotan como espejo (Roughness) o dispersan internamente (SSS).</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Instructor · Unreal Engine 5 & PBR Pipeline</span>
+        <span class="controls-hint">Usa [ ← / → ] o Espacio para navegar</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 2: 3-POINT LIGHTING + EJEMPLOS -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-course">Esquemas Clásicos de Iluminación</div>
+        <div class="slide-index">02 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Esquema de 3 Puntos (3-Point Lighting)</h1>
+        <p class="subtitle">La técnica fundamental para dar volumen, dramatismo y silueta desde la oscuridad total.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="example-tag">100% Intensidad</span>
+            <h3>1. Key Light (Principal)</h3>
+            <p><strong>Posición:</strong> 45° a un lateral y 45° elevada.</p>
+            <p><strong>Función:</strong> Establece la dirección dominante del escenario y esculpe las sombras principales de la geometría.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">25–40% Intensidad</span>
+            <h3>2. Fill Light (Relleno)</h3>
+            <p><strong>Posición:</strong> Al lateral opuesto de la Key.</p>
+            <p><strong>Función:</strong> Suaviza las sombras duras para rescatar detalles en la penumbra sin competir con la luz principal.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Acento / Silueta</span>
+            <h3>3. Rim Light (Contraluz)</h3>
+            <p><strong>Posición:</strong> Detrás del sujeto, hacia la cámara.</p>
+            <p><strong>Función:</strong> Dibuja un fino borde brillante en hombros y cabello para despegar al personaje del fondo oscuro.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Taller Práctico en Unreal Engine 5</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 3: RESPUESTA DEL SHADER CON EJEMPLOS -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-course">Shaders PBR & Luz</div>
+        <div class="slide-index">03 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>¿Cómo interactúa el Shader con las 3 Luces?</h1>
+        <p class="subtitle">El valor de Rugosidad (Roughness) transforma drásticamente la respuesta del sombreador.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Roughness = 0.05 – 0.15</span>
+            <h3>Superficie Pulida / Metálica</h3>
+            <p style="margin-bottom: 8px;"><strong>Ejemplos:</strong> Casco de astronauta, cromo, espada de acero, mármol pulido.</p>
+            <ul class="clean-list">
+              <li>Las 3 luces generan <strong>puntos especulares diminutos y cegadores</strong> (*Specular Highlights*).</li>
+              <li>La Rim Light produce un borde nítido con aspecto de filo metálico brillante.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Roughness = 0.70 – 0.95</span>
+            <h3>Superficie Mate / Difusa</h3>
+            <p style="margin-bottom: 8px;"><strong>Ejemplos:</strong> Tela de abrigo, piel seca, madera rústica, hormigón.</p>
+            <ul class="clean-list">
+              <li>La luz se dispersa suavemente a lo largo de toda la curvatura del objeto.</li>
+              <li>La <strong>Fill Light es imprescindible</strong>: sin ella, la zona en sombra se percibe como una mancha negra plana.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Parámetros PBR en Material Graphs</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 4: DIRECTIONAL LIGHT + EJEMPLOS -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-course">Iluminación Exterior</div>
+        <div class="slide-index">04 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Directional Light (El Sol o la Luna)</h1>
+        <p class="subtitle">Fuente lumínica a distancia infinita que gobierna la orientación y sombras de mundos abiertos.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Comportamiento Físico</span>
+            <h3>Rayos 100% Paralelos</h3>
+            <p style="margin-bottom: 8px;">A diferencia de una bombilla, la posición en el mapa ($X, Y, Z$) no tiene ningún efecto. <strong>Solo importa su rotación</strong>.</p>
+            <ul class="clean-list">
+              <li>Genera sombras paralelas y define la hora del día y la longitud de las sombras.</li>
+              <li>Activar <span class="badge">Atmosphere Sun Light</span> para conectar con el cielo físico de UE5.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Ejemplos en Juegos</span>
+            <h3>Aplicaciones Prácticas</h3>
+            <p style="margin-bottom: 8px;"><strong>Desierto de Red Dead Redemption 2 / Assassin's Creed:</strong></p>
+            <ul class="clean-list">
+              <li><strong>Mediodía ($90^\circ$ vertical):</strong> Sombras cortas y duras, sensación de calor extremo.</li>
+              <li><strong>Atardecer ($15^\circ$ rasante):</strong> Sombras kilométricas y luz dorada dramática.</li>
+              <li>Atajo Viewport: Mantener <span class="badge">Ctrl + L</span> y arrastrar el ratón.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Sistemas de Atmósfera en UE5</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 5: SKY LIGHT + EJEMPLOS -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-course">Iluminación Exterior</div>
+        <div class="slide-index">05 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Sky Light (Luz de Cielo y Atmósfera)</h1>
+        <p class="subtitle">Por qué en la naturaleza las sombras exteriores bajo el sol nunca son negras.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Concepto de Iluminación</span>
+            <h3>La Cúpula Celeste como Relleno</h3>
+            <p style="margin-bottom: 8px;">La atmósfera terrestre dispersa las ondas de luz azul. La <strong>Sky Light</strong> captura esa semiesfera de 360° y baña todas las superficies que no reciben sol directo.</p>
+            <ul class="clean-list">
+              <li><strong>Previene sombras negras puras</strong> en calles, callejones y bajo árboles.</li>
+              <li>Aporta coherencia cromática tiñendo la penumbra con el azul ambiental.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Configuración Técnica</span>
+            <h3>Modos en Unreal Engine</h3>
+            <ul class="clean-list">
+              <li><strong>Real Time Capture:</strong> Recalcula el color ambiental en tiempo real cuando el sol rota (ideal para ciclos día/noche).</li>
+              <li><strong>Specified Cubemap:</strong> Permite incrustar texturas HDRI profesionales para look cinematográfico personalizado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Captura Ambiental y Coherencia Lumínica</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 6: MOVILIDAD -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-course">Tech Art & Optimización</div>
+        <div class="slide-index">06 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Movilidad de Luces: Static vs. Stationary vs. Movable</h1>
+        <p class="subtitle">Criterios de selección técnica según el presupuesto de renderizado (GPU frametime).</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="example-tag">Coste GPU: Cero</span>
+            <h3>🪨 Static (Estática)</h3>
+            <p style="margin-bottom: 6px;">100% precalculada en mapas de textura (<strong>Lightmaps</strong>). Sin sombras dinámicas.</p>
+            <p><strong>Uso:</strong> VR a 90 FPS, juegos móviles, escenarios completamente inmutables.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Coste GPU: Medio</span>
+            <h3>⚖️ Stationary (Estacionaria)</h3>
+            <p style="margin-bottom: 6px;"><strong>Híbrida:</strong> Luz directa dinámica sobre personajes + rebotes indirectos horneados.</p>
+            <p><strong>Uso:</strong> Consola/PC. Cambia color/intensidad. <em>Límite de 4 luces solapadas</em>.</p>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Coste GPU: Alto</span>
+            <h3>🏃 Movable (Dinámica)</h3>
+            <p style="margin-bottom: 6px;">100% tiempo real fotograma a fotograma.</p>
+            <p><strong>Uso:</strong> UE5 con Lumen, linternas del jugador, explosiones, ciclos día/noche.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Presupuestos de Renderizado</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 7: CASOS DE ESTUDIO CON ENLACES -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-course">Análisis de la Industria</div>
+        <div class="slide-index">07 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Casos Reales en la Industria de Videojuegos</h1>
+        <p class="subtitle">Haz clic en cada juego para inspeccionar los análisis técnicos oficiales y breakdowns:</p>
+
+        <div class="grid-4">
+          <div class="card">
+            <h3><a href="https://www.youtube.com/watch?v=R9_mD4oI6fU" target="_blank" class="game-link">The Last of Us Part I/II</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Naughty Dog (GDC)</p>
+            <p style="font-size: 11px;">Baking ultra-fiel de rebotes indirectos para lograr fotorrealismo en interiores desolados + linterna dinámica para el combate tenso.</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.youtube.com/watch?v=a3YxH_xK004" target="_blank" class="game-link">Cyberpunk 2077</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">CD Projekt RED (RTX)</p>
+            <p style="font-size: 11px;">Iluminación 100% dinámica y Path Tracing. Miles de neones emisivos y clima lluvioso hacen imposible el baking.</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.nintendo.com/games/detail/the-legend-of-zelda-tears-of-the-kingdom-switch/" target="_blank" class="game-link">Zelda: TotK</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Nintendo (Switch)</p>
+            <p style="font-size: 11px;">Sol direccional y cúpula celeste estilizada con cel-shading limpio y sombras en cascada optimizadas para hardware portátil.</p>
+          </div>
+
+          <div class="card">
+            <h3><a href="https://www.residentevil.com/re4/" target="_blank" class="game-link">Resident Evil 4 Remake</a></h3>
+            <p style="font-size: 10.5px; color: #1e3a8a; font-weight: 600; margin-bottom: 4px;">Capcom (RE Engine)</p>
+            <p style="font-size: 11px;">Terror construido sobre la ausencia de luz solar: niebla volumétrica densa, sombras duras y el cono de la linterna.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Dirección de Arte y Soluciones Técnicas</span>
+        <span class="controls-hint">[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 8: DESAFÍO EN CLASE -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="slide-course">Práctica y Cierre</div>
+        <div class="slide-index">08 / 08</div>
+      </div>
+      <div class="slide-body">
+        <h1>Desafío Práctico para los Alumnos</h1>
+        <p class="subtitle">Ejercicios a realizar en los equipos durante la segunda mitad de la sesión.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="example-tag">Misión 1 · Interior</span>
+            <h3>Busto 3D en 3 Puntos</h3>
+            <ul class="clean-list">
+              <li>Crear un nivel vacío en Unreal Engine 5.</li>
+              <li>Añadir Key Light (45°), Fill Light (30%) y Rim Light trasera.</li>
+              <li>Asignar un material al busto y modificar el <strong>Roughness</strong> (0.05 a 0.9) para observar los reflejos especulares.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="example-tag">Misión 2 · Exterior</span>
+            <h3>Salto a Luz Solar y Cielo</h3>
+            <ul class="clean-list">
+              <li>Añadir una <em>Directional Light</em> y una <em>Sky Light</em>.</li>
+              <li>Usar <span class="badge">Ctrl + L</span> para simular un atardecer cálido.</li>
+              <li>Verificar que las sombras bajo el objeto se tiñan del azul celeste y no queden en negro puro.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Próxima Clase: Material Graphs, Master Materials y Texturas ORM</span>
+        <span class="controls-hint">[ Fin de la Presentación ]</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+    <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('slide-' + index);
+      if (target) {
+        target.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -113,6 +113,10 @@ Escala física que describe el tono cromático de una fuente luminosa:
 * **Stationary (Estacionaria)**: Modo híbrido. Proyecta sombras dinámicas sobre personajes en movimiento, pero los rebotes en paredes van horneados. Permite cambiar color e intensidad en tiempo real.
 * **Movable (Dinámica)**: Se calcula 100% en tiempo real en cada fotograma. Permite linternas, ciclos día/noche y física, con mayor consumo de recursos en GPU.
 
+<ClientOnly>
+  <MobilityViewer />
+</ClientOnly>
+
 > **Regla de los 4 Canales (Stationary Overlap)**: En Unreal clásico solo pueden solaparse un máximo de 4 luces Stationary con sombras sobre un mismo objeto (canales RGBA de la memoria de sombras). Si se añade una quinta luz, se marca con una cruz roja (`❌`) y pasa automáticamente a modo Movable, duplicando el consumo en GPU.
 
 ---
@@ -151,6 +155,10 @@ Textura de tono azulado que altera la inclinación con que la luz choca en la su
 | **Point Light (Luz Puntual)** | Esfera omnidireccional de 360° | Bombillas desnudas, velas, fuego, antorchas |
 | **Spot Light (Luz Focal)** | Cono direccional acotado | Linternas, focos de techo, farolas |
 | **Rect Light (Luz de Área)** | Superficie plana rectangular | Paneles LED, pantallas de TV, fluorescentes |
+
+<ClientOnly>
+  <SpotConeViewer />
+</ClientOnly>
 
 ---
 

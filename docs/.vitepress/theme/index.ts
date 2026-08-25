@@ -5,6 +5,9 @@ import KelvinViewer from './components/KelvinViewer.vue';
 import AttenuationViewer from './components/AttenuationViewer.vue';
 import NormalMapViewer from './components/NormalMapViewer.vue';
 import SunShadowViewer from './components/SunShadowViewer.vue';
+import SpotConeViewer from './components/SpotConeViewer.vue';
+import FresnelViewer from './components/FresnelViewer.vue';
+import MobilityViewer from './components/MobilityViewer.vue';
 import './custom.css';
 
 export default {
@@ -16,5 +19,8 @@ export default {
     app.component('AttenuationViewer', AttenuationViewer);
     app.component('NormalMapViewer', NormalMapViewer);
     app.component('SunShadowViewer', SunShadowViewer);
+    app.component('SpotConeViewer', SpotConeViewer);
+    app.component('FresnelViewer', FresnelViewer);
+    app.component('MobilityViewer', MobilityViewer);
   }
 };

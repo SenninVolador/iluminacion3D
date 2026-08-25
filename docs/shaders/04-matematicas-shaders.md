@@ -14,9 +14,13 @@ Los Shaders son esencialmente álgebra vectorial y operaciones matemáticas apli
 
 ---
 
-## 1. El Efecto Fresnel (Fresnel / Dot Product)
+## 1. El Efecto Fresnel
 
-El **Fresnel** describe un fenómeno físico: toda superficie se vuelve mucho más reflectante y brillante cuando se mira en un ángulo rasante (casi paralelo a la superficie) que cuando se mira perpendicularmente de frente.
+El **efecto Fresnel** describe un fenómeno óptico fundamental: la reflectancia de una superficie aumenta drásticamente a medida que el ángulo de visión se vuelve más rasante (tangente a la superficie).
+
+<ClientOnly>
+  <FresnelViewer />
+</ClientOnly>
 
 ```
        Cámara de Frente (0°)                      Cámara en Ángulo Rasante (90°)

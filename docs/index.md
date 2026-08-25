@@ -4,9 +4,9 @@ layout: page
 
 <div class="academic-home">
 <div class="academic-header">
-<h1>Iluminación 3D y Shaders para Videojuegos</h1>
+<h1>Iluminación 3D</h1>
 <div class="meta">
-<strong>Cátedra:</strong> Arte Técnico y Renderizado en Tiempo Real · <strong>Docente:</strong> Daniel Rojas (UNIACC)
+<strong>Cátedra:</strong> Iluminación 3D · <strong>Docente:</strong> Daniel Rojas (UNIACC)
 </div>
 </div>
 
@@ -27,7 +27,7 @@ Repositorio académico y base de conocimientos técnicos sobre iluminación digi
 
 <div class="academic-card">
 <h3><a href="./glosario">Glosario Técnico</a></h3>
-<p>Definiciones conceptuales y técnicas ordenadas cronológicamente clase a clase para consulta rápida durante el semestre.</p>
+<p>Definiciones conceptuales y técnicas ordenadas cronológicamente clase a clase con simuladores interactivos para consulta durante el semestre.</p>
 </div>
 
 <div class="academic-card">

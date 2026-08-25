@@ -1,12 +1,12 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: "Iluminación 3D y Shaders",
+  title: "Iluminación 3D",
   description: "Programa académico y repositorio técnico - Profesor Daniel Rojas (UNIACC)",
   base: "/iluminacion3D/",
   cleanUrls: true,
   themeConfig: {
-    siteTitle: "Iluminación 3D y Shaders",
+    siteTitle: "Iluminación 3D",
     nav: [
       { text: "Índice", link: "/" },
       { text: "Clases", link: "/clases/clase-01" },
@@ -52,7 +52,7 @@ export default defineConfig({
       provider: 'local'
     },
     footer: {
-      message: 'Cátedra de Iluminación 3D y Shaders para Videojuegos',
+      message: 'Cátedra de Iluminación 3D',
       copyright: 'Profesor Daniel Rojas · UNIACC'
     }
   }

@@ -1,40 +1,49 @@
 ---
-layout: home
-
-hero:
-  name: "Iluminación 3D & Shaders"
-  text: "Portal Académico de Videojuegos"
-  tagline: "Fundamentos ópticos, pipelines PBR, Unreal Engine 5 y simuladores interactivos en tiempo real."
-  actions:
-    - theme: brand
-      text: "Explorar Clases"
-      link: /clases/clase-01
-    - theme: alt
-      text: "📖 Glosario Clase a Clase"
-      link: /glosario
-    - theme: alt
-      text: "📄 Fichas Técnicas (PDF)"
-      link: /recursos/material-visual
-
-features:
-  - icon: 💡
-    title: "Iluminación en Tiempo Real"
-    details: "Esquema de 3 puntos, Directional Light (Sol), Sky Light ambiental, luces locales y movilidad (Static, Stationary, Movable)."
-  - icon: 🧱
-    title: "Shaders PBR & Master Materials"
-    details: "Conservación de energía, mapas ORM empaquetados, instancias en vivo y matemáticas de shaders (Fresnel, Lerp, Normales)."
-  - icon: 🎮
-    title: "Casos Reales de la Industria"
-    details: "Análisis de decisiones técnicas en The Last of Us, Cyberpunk 2077, Zelda: TotK, God of War Ragnarök y Alan Wake 2."
+layout: page
 ---
 
-<div style="margin-top: 40px;">
-  <h2 style="font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 8px;">
-    🕹️ Simulador de Shaders PBR en Tiempo Real
-  </h2>
-  <p style="text-align: center; color: var(--vp-c-text-2); font-size: 13px; margin-bottom: 16px;">
-    Prueba cómo reacciona el material 3D en tu navegador ajustando la rugosidad y metalicidad:
+<div class="academic-home">
+  <div class="academic-header">
+    <h1>Iluminación 3D y Shaders para Videojuegos</h1>
+    <div class="meta">
+      <strong>Cátedra:</strong> Arte Técnico y Renderizado en Tiempo Real · <strong>Docente:</strong> Daniel Rojas (UNIACC)
+    </div>
+  </div>
+
+  <p style="font-size: 14px; line-height: 1.6; color: #374151; margin-bottom: 24px;">
+    Repositorio académico y base de conocimientos técnicos sobre iluminación digital, sombreadores basados en la física (PBR), optimización de rendimiento en GPU y flujos de trabajo en motores de videojuegos (Unreal Engine).
   </p>
 
-  <RoughnessViewer />
+  <div class="academic-nav-grid">
+    <div class="academic-card">
+      <h3><a href="/clases/clase-01">Unidad 1: Iluminación y Composición</a></h3>
+      <p>Fundamentos ópticos, esquemas clásicos de 3 puntos, iluminación solar y de cielo, fuentes locales (Point, Spot, Rect) y movilidad técnica (Static, Stationary, Movable).</p>
+    </div>
+
+    <div class="academic-card">
+      <h3><a href="/shaders/01-fundamentos-pbr">Unidad 2: Shaders y Materiales PBR</a></h3>
+      <p>Conservación de la energía, mapas empaquetados ORM, arquitectura de Master Materials, modelos de sombreado y álgebra vectorial de shaders.</p>
+    </div>
+
+    <div class="academic-card">
+      <h3><a href="/glosario">Glosario Técnico</a></h3>
+      <p>Definiciones conceptuales y técnicas ordenadas cronológicamente clase a clase para consulta rápida durante el semestre.</p>
+    </div>
+
+    <div class="academic-card">
+      <h3><a href="/recursos/material-visual">Fichas Técnicas (PDF)</a></h3>
+      <p>Documentación maquetada en dos páginas por sesión con diagramas vectoriales, matrices de decisión y referencias de la industria.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 36px; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+    <h2 style="font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;">
+      Laboratorio Interactivo: Reflectancia y Rugosidad PBR
+    </h2>
+    <p style="font-size: 12.5px; color: #6b7280; margin-bottom: 14px;">
+      Simulación en tiempo real de la ecuación de microfacetas sobre geometría tridimensional:
+    </p>
+
+    <RoughnessViewer />
+  </div>
 </div>

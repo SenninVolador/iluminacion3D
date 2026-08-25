@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme';
 import RoughnessViewer from './components/RoughnessViewer.vue';
 import ThreePointLightingViewer from './components/ThreePointLightingViewer.vue';
+import './custom.css';
 
 export default {
   extends: DefaultTheme,

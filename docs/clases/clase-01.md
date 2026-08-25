@@ -1,53 +1,53 @@
-# 🎓 Clase 01: Introducción a la Iluminación 3D, Juegos vs. Cine y Shaders
+# Clase 01: Fundamentos de la Luz, Videojuegos vs. Cine y Shaders
 
-Bienvenido a los fundamentos de la iluminación tridimensional. Esta clase sienta las bases para comprender cómo funciona la luz en los entornos virtuales, cómo se construye el volumen de un objeto y cómo los motores gráficos interpretan los materiales.
-
----
-
-## 1. 💡 La Luz: Del Mundo Físico al Espacio Digital
-
-En la física real, la luz está compuesta por fotones que viajan en línea recta, rebotan miles de millones de veces en las superficies circundantes y entran en nuestros ojos o en la lente de una cámara.
-
-En el mundo digital 3D:
-* La luz no existe de forma física; **es un cálculo matemático**.
-* Una "fuente de luz" en un motor 3D es un vector con una posición, una dirección, un color y una intensidad que interactúa con la geometría de la escena.
-* **La luz define la forma**: Sin luz, un modelo 3D con millones de polígonos se vería como una silueta plana y sin profundidad. La sombra y el brillo son los que revelan el relieve, la curvatura y el volumen.
+Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
 
 ---
 
-## 2. 🎮 Videojuegos vs. 🎬 Cine: Dos Paradigmas de Iluminación
+## 1. Naturaleza de la Luz en Entornos Virtuales
 
-| Característica | 🎮 Videojuegos (Real-Time) | 🎬 Cine (Offline / Path Tracing) |
+En la física óptica, la luz se compone de fotones que viajan en línea recta e interactúan mediante reflexión, refracción y absorción en las superficies del entorno.
+
+En el cómputo gráfico 3D:
+* La luz no posee existencia corpórea; **constituye un cálculo vectorial**.
+* Cada emisor se define matemáticamente mediante coordenadas de posición, vector de dirección, espectro cromático y potencia radiométrica.
+* **Modelado del volumen**: La luz y la sombra revelan la curvatura, micro-relieve y profundidad de la geometría tridimensional.
+
+---
+
+## 2. Paradigmas de Renderizado: Videojuegos vs. Cine
+
+| Criterio | Videojuegos (Tiempo Real) | Cine y Efectos Visuales (Offline) |
 | :--- | :--- | :--- |
-| **Tiempo de Cálculo** | 30 a 120+ fotogramas por segundo | Minutos u horas por cada fotograma |
-| **Presupuesto GPU** | $\approx 16.6\text{ ms}$ a 60 FPS | Sin límite estricto de tiempo |
-| **Cámara** | Libre e impredecible (el jugador mira donde sea) | Fija y controlada por el director |
-| **Estrategia** | Aproximaciones dinámicas, baking y trucos | Simulación de millones de rayos físicos |
+| **Tiempo de Cómputo** | 30 a 120+ fotogramas por segundo | Minutos u horas por cada cuadro individual |
+| **Presupuesto GPU** | $\le 16.6\text{ ms}$ por fotograma (a 60 FPS) | Sin restricción estricta de tiempo de ejecución |
+| **Control de Cámara** | Interactiva y libre (perspectiva del jugador) | Predefinida y fija según el encuadre del plano |
+| **Metodología** | Aproximaciones de sombreado, baking y rasterización | Simulación por trazado de caminos (Path Tracing) |
 
 ---
 
-## 3. 📐 Esquema de Iluminación de 3 Puntos (3-Point Lighting)
+## 3. Esquema de Iluminación de Tres Puntos (3-Point Lighting)
 
-El **esquema de 3 puntos** es la técnica clásica para esculpir volumen sobre un personaje u objeto:
+Técnica clásica para la construcción de jerarquía visual y separación de planos sobre el sujeto:
 
 1. **Key Light (Luz Principal o Clave)**:
-   * Colocada a $45^\circ$ a un lado de la cámara y $45^\circ$ por encima de la cabeza del objeto.
-   * Define el contraste dominante y proyecta las sombras principales (100% intensidad).
+   * Emisor dominante situado a $45^\circ$ lateral y $45^\circ$ de elevación respecto al eje de cámara.
+   * Modela el volumen principal y proyecta la sombra dominante (100% de intensidad de referencia).
 2. **Fill Light (Luz de Relleno)**:
-   * En el lateral opuesto (a $45^\circ$ hacia el otro lado).
-   * Rellena y suaviza las sombras duras para que la penumbra sea legible (25% a 40% de la Key).
+   * Emisor difuso situado en el lateral opuesto a la luz principal.
+   * Eleva el valor tonal de las zonas en penumbra para preservar la legibilidad (25% a 40% de la intensidad principal).
 3. **Rim Light / Back Light (Luz de Contorno o Contraluz)**:
-   * Colocada detrás del sujeto, apuntando hacia su espalda y hombros.
-   * **Despega al personaje del fondo**, creando un fino borde luminoso alrededor de la silueta.
+   * Emisor posterior dirigido hacia los hombros y bordes del sujeto.
+   * Produce un fino filete de alta reflectancia que **separa al sujeto del fondo**.
 
 ---
 
-## 4. 🧪 ¿Qué es un Shader?
+## 4. Definición y Función del Shader
 
-Un **Shader (Sombreador)** es un programa informático que se ejecuta directamente en la tarjeta gráfica (**GPU**):
-$$\text{Color Final} = \text{Luz Incidente} \times \text{Material (Base Color, Rugosidad, Metalicidad)} \times \text{Ángulo de Vista}$$
+Un **Shader (Sombreador)** es un programa computacional ejecutado en paralelo por la unidad de procesamiento gráfico (**GPU**):
+$$\text{Color del Píxel} = \text{Luz Incidente} \times \text{Función de Reflectancia (PBR)} \times \cos(\theta)$$
 
-### Propiedades PBR Maestras:
-1. **Base Color / Albedo**: El color propio del objeto sin sombras pintadas.
-2. **Roughness (Rugosidad)**: Si es liso y refleja como espejo ($0.0$) o si es mate y dispersa el brillo ($1.0$).
-3. **Metallic (Metalicidad)**: Si el material es un metal conductor ($1.0$) o un dieléctrico como plástico, madera o piel ($0.0$).
+### Parámetros Fundamentales del Estándar PBR:
+1. **Base Color / Albedo**: Reflectancia difusa intrínseca sin información de oclusión ni brillo especular.
+2. **Roughness (Rugosidad)**: Distribución estadística de microfacetas (de $0.0$, reflexión especular especular pura, a $1.0$, dispersión lambertiana mate).
+3. **Metallic (Metalicidad)**: Comportamiento electrodinámico del material ($0.0$ dieléctrico / no-metal, $1.0$ conductor metálico puro).

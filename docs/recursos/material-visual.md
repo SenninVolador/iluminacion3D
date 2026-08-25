@@ -1,34 +1,33 @@
-# 📄 Fichas Técnicas, PDFs y Presentaciones
+# Documentación Técnica en PDF
 
-Descarga el material oficial de clase maquetado en fichas de 2 páginas con diagramas vectoriales, tablas y análisis técnicos de videojuegos:
+Fichas técnicas de cátedra maquetadas en dos páginas para consulta de laboratorio e impresión:
 
 ---
 
-## 🎓 Clase 02: Taller 3-Point, Sol, Cielo y Movilidad
+## Fichas de Cátedra Disponibles
 
-* 📄 **[Descargar Ficha Técnica (PDF)](/Material_Visual_Clase_02.pdf)**
-* **Contenido**:
-  * Diagrama vectorial de 3-Point Lighting (Key, Fill, Rim).
-  * Iluminación exterior: Directional Light vs. Sky Light.
-  * Matriz técnica de movilidad de luces (*Static, Stationary, Movable*).
+### Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad
+* [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_02.pdf)
+* **Contenidos**:
+  * Esquema vectorial del sistema de tres puntos (Key, Fill, Rim).
+  * Principios de Directional Light y Sky Light.
+  * Matriz técnica de movilidad de emisores (Static, Stationary, Movable).
   * Casos de estudio: *The Last of Us*, *Cyberpunk 2077*, *Zelda TotK*, *Resident Evil 4*.
 
 ---
 
-## 🎓 Clase 03: Shaders PBR en el Busto 3D y Luces Locales
-
-* 📄 **[Descargar Ficha Técnica (PDF)](/Material_Visual_Clase_03.pdf)**
-* **Contenido**:
-  * Diagrama de *Master Material* (`M_Master_PBR`) y *Material Instances*.
-  * Texturas empaquetadas ORM (*Ambient Occlusion, Roughness, Metallic*).
-  * Fuentes lumínicas: Sol, Cielo, *Point*, *Spot* y *Rect Lights*.
+### Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales
+* [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_03.pdf)
+* **Contenidos**:
+  * Arquitectura de Master Materials e instanciación modular.
+  * Empaquetado de texturas ORM (AO, Roughness, Metallic).
+  * Fuentes lumínicas: Sol, Cielo, Point, Spot y Rect Lights.
   * Casos de estudio: *God of War Ragnarök*, *Horizon Forbidden West*, *Alan Wake 2*, *Gears 5*.
 
 ---
 
-## 📐 Sistema de Diseño Oficial
+## Estándar de Diagramación
 
-Todas las fichas siguen el estándar editorial minimalista de 2 páginas A4:
-* Tipografía: *Inter* y *JetBrains Mono*.
-* Paleta: Monocromática técnica y alto contraste.
-* Diagramación: Esquemas vectoriales y tablas de decisión técnica.
+* Formato: A4 vertical de dos páginas.
+* Tipografía: Inter y JetBrains Mono.
+* Tono: Monocromático técnico y diagramas vectoriales esquemáticos.

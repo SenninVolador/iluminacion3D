@@ -1,53 +1,50 @@
-# 🎓 Clase 03: Shaders PBR en el Busto 3D, Sol, Cielo y Luces Locales
+# Clase 03: Shaders PBR en el Busto, Sol, Cielo y Fuentes Locales
 
-En esta sesión continuamos directamente con el **busto 3D de la Clase 02**: construimos su primer **Master Material PBR** con texturas empaquetadas (ORM), y estudiamos cómo reaccionan sus propiedades físicas bajo **Directional Light (Sol)**, **Sky Light (Cielo)** y luces de acento local (**Point, Spot y Rect Lights**).
+Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
 
 ---
 
-## 🕹️ Simulador Interactivo: Respuesta de Rugosidad y Metalicidad
+## 1. Respuesta de Superficie PBR e Instanciación Modular
 
-Prueba cómo los reflejos y el brillo especular del busto cambian al alterar el *Roughness* y *Metallic*:
+El sombreado basado en la física modela la microestructura del material mediante rugosidad y metalicidad:
 
 <RoughnessViewer />
 
----
+### Empaquetado de Canales de Textura (ORM):
+A fin de optimizar el ancho de banda de memoria de vídeo (VRAM), se combinan tres mapas escalares de 8 bits en una única textura de tres canales RGB:
+* **Canal R (Rojo)**: Ambient Occlusion (Oclusión Ambiental).
+* **Canal G (Verde)**: Roughness (Rugosidad / Distribución de microfacetas).
+* **Canal B (Azul)**: Metallic (Comportamiento metálico vs. dieléctrico).
 
-## 🧱 1. Master Materials y Texturas Empaquetadas (ORM)
-
-En videojuegos optimizados, empaquetamos tres mapas en escala de grises en una sola textura RGB de 8 bits por canal:
-* **Canal R (Rojo)**: **A**mbient **O**cclusion (Oclusión en cavidades faciales).
-* **Canal G (Verde)**: **R**oughness (Rugosidad y microfacetas).
-* **Canal B (Azul)**: **M**etallic (0.0 no metal vs 1.0 metal puro).
-
-### Master Material vs. Instancias en Unreal Engine 5:
-* **`M_Master_PBR`**: Contiene la lógica pesada y los slots de textura. Se compila una sola vez.
-* **Material Instances (`MI_Busto`)**: Permiten vestir el busto con piel mate (`Roughness = 0.75`), cromo brillante (`Roughness = 0.10`) o bronce al instante sin esperar a compilar shaders.
+### Arquitectura de Shaders en Unreal Engine 5:
+* **Master Material (`M_Master_PBR`)**: Contiene las ecuaciones matemáticas y slots de muestreo de texturas. Se compila una sola vez en el proyecto.
+* **Material Instances (`MI_Busto`)**: Permiten vestir el busto con distintas respuestas ópticas (piel mate, metal pulido, cerámica) en tiempo real sin tiempos de compilación.
 
 ---
 
-## ☀️ 2. Iluminación Natural sobre el Busto
+## 2. Interacción del Busto bajo Fuentes Naturales (Sol y Cielo)
 
 1. **Directional Light (Sol)**:
-   * Al rotar el sol con `Ctrl + L`, la luz rasante resalta los poros y arrugas del **Normal Map**.
-   * Buscamos el ángulo **Rembrandt** (45° lateral) para formar el triángulo luminoso en la mejilla opuesta.
-2. **Sky Light (Cúpula Celeste)**:
-   * Baña el lado en sombra con luz difusa teñida del azul ambiental, respetando el canal R (Ambient Occlusion) del shader para no aplanar las cuencas de los ojos.
+   * Al rotar el emisor con `Ctrl + L`, la incidencia rasante revela la microgeometría almacenada en el **Normal Map** del busto.
+   * Se busca el esquema clásico de retrato **Rembrandt** (incidencia a $45^\circ$ lateral) para formar el triángulo luminoso característico en la mejilla opuesta.
+2. **Sky Light (Bóveda Celeste)**:
+   * Proyecta luz ambiental difusa sobre las áreas en sombra, respetando la información del canal R (AO) del shader para preservar la profundidad en cavidades faciales.
 
 ---
 
-## 💡 3. Luces Locales de Acento
+## 3. Fuentes Lumínicas Locales de Apoyo
 
-| Tipo de Luz | Emisión | Aplicación en el Busto | Parámetro Clave |
+| Tipo de Emisor | Geometría de Emisión | Función en el Sujeto | Parámetro Crítico |
 | :--- | :--- | :--- | :--- |
-| **Point Light** | 360° Esfera | Chispa o fuego cercano de apoyo | `Attenuation Radius` |
-| **Spot Light** | Cono direccional | Foco de recorte y brillo en la pupila (*Eye Catchlight*) | `IES Profile` |
-| **Rect Light** | Área plana | Softbox de estudio fotográfico en pómulos | `Source Width / Height` |
+| **Point Light** | Esfera omnidireccional ($360^\circ$) | Simulación de fuentes próximas (velas, antorchas) | `Attenuation Radius` |
+| **Spot Light** | Cono direccional acotado | Luz de acento y brillo corneal (*Eye Catchlight*) | `Inner/Outer Cone`, `IES` |
+| **Rect Light** | Plano rectangular (área) | Luz difusa de estudio para reflejos suaves | `Source Width / Height` |
 
 ---
 
-## 🎮 4. Casos de Estudio en la Industria
+## 4. Análisis de Casos en la Industria
 
-* [God of War Ragnarök (Santa Monica Studio)](https://www.artstation.com/artwork/g8GZ8K): Rostro de Kratos esculpido bajo sol rasante y antorchas mediante Roughness variable.
-* [Horizon Forbidden West (Guerrilla Games)](https://www.guerrilla-games.com/read/the-technology-of-horizon-forbidden-west): Piel mate de Aloy combinada con piezas de armadura metálicas reflectantes.
-* [Alan Wake 2 (Remedy Entertainment)](https://www.youtube.com/watch?v=k5lO_68b3cQ): Focos Spot con perfiles IES sobre rostros y ropa húmeda con alto Fresnel.
-* [Gears 5 (The Coalition)](https://www.youtube.com/watch?v=J3e2Ea7vJ8Q): Luces de acento para siluetear armaduras metálicas sin sobrecoste en GPU.
+* **God of War Ragnarök (Santa Monica Studio)**: Modelado de shaders faciales en Kratos con modulación de rugosidad para sudor, nieve y sangre bajo luz solar y antorchas.
+* **Horizon Forbidden West (Guerrilla Games)**: Integración de piel mate y piezas de aleación reflectante bajo condiciones de iluminación diurna abierta.
+* **Alan Wake 2 (Remedy Entertainment)**: Emisores Spot con perfiles fotométricos IES reales sobre superficies húmedas con respuesta de Fresnel pronunciada.
+* **Gears 5 (The Coalition)**: Optimización estricta de radios de atenuación en fuentes locales para preservar el presupuesto de fotograma en combate cerrado.

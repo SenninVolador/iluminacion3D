@@ -1,48 +1,45 @@
-# 🎓 Clase 02: Taller 3-Point, Sol, Cielo y Movilidad de Luces
+# Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad de Luces
 
-En esta sesión realizamos el taller práctico del esquema clásico en Unreal Engine, comprendemos la iluminación de exteriores con Sol y Cielo, y dominamos la movilidad técnica de luces.
+Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
 
 ---
 
-## 🕹️ Simulador Interactivo: Estudio de 3 Puntos
-Prueba a encender y apagar las luces individualmente para ver cómo se complementan:
+## 1. Taller Práctico: Esquema de Tres Puntos en el Busto 3D
+
+El ejercicio consiste en construir la volumetría de un busto tridimensional partiendo desde la oscuridad absoluta.
 
 <ThreePointLightingViewer />
 
----
-
-## 🛠️ 1. Taller Práctico: Iluminando el Busto 3D
-
-### Paso a Paso en Unreal Engine 5:
-1. **Crear Nivel Vacío**: `File -> New Level -> Empty Level`. Añadir un plano de suelo y el busto en el centro.
-2. **Paso 1 (Key Light)**: Colocar una Spot/Point Light a 45° lateral y 45° elevada. Ajustar hasta obtener una sombra marcada.
-3. **Paso 2 (Fill Light)**: Añadir una luz en el lado opuesto al 30% de intensidad sin proyectar sombras duras.
-4. **Paso 3 (Rim Light)**: Añadir una luz detrás del busto para generar el filo brillante que lo separa del fondo negro.
+### Protocolo de Construcción en Unreal Engine 5:
+1. **Inicialización**: Crear un nivel vacío (`File -> New Level -> Empty Level`) e insertar un plano de suelo neutro junto al busto en el origen de coordenadas.
+2. **Emisor Principal (Key)**: Configurar un foco a $45^\circ$ lateral y $45^\circ$ cenital. Calibrar hasta obtener una penumbra definida.
+3. **Emisor de Relleno (Fill)**: Situar una luz difusa en el flanco opuesto sin proyección de sombras duras, a un tercio de la potencia principal.
+4. **Emisor Posterior (Rim)**: Posicionar una luz trasera alineada con la silueta para generar la separación tonal respecto al fondo.
 
 ---
 
-## ☀️ 2. Iluminando el Exterior: Sol y Cielo
+## 2. Fuentes de Iluminación Exterior: Sol y Atmósfera
 
-* **Directional Light (Luz Solar)**: Emite rayos 100% paralelos desde el infinito. Solo importa su **rotación** (atajo: `Ctrl + L` + mover ratón).
-* **Sky Light (Luz de Cielo)**: Captura la cúpula celeste para rellenar las sombras con luz difusa azulada, **impidiendo que las sombras sean negras puras**.
+* **Directional Light (Luz Solar)**: Modela una fuente situada en el infinito; emite rayos rigurosamente paralelos. La traslación espacial carece de efecto; el cálculo depende exclusivamente del **vector de rotación** (atajo de calibración: `Ctrl + L`).
+* **Sky Light (Luz de Cielo / Hemisférica)**: Captura la radiancia difusa de la bóveda celeste para bañar las superficies en sombra, **evitando valores de negro absoluto ($RGB = 0, 0, 0$)**.
 
 ---
 
-## ⚙️ 3. Movilidad de Luces (Arte vs. Rendimiento)
+## 3. Matriz de Movilidad Técnica (Rendimiento vs. Interactividad)
 
-| Movilidad | Método de Cálculo | Coste GPU | Cuándo Usarla |
+| Movilidad | Método de Cómputo | Coste de GPU en Runtime | Criterio de Selección |
 | :--- | :--- | :--- | :--- |
-| **Static** | 100% Horneada en Lightmaps | Cero en runtime | VR a 90 FPS, móviles, niveles fijos |
-| **Stationary** | Híbrida: Directa dinámica + Indirecta baked | Medio | Consolas/PC. Permite variar color/intensidad |
-| **Movable** | 100% Tiempo real cuadro a cuadro | Alto continuo | UE5 con Lumen, linternas, ciclos día/noche |
+| **Static** | 100% precalculada en mapas de textura (Lightmaps) | Nulo (0 ms) | Realidad virtual (90 FPS), plataformas móviles, geometría estática |
+| **Stationary** | Híbrido: Luz directa dinámica + GI precalculada | Moderado | Consolas y PC. Permite modular intensidad y color en ejecución |
+| **Movable** | 100% resuelta por fotograma en tiempo real | Alto continuo | UE5 con Lumen, proyectores móviles, linternas, ciclo día/noche |
 
-> **🚨 Alerta de Rendimiento**: En Unreal clásico no puedes solapar más de 4 luces *Stationary* con sombras en el mismo espacio (canales RGBA). Una 5ª luz se marcará con `❌` roja y pasará a *Movable*, duplicando el coste.
+> **Restricción de Canales (Stationary Overlap)**: En el pipeline diferido clásico de Unreal Engine, no pueden coincidir más de 4 emisores Stationary proyectando sombras sobre una misma superficie (canales RGBA de la máscara de sombras). Un quinto emisor se degrada automáticamente a modo Movable.
 
 ---
 
-## 🎮 4. Casos de Estudio en la Industria
+## 4. Análisis de Casos en la Industria
 
-* [The Last of Us Part I/II (Naughty Dog)](https://www.youtube.com/watch?v=R9_mD4oI6fU): Baking de máxima precisión para fotorrealismo en interiores desolados + linterna dinámica en combate.
-* [Cyberpunk 2077 (CD Projekt RED)](https://www.youtube.com/watch?v=a3YxH_xK004): Iluminación 100% dinámica y Ray Tracing por la densidad de neones emisivos y clima variable.
-* [Zelda: Tears of the Kingdom (Nintendo)](https://www.nintendo.com/games/detail/the-legend-of-zelda-tears-of-the-kingdom-switch/): Directional + Sky estilizado con cel-shading en Nintendo Switch.
-* [Resident Evil 4 Remake (Capcom)](https://www.residentevil.com/re4/): Ausencia de sol; atmósfera de terror creada con linterna y niebla volumétrica.
+* **The Last of Us Part I / II (Naughty Dog)**: Precomputación de alta densidad de iluminación indirecta para interiores fotorrealistas combinada con linternas dinámicas.
+* **Cyberpunk 2077 (CD Projekt RED)**: Pipeline dinámico integral con trazado de rayos por la alta densidad de emisores de área y ciclo diurno.
+* **The Legend of Zelda: Tears of the Kingdom (Nintendo)**: Iluminación solar direccional y cúpula celeste estilizada mediante sombreado no fotorrealista (NPR) optimizado para Nintendo Switch.
+* **Resident Evil 4 Remake (Capcom)**: Supresión de luz direccional diurna; construcción de atmósfera mediante niebla volumétrica y conos focales estrechos.

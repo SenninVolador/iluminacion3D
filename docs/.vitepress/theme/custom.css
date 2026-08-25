@@ -1,0 +1,141 @@
+:root {
+  --vp-c-brand-1: #111827;
+  --vp-c-brand-2: #374151;
+  --vp-c-brand-3: #4b5563;
+  --vp-c-brand-soft: #f3f4f6;
+
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f9fafb;
+  --vp-c-bg-soft: #f3f4f6;
+
+  --vp-c-text-1: #111827;
+  --vp-c-text-2: #374151;
+  --vp-c-text-3: #6b7280;
+
+  --vp-c-border: #e5e7eb;
+  --vp-c-divider: #e5e7eb;
+}
+
+/* Estilo sobrio y limpio */
+.vp-doc h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--vp-c-border);
+  padding-bottom: 0.3em;
+  margin-bottom: 0.8em;
+}
+
+.vp-doc h2 {
+  font-weight: 600;
+  border-bottom: 1px solid var(--vp-c-border);
+  padding-bottom: 0.25em;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+}
+
+.vp-doc h3 {
+  font-weight: 600;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.vp-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  font-size: 0.9em;
+}
+
+.vp-doc th {
+  background-color: #f9fafb;
+  color: #111827;
+  font-weight: 600;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.vp-doc td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+}
+
+.vp-doc tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.vp-doc blockquote {
+  border-left: 3px solid #111827;
+  background-color: #f9fafb;
+  color: #374151;
+  padding: 10px 16px;
+  margin: 16px 0;
+}
+
+/* Home Minimalista */
+.academic-home {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.academic-header {
+  border-bottom: 2px solid #111827;
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+}
+
+.academic-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.academic-header .meta {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.academic-nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.academic-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 16px;
+  background: #ffffff;
+  transition: border-color 0.15s;
+}
+
+.academic-card:hover {
+  border-color: #111827;
+}
+
+.academic-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.academic-card h3 a {
+  color: #111827;
+  text-decoration: none;
+}
+
+.academic-card h3 a:hover {
+  text-decoration: underline;
+}
+
+.academic-card p {
+  font-size: 12.5px;
+  color: #4b5563;
+  line-height: 1.45;
+}

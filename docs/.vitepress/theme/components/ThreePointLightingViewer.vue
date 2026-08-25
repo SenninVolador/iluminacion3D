@@ -1,8 +1,8 @@
 <template>
-  <div class="lighting-widget">
-    <div class="widget-header">
-      <span class="badge">ESTUDIO DE ILUMINACIÓN EN VIVO</span>
-      <span class="title">Esquema de 3 Puntos Interactivo</span>
+  <div class="technical-figure">
+    <div class="figure-header">
+      <span class="label">FIGURA INTERACTIVA</span>
+      <span class="desc">Aislamiento de fuentes en el esquema de 3 puntos</span>
     </div>
 
     <div class="canvas-box" ref="canvasBox"></div>
@@ -11,37 +11,28 @@
       <!-- KEY LIGHT -->
       <div class="light-card" :class="{ active: keyActive }">
         <div class="card-top">
-          <label class="switch">
-            <input type="checkbox" v-model="keyActive" @change="updateLights" />
-            <span class="slider"></span>
-          </label>
-          <span class="name">Key Light (100%)</span>
+          <input type="checkbox" id="key-check" v-model="keyActive" @change="updateLights" />
+          <label for="key-check" class="name">Key Light (100%)</label>
         </div>
-        <span class="desc">Luz Principal a 45°. Define el contraste y la sombra dominante.</span>
+        <span class="desc">Luz principal a 45°. Define el contraste y la sombra dominante.</span>
       </div>
 
       <!-- FILL LIGHT -->
       <div class="light-card" :class="{ active: fillActive }">
         <div class="card-top">
-          <label class="switch">
-            <input type="checkbox" v-model="fillActive" @change="updateLights" />
-            <span class="slider"></span>
-          </label>
-          <span class="name">Fill Light (30%)</span>
+          <input type="checkbox" id="fill-check" v-model="fillActive" @change="updateLights" />
+          <label for="fill-check" class="name">Fill Light (30%)</label>
         </div>
-        <span class="desc">Relleno difuso. Suaviza sombras oscuras sin competir.</span>
+        <span class="desc">Relleno difuso lateral. Suaviza sombras oscuras sin competir.</span>
       </div>
 
       <!-- RIM LIGHT -->
       <div class="light-card" :class="{ active: rimActive }">
         <div class="card-top">
-          <label class="switch">
-            <input type="checkbox" v-model="rimActive" @change="updateLights" />
-            <span class="slider"></span>
-          </label>
-          <span class="name">Rim Light (Contraluz)</span>
+          <input type="checkbox" id="rim-check" v-model="rimActive" @change="updateLights" />
+          <label for="rim-check" class="name">Rim Light (Contraluz)</label>
         </div>
-        <span class="desc">Luz trasera. Dibuja un filo en la silueta para despegar del fondo.</span>
+        <span class="desc">Luz trasera. Genera el contorno luminoso que separa al sujeto del fondo.</span>
       </div>
     </div>
   </div>
@@ -66,10 +57,10 @@ const initStudio = async () => {
   if (!container) return;
 
   const width = container.clientWidth || 600;
-  const height = 280;
+  const height = 260;
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0a0c10);
+  scene.background = new THREE.Color(0x18181b);
 
   camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
   camera.position.set(0, 0, 3.4);
@@ -81,22 +72,20 @@ const initStudio = async () => {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Escultura / Busto 3D geométrico
   const geo = new THREE.IcosahedronGeometry(1.05, 4);
   const mat = new THREE.MeshStandardMaterial({
-    color: 0x94a3b8,
-    roughness: 0.45,
-    metalness: 0.1
+    color: 0xd4d4d8,
+    roughness: 0.5,
+    metalness: 0.05
   });
   headMesh = new THREE.Mesh(geo, mat);
   scene.add(headMesh);
 
-  // Luces
-  keyLight = new THREE.DirectionalLight(0xfff3d6, 3.0);
+  keyLight = new THREE.DirectionalLight(0xfff8ee, 3.0);
   keyLight.position.set(2.5, 2.0, 2.0);
   scene.add(keyLight);
 
-  fillLight = new THREE.DirectionalLight(0x93c5fd, 0.9);
+  fillLight = new THREE.DirectionalLight(0xa5b4fc, 0.9);
   fillLight.position.set(-2.5, 0.5, 1.5);
   scene.add(fillLight);
 
@@ -104,12 +93,12 @@ const initStudio = async () => {
   rimLight.position.set(0, 2.5, -2.8);
   scene.add(rimLight);
 
-  const ambient = new THREE.AmbientLight(0x0f172a, 0.2);
+  const ambient = new THREE.AmbientLight(0x27272a, 0.2);
   scene.add(ambient);
 
   const animate = () => {
     animId = requestAnimationFrame(animate);
-    headMesh.rotation.y += 0.004;
+    headMesh.rotation.y += 0.003;
     renderer.render(scene, camera);
   };
   animate();
@@ -132,105 +121,86 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.lighting-widget {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 8px;
-  margin: 20px 0;
+.technical-figure {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin: 18px 0;
   overflow: hidden;
-  color: #f9fafb;
+  background: #ffffff;
 }
 
-.widget-header {
+.figure-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
-  background: #0f172a;
-  border-bottom: 1px solid #1e293b;
+  padding: 8px 14px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.badge {
-  font-family: monospace;
+.label {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  background: #065f46;
-  color: #34d399;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: 0.5px;
 }
 
-.title {
-  font-size: 12px;
-  color: #94a3b8;
-  font-weight: 500;
+.desc {
+  font-size: 11.5px;
+  color: #6b7280;
 }
 
 .canvas-box {
   width: 100%;
-  height: 280px;
+  height: 260px;
 }
 
 .lights-grid {
-  padding: 14px;
-  background: #161e2e;
-  border-top: 1px solid #1f2937;
+  padding: 12px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
 }
 
 .light-card {
-  background: #0f172a;
-  border: 1px solid #334155;
-  border-radius: 6px;
-  padding: 10px 12px;
-  transition: all 0.2s;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 10px;
 }
 
 .light-card.active {
-  border-color: #38bdf8;
-  background: #1e293b;
+  border-color: #111827;
 }
 
 .card-top {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 4px;
 }
 
+.card-top input {
+  accent-color: #111827;
+  cursor: pointer;
+}
+
 .name {
-  font-size: 12px;
-  font-weight: 700;
-  color: #f8fafc;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
 }
 
 .desc {
   font-size: 10.5px;
-  color: #94a3b8;
+  color: #6b7280;
   line-height: 1.35;
   display: block;
 }
-
-/* SWITCH TOGGLE */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 18px;
-}
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider {
-  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #475569; transition: .2s; border-radius: 18px;
-}
-.slider:before {
-  position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px;
-  background-color: white; transition: .2s; border-radius: 50%;
-}
-input:checked + .slider { background-color: #38bdf8; }
-input:checked + .slider:before { transform: translateX(14px); }
 
 @media (max-width: 768px) {
   .lights-grid {

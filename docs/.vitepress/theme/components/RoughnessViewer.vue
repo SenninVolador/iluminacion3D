@@ -1,8 +1,8 @@
 <template>
-  <div class="interactive-pbr-card">
-    <div class="canvas-header">
-      <span class="badge">SIMULADOR 3D INTERACTIVO</span>
-      <span class="title">Respuesta de Materiales PBR en Tiempo Real</span>
+  <div class="technical-figure">
+    <div class="figure-header">
+      <span class="label">FIGURA INTERACTIVA</span>
+      <span class="desc">Respuesta de superficie PBR (Ecuación de Microfacetas)</span>
     </div>
     
     <div class="canvas-wrapper" ref="canvasContainer"></div>
@@ -10,25 +10,25 @@
     <div class="controls-panel">
       <div class="control-group">
         <div class="control-label">
-          <span>Roughness (Rugosidad):</span>
+          <span>Rugosidad (Roughness):</span>
           <code>{{ roughness.toFixed(2) }}</code>
         </div>
         <input type="range" min="0" max="1" step="0.01" v-model.number="roughness" @input="updateMaterial" />
-        <div class="hints"><span>0.0 (Espejo/Brillante)</span><span>1.0 (Mate/Disperso)</span></div>
+        <div class="hints"><span>0.0 (Especular nítido)</span><span>1.0 (Difuso mate)</span></div>
       </div>
 
       <div class="control-group">
         <div class="control-label">
-          <span>Metallic (Metalicidad):</span>
+          <span>Metalicidad (Metallic):</span>
           <code>{{ metallic.toFixed(2) }}</code>
         </div>
         <input type="range" min="0" max="1" step="0.01" v-model.number="metallic" @input="updateMaterial" />
-        <div class="hints"><span>0.0 (Dieléctrico / Madera)</span><span>1.0 (Metal Puro)</span></div>
+        <div class="hints"><span>0.0 (Dieléctrico)</span><span>1.0 (Conductor puro)</span></div>
       </div>
 
       <div class="control-group">
         <div class="control-label">
-          <span>Color Base (Albedo):</span>
+          <span>Muestra de Material:</span>
         </div>
         <div class="color-presets">
           <button v-for="c in presets" :key="c.name" :style="{ background: c.color }" :title="c.name" @click="setColor(c.color)" class="color-btn"></button>
@@ -42,21 +42,19 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const canvasContainer = ref(null);
-const roughness = ref(0.2);
+const roughness = ref(0.25);
 const metallic = ref(0.8);
-const baseColor = ref('#d4af37'); // Oro por defecto
+const baseColor = ref('#cfcfcf'); // Neutro plateado/metal
 
 const presets = [
+  { name: 'Metal Neutro', color: '#cfcfcf' },
   { name: 'Oro', color: '#d4af37' },
-  { name: 'Cromo', color: '#e5e7eb' },
   { name: 'Cobre', color: '#b87333' },
-  { name: 'Plástico Rojo', color: '#dc2626' },
-  { name: 'Madera Oscura', color: '#452b1f' },
-  { name: 'Piel / Cerámica', color: '#f3c5a8' }
+  { name: 'Dieléctrico Oscuro', color: '#2b2b2b' },
+  { name: 'Cerámica / Piel', color: '#dfc0ad' }
 ];
 
 let scene, camera, renderer, mesh, animId;
-let keyLight, fillLight, rimLight;
 
 const initThree = async () => {
   if (typeof window === 'undefined') return;
@@ -66,10 +64,10 @@ const initThree = async () => {
   if (!container) return;
 
   const width = container.clientWidth || 600;
-  const height = 280;
+  const height = 260;
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0f1117);
+  scene.background = new THREE.Color(0x18181b);
 
   camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
   camera.position.set(0, 0, 3.2);
@@ -82,7 +80,6 @@ const initThree = async () => {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Material PBR estándar
   const geometry = new THREE.SphereGeometry(1, 64, 64);
   const material = new THREE.MeshStandardMaterial({
     color: new THREE.Color(baseColor.value),
@@ -93,27 +90,24 @@ const initThree = async () => {
   mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
-  // Luces de 3 Puntos
-  keyLight = new THREE.DirectionalLight(0xfffaed, 2.5);
+  const keyLight = new THREE.DirectionalLight(0xfff8ee, 2.5);
   keyLight.position.set(2, 2, 2);
   scene.add(keyLight);
 
-  fillLight = new THREE.DirectionalLight(0x8bc34a, 0.6);
+  const fillLight = new THREE.DirectionalLight(0xa5b4fc, 0.6);
   fillLight.position.set(-2, 0, 1.5);
-  fillLight.color.setHex(0x93c5fd); // Relleno azulado
   scene.add(fillLight);
 
-  rimLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  const rimLight = new THREE.DirectionalLight(0xffffff, 2.0);
   rimLight.position.set(0, 2, -2.5);
   scene.add(rimLight);
 
-  const ambient = new THREE.AmbientLight(0x1e293b, 0.5);
+  const ambient = new THREE.AmbientLight(0x27272a, 0.5);
   scene.add(ambient);
 
   const animate = () => {
     animId = requestAnimationFrame(animate);
     mesh.rotation.y += 0.005;
-    mesh.rotation.x += 0.002;
     renderer.render(scene, camera);
   };
   animate();
@@ -146,50 +140,45 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.interactive-pbr-card {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 8px;
-  margin: 20px 0;
+.technical-figure {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin: 18px 0;
   overflow: hidden;
-  color: #f9fafb;
+  background: #ffffff;
 }
 
-.canvas-header {
+.figure-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
-  background: #0f172a;
-  border-bottom: 1px solid #1e293b;
+  padding: 8px 14px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.badge {
-  font-family: monospace;
+.label {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  background: #1e3a8a;
-  color: #60a5fa;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: 0.5px;
 }
 
-.title {
-  font-size: 12px;
-  color: #94a3b8;
-  font-weight: 500;
+.desc {
+  font-size: 11.5px;
+  color: #6b7280;
 }
 
 .canvas-wrapper {
   width: 100%;
-  height: 280px;
-  cursor: grab;
+  height: 260px;
 }
 
 .controls-panel {
-  padding: 16px;
-  background: #161e2e;
-  border-top: 1px solid #1f2937;
+  padding: 14px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
@@ -198,33 +187,33 @@ onBeforeUnmount(() => {
 .control-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .control-label {
   display: flex;
   justify-content: space-between;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #111827;
 }
 
 .control-label code {
-  color: #38bdf8;
-  font-size: 11px;
+  color: #111827;
+  font-size: 10.5px;
 }
 
 input[type="range"] {
   width: 100%;
-  accent-color: #38bdf8;
+  accent-color: #111827;
   cursor: pointer;
 }
 
 .hints {
   display: flex;
   justify-content: space-between;
-  font-size: 9.5px;
-  color: #64748b;
+  font-size: 9px;
+  color: #6b7280;
 }
 
 .color-presets {
@@ -234,17 +223,11 @@ input[type="range"] {
 }
 
 .color-btn {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 2px solid #334155;
+  border: 1px solid #9ca3af;
   cursor: pointer;
-  transition: transform 0.15s, border-color 0.15s;
-}
-
-.color-btn:hover {
-  transform: scale(1.15);
-  border-color: #ffffff;
 }
 
 @media (max-width: 768px) {

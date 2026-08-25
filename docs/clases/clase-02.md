@@ -8,7 +8,9 @@ Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (
 
 El ejercicio consiste en construir la volumetría de un busto tridimensional partiendo desde la oscuridad absoluta.
 
-<ThreePointLightingViewer />
+<ClientOnly>
+  <ThreePointLightingViewer />
+</ClientOnly>
 
 ### Protocolo de Construcción en Unreal Engine 5:
 1. **Inicialización**: Crear un nivel vacío (`File -> New Level -> Empty Level`) e insertar un plano de suelo neutro junto al busto en el origen de coordenadas.

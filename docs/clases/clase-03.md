@@ -8,7 +8,9 @@ Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (
 
 El sombreado basado en la física modela la microestructura del material mediante rugosidad y metalicidad:
 
-<RoughnessViewer />
+<ClientOnly>
+  <RoughnessViewer />
+</ClientOnly>
 
 ### Empaquetado de Canales de Textura (ORM):
 A fin de optimizar el ancho de banda de memoria de vídeo (VRAM), se combinan tres mapas escalares de 8 bits en una única textura de tres canales RGB:

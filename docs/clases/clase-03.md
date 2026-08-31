@@ -1,6 +1,6 @@
 # Clase 03: Shaders PBR en el Busto, Sol, Cielo y Fuentes Locales
 
-Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
+Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 ---
 

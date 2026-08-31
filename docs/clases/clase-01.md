@@ -1,6 +1,6 @@
 # Clase 01: Fundamentos de la Luz, Videojuegos vs. Cine y Shaders
 
-Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
+Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 ---
 

@@ -1,6 +1,6 @@
 # Rúbrica de Evaluación: Entrega N°1
 
-Cátedra de Iluminación 3D · Docente Daniel Rojas (UNIACC)
+Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 Estudio de Iluminación de 3 Puntos y Shader Paramétrico PBR en Unreal Engine 5.
 

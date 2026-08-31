@@ -6,7 +6,7 @@ layout: page
 <div class="academic-header">
 <h1>Iluminación 3D</h1>
 <div class="meta">
-<strong>Cátedra:</strong> Iluminación 3D · <strong>Docente:</strong> Daniel Rojas (UNIACC)
+<strong>Docente:</strong> Daniel Rojas (UNIACC)
 </div>
 </div>
 

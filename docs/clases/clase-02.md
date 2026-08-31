@@ -1,6 +1,6 @@
 # Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad de Luces
 
-Cátedra de Iluminación 3D y Shaders para Videojuegos · Docente Daniel Rojas (UNIACC)
+Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 ---
 

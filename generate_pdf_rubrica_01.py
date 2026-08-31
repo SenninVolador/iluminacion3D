@@ -139,7 +139,7 @@ def create_pdf():
 
     def get_header(page_num):
         header_data = [[
-            Paragraph("ILUMINACIÓN 3D · CÁTEDRA UNIVERSITARIA", meta_left),
+            Paragraph("ILUMINACIÓN 3D · UNIACC", meta_left),
             Paragraph(f"EVALUACIÓN N° 01 — PÁGINA {page_num} DE 2", meta_right)
         ]]
         t = Table(header_data, colWidths=[300, 207])
@@ -154,7 +154,7 @@ def create_pdf():
 
     def get_footer(page_num):
         foot_data = [[
-            Paragraph("Cátedra de Iluminación 3D · Docente Daniel Rojas (UNIACC)", footer_left),
+            Paragraph("Iluminación 3D · Docente: Daniel Rojas (UNIACC)", footer_left),
             Paragraph("Rúbrica de Evaluación Oficial · Unreal Engine 5", footer_right)
         ]]
         t = Table(foot_data, colWidths=[320, 187])

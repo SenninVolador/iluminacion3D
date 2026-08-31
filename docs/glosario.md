@@ -1,6 +1,6 @@
 # Glosario Técnico de Términos
 
-Cátedra de Iluminación 3D · Docente Daniel Rojas (UNIACC)
+Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 Este glosario reúne los conceptos fundamentales del ramo explicados de forma clara, directa y visual para estudiantes de primer año, ordenados por cada unidad del semestre.
 

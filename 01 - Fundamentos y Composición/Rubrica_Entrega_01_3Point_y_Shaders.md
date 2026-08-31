@@ -11,7 +11,6 @@ date: 2026-08-31
 
 # Rúbrica de Evaluación: Entrega N°1 — Estudio de 3-Point Lighting y Shader Paramétrico
 
-> **Cátedra**: Iluminación 3D  
 > **Docente**: Daniel Rojas (UNIACC)  
 > **Escala de Calificación**: 1.0 a 7.0 (Exigencia del 60% para nota 4.0)  
 > **Puntaje Total**: 60 puntos  

@@ -1,10 +1,10 @@
 # Documentación Técnica en PDF
 
-Fichas técnicas de cátedra maquetadas en dos páginas para consulta de laboratorio e impresión:
+Fichas técnicas maquetadas en dos páginas para consulta de laboratorio e impresión:
 
 ---
 
-## Fichas de Cátedra Disponibles
+## Fichas Disponibles
 
 ### Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad
 * [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_02.pdf)

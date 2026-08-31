@@ -55,7 +55,7 @@ export default defineConfig({
       provider: 'local'
     },
     footer: {
-      message: 'Cátedra de Iluminación 3D',
+      message: 'Iluminación 3D',
       copyright: 'Profesor Daniel Rojas · UNIACC'
     }
   }

@@ -8,8 +8,19 @@ export default defineConfig({
   themeConfig: {
     siteTitle: "Iluminación 3D",
     nav: [
-      { text: "Índice", link: "/" },
-      { text: "Clases", link: "/clases/clase-01" },
+      { text: "Índice General", link: "/" },
+      {
+        text: "Clases",
+        items: [
+          { text: "Índice del Programa", link: "/clases/" },
+          { text: "Clase 01: Fundamentos y 3 Puntos", link: "/clases/clase-01" },
+          { text: "Clase 02: Taller de 3 Puntos, Sol y Cielo", link: "/clases/clase-02" },
+          { text: "Clase 03: Shaders PBR y Fuentes Locales", link: "/clases/clase-03" },
+          { text: "Clase 04: Shaders Nodales y Atmósfera", link: "/clases/clase-04" },
+          { text: "Lectura: Lenguaje Visual", link: "/clases/lenguaje-visual" },
+          { text: "Rúbrica: Entrega N°1", link: "/clases/rubrica-entrega-01" }
+        ]
+      },
       { text: "Rúbrica Entrega 1", link: "/clases/rubrica-entrega-01" },
       { text: "Shaders PBR", link: "/shaders/01-fundamentos-pbr" },
       { text: "Glosario", link: "/glosario" },
@@ -20,6 +31,7 @@ export default defineConfig({
         {
           text: 'Unidad 1: Iluminación y Composición',
           items: [
+            { text: 'Índice de Clases', link: '/clases/' },
             { text: 'Clase 01: Fundamentos y Esquema de 3 Puntos', link: '/clases/clase-01' },
             { text: 'Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad', link: '/clases/clase-02' },
             { text: 'Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales', link: '/clases/clase-03' },
@@ -44,6 +56,7 @@ export default defineConfig({
         {
           text: 'Documentación General',
           items: [
+            { text: 'Índice de Clases', link: '/clases/' },
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
             { text: 'Mapa de Contenidos', link: '/moc' },

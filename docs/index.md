@@ -59,6 +59,19 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Master Materials �
 </div>
 </div>
 
+<div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-04" style="color: #111827; text-decoration: none;">Clase 04: Shaders Nodales, Atmósfera y Niebla Volumétrica</a></h3>
+<span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 04</span>
+</div>
+<p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+Taller de corrección y calificación de la Entrega N°1, arquitectura universal de shaders nodales (Utah Teapot), y componentes de atmósfera, cielo y niebla volumétrica (God Rays).
+</p>
+<div style="font-size: 11px; color: #111827; font-weight: 600;">
+Conceptos: <span style="font-weight: normal; color: #4b5563;">Sistemas Nodales · Multiply Tint · SkyAtmosphere · Niebla Volumétrica por Vóxeles · God Rays</span>
+</div>
+</div>
+
 </div>
 
 <div class="academic-nav-grid">

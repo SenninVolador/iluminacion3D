@@ -117,7 +117,7 @@ Escala física que describe el tono cromático de una fuente luminosa:
   <MobilityViewer />
 </ClientOnly>
 
-> **Regla de los 4 Canales (Stationary Overlap)**: En Unreal clásico solo pueden solaparse un máximo de 4 luces Stationary con sombras sobre un mismo objeto (canales RGBA de la memoria de sombras). Si se añade una quinta luz, se marca con una cruz roja (``) y pasa automáticamente a modo Movable, duplicando el consumo en GPU.
+> **Regla de los 4 Canales (Stationary Overlap)**: En Unreal clásico solo pueden solaparse un máximo de 4 luces Stationary con sombras sobre un mismo objeto (canales RGBA de la memoria de sombras). Si se añade una quinta luz, se marca con una cruz roja (`❌`) y pasa automáticamente a modo Movable, duplicando el consumo en GPU.
 
 ---
 
@@ -178,3 +178,52 @@ Técnica clásica de retrato donde la luz principal incide a 45° lateral, proye
 
 ### Eye Catchlight (Brillo en la Pupila)
 El pequeño punto blanco especular que una fuente de luz produce en la córnea del ojo de un personaje. Aporta vitalidad y profundidad a la mirada en primeros planos.
+
+---
+
+## Unidad 4: Shaders Nodales, Atmósfera y Niebla Volumétrica
+
+### Sistema Nodal (Node-Based Shading)
+Forma estándar de construir materiales en la industria mediante bloques funcionales (nodos) interconectados por cables virtuales. La lógica es idéntica en Unreal Engine (Material Editor), Unity (Shader Graph), Blender (Shader Editor) y Maya (Hypershade).
+
+<ClientOnly>
+  <NodeShaderViewer />
+</ClientOnly>
+
+---
+
+### Multiply Node (Operador de Tinte)
+Operación matemática que multiplica el valor RGB de cada píxel de una textura por un color vectorial. Si se multiplica por blanco (`1, 1, 1`), la textura se mantiene original; si se multiplica por un color como rojo (`1, 0, 0`), la textura se tiñe de rojo en tiempo real.
+
+---
+
+### SkyAtmosphere / Physical Sky (Cielo Físico)
+Componente que simula matemáticamente la atmósfera planetaria calculando la interacción física de la luz solar con las partículas de aire mediante dos fenómenos ópticos:
+* **Dispersión de Rayleigh**: Provocada por moléculas de gas; dispersa longitudes de onda cortas generando el cielo azul de día y tonos rojizos en el atardecer.
+* **Dispersión de Mie**: Provocada por polvo, humedad y partículas grandes; genera el halo blanco/dorado alrededor del sol y la bruma del horizonte.
+
+---
+
+### Exponential Height Fog (Niebla de Altura)
+Componente analítico que agrega densidad de niebla en función de la altitud y la distancia a la cámara, creando perspectiva aérea (los objetos lejanos se ven menos contrastados y más azulados).
+
+---
+
+### Volumetric Fog (Niebla Volumétrica y God Rays)
+Técnica de renderizado que divide el campo visual de la cámara en una grilla 3D de vóxeles. Permite que la luz interactúe con la niebla para generar **rayos crepusculares o haces de luz visibles (God Rays / Light Shafts)** cuando objetos o aberturas bloquean parcialmente el haz:
+
+<ClientOnly>
+  <VolumetricFogViewer />
+</ClientOnly>
+
+---
+
+### Anisotropía de Dispersión ($g$)
+Parámetro físico que controla hacia dónde rebota la luz al chocar con las partículas de niebla:
+* `$g = 0.0$`: Dispersión isotrópica (la niebla se ilumina uniformemente en todas direcciones).
+* `$g = 0.7 - 0.9$`: Dispersión frontal (*Forward Scattering*). La niebla genera rayos luminosos intensos cuando la cámara apunta en dirección a la fuente de luz.
+
+---
+
+### Mood (Atmósfera Emocional y Narrativa)
+El uso coordinado de la temperatura de color, el contraste de sombras, la densidad de la niebla y la dirección del sol para evocar una emoción específica en el jugador (tensión, misterio, calidez, aislamiento, peligro o heroísmo).

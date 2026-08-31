@@ -35,6 +35,16 @@ Fichas técnicas maquetadas en dos páginas para consulta de laboratorio e impre
 
 ---
 
+### Clase 04: Shaders Nodales Universales y Atmósfera Volumétrica
+* [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_04.pdf)
+* **Contenidos**:
+  * Lógica universal de sistemas nodales (Unreal, Unity, Blender, Maya).
+  * Taller de Entrega N°1 y checklist de evaluación.
+  * Stack ambiental exterior: Sol, Cielo físico, SkyLight y Niebla Volumétrica.
+  * Física óptica (Rayleigh & Mie) y anisotropía para rayos crepusculares (*God Rays*).
+
+---
+
 ## Estándar de Diagramación
 
 * Formato: A4 vertical de dos páginas.

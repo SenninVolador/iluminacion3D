@@ -8,6 +8,8 @@ import SunShadowViewer from './components/SunShadowViewer.vue';
 import SpotConeViewer from './components/SpotConeViewer.vue';
 import FresnelViewer from './components/FresnelViewer.vue';
 import MobilityViewer from './components/MobilityViewer.vue';
+import NodeShaderViewer from './components/NodeShaderViewer.vue';
+import VolumetricFogViewer from './components/VolumetricFogViewer.vue';
 import './custom.css';
 
 export default {
@@ -22,5 +24,7 @@ export default {
     app.component('SpotConeViewer', SpotConeViewer);
     app.component('FresnelViewer', FresnelViewer);
     app.component('MobilityViewer', MobilityViewer);
+    app.component('NodeShaderViewer', NodeShaderViewer);
+    app.component('VolumetricFogViewer', VolumetricFogViewer);
   }
 };

@@ -23,8 +23,9 @@ export default defineConfig({
             { text: 'Clase 01: Fundamentos y Esquema de 3 Puntos', link: '/clases/clase-01' },
             { text: 'Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad', link: '/clases/clase-02' },
             { text: 'Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales', link: '/clases/clase-03' },
+            { text: 'Clase 04: Shaders Nodales, Atmósfera y Niebla Volumétrica', link: '/clases/clase-04' },
             { text: 'Lectura: Lenguaje Visual y Guía al Jugador', link: '/clases/lenguaje-visual' },
-            { text: ' Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' }
+            { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' }
           ]
         }
       ],
@@ -44,7 +45,7 @@ export default defineConfig({
           text: 'Documentación General',
           items: [
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },
-            { text: ' Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
+            { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
             { text: 'Mapa de Contenidos', link: '/moc' },
             { text: 'Fichas Técnicas y Descargas', link: '/recursos/material-visual' }
           ]

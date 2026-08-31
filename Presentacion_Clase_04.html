@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentación Clase 04 — Shaders Nodales y Atmósfera Volumétrica</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b0d13;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide-deck {
+      width: 1120px;
+      height: 630px;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 38px 50px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #111827;
+    }
+
+    .slide-course {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+
+    .slide-index {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    h1 {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #111827;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #4b5563;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 14px;
+      background: #fafafa;
+    }
+
+    .card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 11.5px;
+      color: #4b5563;
+      line-height: 1.45;
+    }
+
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #111827;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.clean-list li {
+      font-size: 11.5px;
+      color: #374151;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 12px;
+      line-height: 1.4;
+    }
+
+    ul.clean-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 10.5px;
+      color: #111827;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+
+    .nav-buttons {
+      position: fixed;
+      bottom: 16px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: #1e293b;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-deck">
+
+    <!-- DIAPOSITIVA 1: PORTADA -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <div class="slide-course">Iluminación 3D · Sesión 04</div>
+        <div class="slide-index">01 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Taller de Entrega N°1, Shaders Nodales y Atmósfera Volumétrica</h1>
+        <p class="subtitle">Corrección presencial de la Entrega N°1, arquitectura universal de shaders y construcción de mood exterior.</p>
+
+        <div class="formula-box">
+          Bloque 1: Apoyo y Calificación Entrega N°1 (Rúbrica 1.0 - 7.0) ──► Bloque 2: Atmósfera, Cielo y Niebla Volumétrica
+        </div>
+
+        <div class="grid-2" style="margin-top: 8px;">
+          <div class="card">
+            <h3>Bloque 1 · Taller de Entrega N°1</h3>
+            <p>Revisión individual y apoyo a los alumnos para calibrar luces y parámetros expuestos antes de la entrega final.</p>
+          </div>
+          <div class="card">
+            <h3>Bloque 2 · Atmósfera y Mood</h3>
+            <p>Principios ópticos de dispersión (Rayleigh y Mie), niebla volumétrica por vóxeles y equivalencias en motores.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Docente: Daniel Rojas · UNIACC</span>
+        <span>Usa [ ← / → ] para navegar</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 2: RÚBRICA Y CALIFICACIÓN -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-course">Bloque 1 · Evaluación Formativa</div>
+        <div class="slide-index">02 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Entrega N°1: Calificación y Rúbrica en Vivo</h1>
+        <p class="subtitle">Checklist de requisitos obligatorios a evaluar durante la clase.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. Esquema de 3 Puntos (20 pts)</h3>
+            <ul class="clean-list">
+              <li><strong>Key (7 pts):</strong> 45°/45°, sombra y volumen dominante.</li>
+              <li><strong>Fill (7 pts):</strong> Opuesta al 30%, rescata penumbra.</li>
+              <li><strong>Rim (6 pts):</strong> Contraluz que despega la silueta.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>2. Shader PBR (15 pts)</h3>
+            <ul class="clean-list">
+              <li>BaseColor, Normal Map y ORM ruteados correctamente.</li>
+              <li>Respuesta física y reflectancia verosímil.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>3. Instancia & Parámetros (25 pts)</h3>
+            <ul class="clean-list">
+              <li>Master Material e Instancia (<code>MI_...</code>).</li>
+              <li>Al menos 3 parámetros funcionales en vivo (15 pts).</li>
+              <li>Nomenclatura y orden del proyecto (10 pts).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Escala 1.0 a 7.0 (60% Exigencia) · Calificación en Vivo</span>
+        <span>[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 3: SISTEMAS NODALES UNIVERSALES -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-course">Lógica Universal de Motores</div>
+        <div class="slide-index">03 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Sistemas Nodales (Shader Graphs) en la Industria</h1>
+        <p class="subtitle">La misma lógica matemática gobierna todos los editores de materiales modernos.</p>
+
+        <div class="formula-box">
+          [ Texture Sample ] ──► [ MULTIPLY (Tint) ] ──► Base Color (Master Node / Principled BSDF)
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Equivalencias en la Industria</h3>
+            <ul class="clean-list">
+              <li><strong>Unreal Engine:</strong> Material Graph (<code>Master Material</code>).</li>
+              <li><strong>Unity:</strong> Shader Graph (<code>PBR Master / Lit</code>).</li>
+              <li><strong>Blender:</strong> Shader Editor (<code>Principled BSDF</code>).</li>
+              <li><strong>Maya:</strong> Hypershade (<code>Standard Surface</code>).</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Operadores Matemáticos Clave</h3>
+            <ul class="clean-list">
+              <li><strong>Multiply:</strong> Escalar color, tinte o intensidad de textura.</li>
+              <li><strong>Scalar Parameter:</strong> Ajustar Rugosidad o Metalicidad de 0 a 1.</li>
+              <li><strong>FlattenNormal / Multiply:</strong> Profundizar o suavizar el relieve.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Principios Fundamentales de Arte Técnico</span>
+        <span>[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 4: EL STACK AMBIENTAL EXTERIOR -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-course">Bloque 2 · Iluminación Exterior</div>
+        <div class="slide-index">04 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>El Stack Ambiental Exterior: Nombres en la Industria</h1>
+        <p class="subtitle">Componentes necesarios para construir iluminación natural y cielo físico.</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Sol Direccional</h3>
+            <p><strong>UE:</strong> Directional Light</p>
+            <p><strong>Genérico:</strong> Sun Light / Infinite Light</p>
+            <p>Rayos 100% paralelos; controla la hora del día.</p>
+          </div>
+
+          <div class="card">
+            <h3>Cielo Físico</h3>
+            <p><strong>UE:</strong> SkyAtmosphere</p>
+            <p><strong>Genérico:</strong> Physical Sky / Atmos. Scatter</p>
+            <p>Dispersión óptica en gases de la atmósfera.</p>
+          </div>
+
+          <div class="card">
+            <h3>Luz Ambiental</h3>
+            <p><strong>UE:</strong> Sky Light</p>
+            <p><strong>Genérico:</strong> Environment Probe / Dome</p>
+            <p>Relleno difuso 360° que evita sombras negras.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Componentes Estándar en Motores 3D</span>
+        <span>[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 5: FÍSICA ATMOSFÉRICA RAYLEIGH Y MIE -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-course">Óptica Física Ambiental</div>
+        <div class="slide-index">05 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Física Atmosférica: Dispersión de Rayleigh y Mie</h1>
+        <p class="subtitle">Por qué el cielo cambia de color a lo largo del día.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Dispersión de Rayleigh (Moléculas de Gas)</h3>
+            <ul class="clean-list">
+              <li>Las partículas pequeñas dispersan la luz azul de onda corta con facilidad.</li>
+              <li><strong>Mediodía:</strong> Cielo azul intenso en el cenit.</li>
+              <li><strong>Atardecer:</strong> La luz solar atraviesa más capa atmosférica; solo los tonos cálidos (rojo/naranja) logran llegar.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Dispersión de Mie (Polvo y Humedad)</h3>
+            <ul class="clean-list">
+              <li>Partículas grandes provocan dispersión frontal (<em>Forward Scattering</em>).</li>
+              <li>Genera el halo blanco/dorado alrededor del sol y la bruma lejana en el horizonte.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Modelos Atmosféricos Físicos</span>
+        <span>[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 6: NIEBLA VOLUMÉTRICA Y GOD RAYS -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-course">Efectos Volumétricos & Mood</div>
+        <div class="slide-index">06 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Niebla Volumétrica y Rayos de Luz (God Rays)</h1>
+        <p class="subtitle">Generar profundidad espacial y dramatismo cinematográfico mediante vóxeles.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Cálculo por Vóxeles 3D</h3>
+            <p style="margin-bottom: 8px;">El motor subdivide el espacio visible en miles de celdas cúbicas que calculan la luz que pasa a través del aire.</p>
+            <ul class="clean-list">
+              <li>Objetos o ventanas bloquean parcialmente el haz.</li>
+              <li>Se generan haces luminosos visibles (<em>Light Shafts</em>).</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Anisotropía de Dispersión ($g$)</h3>
+            <ul class="clean-list">
+              <li><strong>$g = 0.0$:</strong> Dispersión isotrópica uniforme.</li>
+              <li><strong>$g = 0.7 - 0.85$:</strong> Fuerte dispersión hacia la cámara; crea rayos crepusculares definidos y de alto impacto visual.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Atmósfera Cinematográfica</span>
+        <span>[ ← / → ]</span>
+      </div>
+    </div>
+
+    <!-- DIAPOSITIVA 7: CIERRE Y DESAFÍO -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-course">Práctica y Cierre</div>
+        <div class="slide-index">07 / 07</div>
+      </div>
+      <div class="slide-body">
+        <h1>Desafío Práctico en Clase</h1>
+        <p class="subtitle">Trabajo en sala y entrega final del día.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Misión 1 · Cierre de Entrega N°1</h3>
+            <ul class="clean-list">
+              <li>Ajustar contrastes de Key, Fill y Rim Light en el busto o prop.</li>
+              <li>Verificar los 3 parámetros de la Instancia de Material.</li>
+              <li>Entrega presencial y registro de nota inmediata.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Misión 2 · Taller de Atmósfera</h3>
+            <ul class="clean-list">
+              <li>Insertar SkyAtmosphere y Exponential Height Fog en un nivel exterior.</li>
+              <li>Activar Volumetric Fog y calibrar la anisotropía a 0.75.</li>
+              <li>Proyectar un haz de luz volumétrica a través de una abertura.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Próxima Sesión: Post-Processing, Color Grading, Exposición y ACES</span>
+        <span>[ Fin de la Presentación ]</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+    <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 7;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('slide-' + index);
+      if (target) {
+        target.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

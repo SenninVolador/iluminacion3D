@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Material Visual — Clase 04: Shaders Nodales y Atmósfera Volumétrica</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 0;
+      line-height: 1.35;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: #ffffff;
+      padding: 16mm 18mm;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .header-rule {
+      border-bottom: 1.5px solid #111827;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-rule {
+      border-top: 0.5px solid #e5e7eb;
+      padding-top: 4px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #9ca3af;
+    }
+
+    h1 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.3px;
+      margin-bottom: 2px;
+    }
+
+    .subtitle {
+      font-size: 8.5pt;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #111827;
+      border-bottom: 0.5px solid #e5e7eb;
+      padding-bottom: 2px;
+      margin-top: 8px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      border: 0.5px solid #d1d5db;
+      border-radius: 3px;
+      padding: 8px;
+      background: #f9fafb;
+      font-size: 7.5pt;
+    }
+
+    .card h3 {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 3px;
+    }
+
+    .card p {
+      color: #4b5563;
+      font-size: 7.5pt;
+      line-height: 1.35;
+    }
+
+    table.tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7pt;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    table.tech-table th {
+      background: #f9fafb;
+      color: #111827;
+      font-weight: 700;
+      text-align: left;
+      border: 0.5px solid #d1d5db;
+      padding: 3px 5px;
+    }
+
+    table.tech-table td {
+      border: 0.5px solid #e5e7eb;
+      padding: 3px 5px;
+      color: #374151;
+    }
+
+    .diagram-container {
+      border: 0.5px solid #d1d5db;
+      background: #ffffff;
+      border-radius: 3px;
+      padding: 6px;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.clean-list li {
+      font-size: 7.5pt;
+      color: #374151;
+      margin-bottom: 2px;
+      position: relative;
+      padding-left: 8px;
+    }
+
+    ul.clean-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    @media print {
+      body { background: transparent; padding: 0; }
+      .page { box-shadow: none; margin-bottom: 0; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PÁGINA 1 -->
+  <div class="page">
+    <div>
+      <div class="header-rule">
+        <span>ILUMINACIÓN 3D · FICHA TÉCNICA</span>
+        <span>SESIÓN 04 — PÁGINA 1 DE 2</span>
+      </div>
+
+      <h1>Shaders Nodales Universales y Taller de Entrega N°1</h1>
+      <p class="subtitle">Arquitectura modular de sombreadores en la industria, nodos genéricos y evaluación formativa.</p>
+
+      <h2>1. Lógica Universal de Sistemas Nodales (Shader Graphs)</h2>
+      <div class="diagram-container">
+        <svg width="100%" height="80" viewBox="0 0 540 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- Nodo Albedo -->
+          <rect x="10" y="10" width="110" height="32" rx="3" fill="#f9fafb" stroke="#111827" stroke-width="1"/>
+          <text x="65" y="24" font-family="Inter" font-size="7" font-weight="700" text-anchor="middle" fill="#111827">Texture Sample</text>
+          <text x="65" y="34" font-family="Inter" font-size="6" text-anchor="middle" fill="#6b7280">Albedo 2D (RGB)</text>
+
+          <!-- Nodo Tinte -->
+          <rect x="10" y="46" width="110" height="26" rx="3" fill="#f9fafb" stroke="#111827" stroke-width="1"/>
+          <text x="65" y="58" font-family="Inter" font-size="7" font-weight="700" text-anchor="middle" fill="#111827">Color Tint</text>
+          <text x="65" y="66" font-family="Inter" font-size="6" text-anchor="middle" fill="#6b7280">Vector Parameter</text>
+
+          <!-- Conexiones a Multiply -->
+          <line x1="120" y1="26" x2="160" y2="40" stroke="#111827" stroke-width="1"/>
+          <line x1="120" y1="59" x2="160" y2="44" stroke="#111827" stroke-width="1"/>
+
+          <!-- Nodo Multiply -->
+          <rect x="160" y="28" width="90" height="30" rx="3" fill="#f9fafb" stroke="#111827" stroke-width="1"/>
+          <text x="205" y="42" font-family="Inter" font-size="7" font-weight="700" text-anchor="middle" fill="#111827">MULTIPLY</text>
+          <text x="205" y="51" font-family="Inter" font-size="6" text-anchor="middle" fill="#6b7280">A * B</text>
+
+          <!-- Linea a Master Node -->
+          <line x1="250" y1="43" x2="310" y2="28" stroke="#111827" stroke-width="1"/>
+
+          <!-- Parámetros Roughness y Metallic -->
+          <rect x="160" y="4" width="110" height="20" rx="3" fill="#f9fafb" stroke="#9ca3af" stroke-width="0.8"/>
+          <text x="215" y="16" font-family="Inter" font-size="6.5" font-weight="600" text-anchor="middle" fill="#111827">Roughness & Metallic (Scalar)</text>
+          <line x1="270" y1="14" x2="310" y2="42" stroke="#9ca3af" stroke-width="0.8"/>
+
+          <!-- Nodo Maestro PBR -->
+          <rect x="310" y="8" width="220" height="64" rx="3" fill="#111827" stroke="#111827" stroke-width="1"/>
+          <text x="420" y="23" font-family="Inter" font-size="8" font-weight="700" text-anchor="middle" fill="#ffffff">MASTER PBR NODE (Root)</text>
+          <text x="325" y="38" font-family="JetBrains Mono" font-size="6.5" fill="#93c5fd">► Base Color (Albedo * Tint)</text>
+          <text x="325" y="49" font-family="JetBrains Mono" font-size="6.5" fill="#34d399">► Metallic / Roughness (Scalar)</text>
+          <text x="325" y="60" font-family="JetBrains Mono" font-size="6.5" fill="#fca5a5">► Normal Map (Tangent Space)</text>
+        </svg>
+      </div>
+
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Motor / Software</th>
+            <th>Editor de Shaders</th>
+            <th>Nodo Maestro de Salida</th>
+            <th>Operación de Tinte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Unreal Engine 5</strong></td>
+            <td>Material Graph</td>
+            <td>Master Material (Root Node)</td>
+            <td>Multiply + Vector Parameter</td>
+          </tr>
+          <tr>
+            <td><strong>Unity (URP/HDRP)</strong></td>
+            <td>Shader Graph</td>
+            <td>PBR Master / Lit Master</td>
+            <td>Multiply + Color Property</td>
+          </tr>
+          <tr>
+            <td><strong>Blender</strong></td>
+            <td>Shader Editor</td>
+            <td>Principled BSDF</td>
+            <td>Mix Color (Multiply)</td>
+          </tr>
+          <tr>
+            <td><strong>Autodesk Maya</strong></td>
+            <td>Hypershade</td>
+            <td>Standard Surface (aiStandard)</td>
+            <td>multiplyDivide</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Taller y Calificación de la Entrega N°1</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Checklist de Evaluación Presencial</h3>
+          <ul class="clean-list">
+            <li><strong>Key Light:</strong> 45° lateral/cenital, sombra y contraste dominante.</li>
+            <li><strong>Fill Light:</strong> Lateral opuesto al 30%, rescata penumbras sin sombras cruzadas.</li>
+            <li><strong>Rim Light:</strong> Contraluz trasero que despega la silueta del fondo.</li>
+            <li><strong>Material PBR:</strong> BaseColor, Normal y ORM asignados correctamente.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Instancia y Parámetros Expuestos</h3>
+          <ul class="clean-list">
+            <li>Master Material base compilado una sola vez.</li>
+            <li>Instancia (<code>MI_...</code>) asignada a la malla.</li>
+            <li>Al menos 3 parámetros funcionales en tiempo real (Tinte, Rugosidad, Relieve).</li>
+            <li>Calificación inmediata según rúbrica (Escala 1.0 – 7.0).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule">
+      <span>Iluminación 3D · Docente: Daniel Rojas (UNIACC)</span>
+      <span>Ficha de Cátedra N° 04 · Unreal Engine 5</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2 -->
+  <div class="page">
+    <div>
+      <div class="header-rule">
+        <span>ILUMINACIÓN 3D · FICHA TÉCNICA</span>
+        <span>SESIÓN 04 — PÁGINA 2 DE 2</span>
+      </div>
+
+      <h1>Atmósfera, Cielo, Niebla Volumétrica y Mood</h1>
+      <p class="subtitle">Principios ópticos ambientales, equivalencias en motores y construcción de atmósfera escénica.</p>
+
+      <h2>1. Componentes del Stack Ambiental: Nombres en la Industria</h2>
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Unreal Engine 5</th>
+            <th>Término Genérico (Industria)</th>
+            <th>Función y Principio Físico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Directional Light</strong></td>
+            <td>Sun Light / Infinite Light</td>
+            <td>Luz a distancia infinita con rayos 100% paralelos. Solo influye su rotación.</td>
+          </tr>
+          <tr>
+            <td><strong>SkyAtmosphere</strong></td>
+            <td>Physical Sky / Atmos. Scattering</td>
+            <td>Dispersión física de luz en moléculas de gas (Rayleigh) y aerosoles (Mie).</td>
+          </tr>
+          <tr>
+            <td><strong>Sky Light</strong></td>
+            <td>Environment Probe / Ambient Dome</td>
+            <td>Luz difusa envolvente de 360° para bañar sombras y evitar negros absolutos.</td>
+          </tr>
+          <tr>
+            <td><strong>Exponential Height Fog</strong></td>
+            <td>Height Fog / Distance Fog</td>
+            <td>Niebla analítica basada en altitud y distancia para aportar perspectiva aérea.</td>
+          </tr>
+          <tr>
+            <td><strong>Volumetric Fog</strong></td>
+            <td>Media Scatter / Voxel Fog</td>
+            <td>Niebla 3D en grilla de vóxeles que interactúa con la luz creando <strong>God Rays</strong>.</td>
+          </tr>
+          <tr>
+            <td><strong>Volumetric Clouds</strong></td>
+            <td>Procedural Cloud Layer</td>
+            <td>Nubes 3D volumétricas con auto-sombreado y sombras proyectadas en el terreno.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Principios Ópticos: Dispersión de Rayleigh y Mie</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Dispersión de Rayleigh (Gases)</h3>
+          <p>Las moléculas diminutas de gas dispersan más eficientemente las longitudes de onda cortas (azul/violeta). Produce el cielo azul de mediodía y los tonos rojizos cuando el sol está en el horizonte.</p>
+        </div>
+        <div class="card">
+          <h3>Dispersión de Mie (Polvo y Humedad)</h3>
+          <p>Partículas de mayor tamaño generan la bruma blanquecina del horizonte y el halo luminoso alrededor del sol. Provoca la dispersión hacia adelante (<em>Forward Scattering</em>).</p>
+        </div>
+      </div>
+
+      <h2>3. Niebla Volumétrica y Anisotropía ($g$)</h2>
+      <div class="card" style="margin-bottom: 6px;">
+        <p><strong>Cálculo por Vóxeles:</strong> El motor subdivide el frustum de la cámara en una grilla tridimensional de vóxeles. Cada emisor calcula la energía absorbida y dispersada.</p>
+        <p style="margin-top: 3px;"><strong>Parámetro de Anisotropía ($g$):</strong> Controla el ángulo de dispersión. Valores entre <code>0.7</code> y <code>0.85</code> concentran los rayos de luz hacia la cámara generando <strong>God Rays</strong> cinematográficos.</p>
+      </div>
+
+      <h2>4. Casos de Estudio en la Industria</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Red Dead Redemption 2 (Rockstar)</h3>
+          <p>Atmósfera dinámica y densa niebla volumétrica al amanecer en pantanos y bosques con anisotropía pronunciada.</p>
+        </div>
+        <div class="card">
+          <h3>Alan Wake 2 (Remedy)</h3>
+          <p>Construcción de mood de terror psicológico mediante niebla volumétrica fría que recorta las siluetas de la linterna.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule">
+      <span>Iluminación 3D · Docente: Daniel Rojas (UNIACC)</span>
+      <span>Ficha de Cátedra N° 04 · Unreal Engine 5</span>
+    </div>
+  </div>
+
+</body>
+</html>

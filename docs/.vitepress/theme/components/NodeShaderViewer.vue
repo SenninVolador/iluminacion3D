@@ -1,14 +1,14 @@
 <template>
   <div class="ue-material-studio">
     <div class="studio-header">
-      <span class="label">UNREAL ENGINE 5 — MATERIAL GRAPH & VIEWPORT</span>
-      <span class="desc">Shader Nodal Paramétrico PBR en Tiempo Real</span>
+      <span class="label">MATERIAL GRAPH Y VIEWPORT 3D</span>
+      <span class="desc">Esquema Nodal Paramétrico PBR — Utah Teapot</span>
     </div>
 
     <!-- VIEWPORT 3D: UTAH TEAPOT -->
     <div class="canvas-wrapper" ref="canvasContainer"></div>
 
-    <!-- PANEL DE CONTROL RÁPIDO CON COLOR PICKER -->
+    <!-- BARRA DE CONTROL SOBRIA -->
     <div class="viewport-toolbar">
       <div class="toolbar-item">
         <label class="toolbar-label">Color Tint (Vector Parameter):</label>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="toolbar-presets">
-        <span class="preset-label">Presets:</span>
+        <span class="preset-label">Muestras:</span>
         <button 
           v-for="t in tintPresets" 
           :key="t.name" 
@@ -31,40 +31,40 @@
       </div>
     </div>
 
-    <!-- SIMULADOR DEL MATERIAL GRAPH DE UNREAL ENGINE -->
+    <!-- ESQUEMA DEL MATERIAL GRAPH (ESTILO UNREAL ENGINE) -->
     <div class="graph-editor">
       <div class="graph-header">
-        <span class="graph-title">Material Graph: M_Master_PBR</span>
-        <span class="graph-tip">Lógica de conexiones en Unreal Engine (Texture ──► Multiply ──► Base Color)</span>
+        <span class="graph-title">Graph: M_Master_PBR</span>
+        <span class="graph-tip">Estructura de conexiones (Texture Sample ──► Multiply ──► Base Color)</span>
       </div>
 
       <div class="graph-canvas">
         <svg class="wires-layer" width="100%" height="100%">
-          <!-- CABLE 1: Texture Sample RGB (salida) -> Multiply A (entrada) -->
-          <path d="M 205 60 C 235 60, 235 75, 265 75" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+          <!-- Cable 1: Texture Sample RGB -> Multiply A -->
+          <path d="M 195 58 C 225 58, 225 72, 255 72" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
           
-          <!-- CABLE 2: Color Tint RGB (salida) -> Multiply B (entrada) -->
-          <path d="M 205 155 C 235 155, 235 95, 265 95" fill="none" :stroke="currentTint" stroke-width="2.5" />
+          <!-- Cable 2: Color Tint RGB -> Multiply B -->
+          <path d="M 195 150 C 225 150, 225 90, 255 90" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
 
-          <!-- CABLE 3: Multiply Result (salida) -> Master Node Base Color (entrada) -->
-          <path d="M 370 85 C 410 85, 410 65, 450 65" fill="none" :stroke="currentTint" stroke-width="2.5" />
+          <!-- Cable 3: Multiply Result -> Master Node Base Color -->
+          <path d="M 355 81 C 395 81, 395 62, 435 62" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
 
-          <!-- CABLE 4: Metallic Scalar -> Master Node Metallic -->
-          <path d="M 205 235 C 330 235, 330 90, 450 90" fill="none" stroke="#60a5fa" stroke-width="2" />
+          <!-- Cable 4: Metallic Scalar -> Master Node Metallic -->
+          <path d="M 195 228 C 315 228, 315 86, 435 86" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
 
-          <!-- CABLE 5: Roughness Scalar -> Master Node Roughness -->
-          <path d="M 205 315 C 330 315, 330 115, 450 115" fill="none" stroke="#34d399" stroke-width="2" />
+          <!-- Cable 5: Roughness Scalar -> Master Node Roughness -->
+          <path d="M 195 304 C 315 304, 315 110, 435 110" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
 
-          <!-- CABLE 6: Normal Flatten -> Master Node Normal -->
-          <path d="M 205 395 C 330 395, 330 165, 450 165" fill="none" stroke="#a78bfa" stroke-width="2" />
+          <!-- Cable 6: Normal Scale -> Master Node Normal -->
+          <path d="M 195 380 C 315 380, 315 158, 435 158" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
         </svg>
 
         <div class="nodes-container">
           
-          <!-- COLUMNA IZQUIERDA DE NODOS -->
+          <!-- COLUMNA IZQUIERDA -->
           <div class="nodes-col left-col">
             
-            <!-- NODO 1: TEXTURE SAMPLE (ALBEDO) -->
+            <!-- NODO 1: TEXTURE SAMPLE -->
             <div class="ue-node">
               <div class="node-titlebar title-texture">Texture Sample</div>
               <div class="node-content">
@@ -88,7 +88,7 @@
               </div>
             </div>
 
-            <!-- NODO 2: VECTOR PARAMETER (COLOR TINT) -->
+            <!-- NODO 2: VECTOR PARAMETER -->
             <div class="ue-node">
               <div class="node-titlebar title-param">Vector Parameter</div>
               <div class="node-content">
@@ -96,7 +96,7 @@
                 <div class="color-swatch-box" :style="{ background: currentTint }"></div>
                 <div class="pin-row right">
                   <span class="pin-name">RGB</span>
-                  <span class="pin-dot" :style="{ background: currentTint }"></span>
+                  <span class="pin-dot white"></span>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="pin-row right">
                   <span class="pin-name">Out</span>
-                  <span class="pin-dot cyan"></span>
+                  <span class="pin-dot gray"></span>
                 </div>
               </div>
             </div>
@@ -128,12 +128,12 @@
                 </div>
                 <div class="pin-row right">
                   <span class="pin-name">Out</span>
-                  <span class="pin-dot green"></span>
+                  <span class="pin-dot gray"></span>
                 </div>
               </div>
             </div>
 
-            <!-- NODO 5: NORMAL FLATTEN / STRENGTH -->
+            <!-- NODO 5: NORMAL STRENGTH -->
             <div class="ue-node">
               <div class="node-titlebar title-normal">Normal Strength (Flatten)</div>
               <div class="node-content">
@@ -144,14 +144,14 @@
                 </div>
                 <div class="pin-row right">
                   <span class="pin-name">Out</span>
-                  <span class="pin-dot purple"></span>
+                  <span class="pin-dot gray"></span>
                 </div>
               </div>
             </div>
 
           </div>
 
-          <!-- COLUMNA CENTRAL: NODO MULTIPLY -->
+          <!-- COLUMNA CENTRAL: MULTIPLY -->
           <div class="nodes-col mid-col">
             <div class="ue-node math-node">
               <div class="node-titlebar title-math">Multiply</div>
@@ -163,14 +163,14 @@
                       <span class="pin-name">A</span>
                     </div>
                     <div class="pin-row left">
-                      <span class="pin-dot" :style="{ background: currentTint }"></span>
+                      <span class="pin-dot white"></span>
                       <span class="pin-name">B</span>
                     </div>
                   </div>
                   <div class="right-pins">
                     <div class="pin-row right">
                       <span class="pin-name">Result</span>
-                      <span class="pin-dot" :style="{ background: currentTint }"></span>
+                      <span class="pin-dot white"></span>
                     </div>
                   </div>
                 </div>
@@ -178,41 +178,41 @@
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA: MASTER MATERIAL NODE (ROOT) -->
+          <!-- COLUMNA DERECHA: MASTER MATERIAL NODE -->
           <div class="nodes-col right-col">
             <div class="ue-node master-node">
-              <div class="node-titlebar title-master">M_Master_PBR (Material Attributes)</div>
+              <div class="node-titlebar title-master">M_Master_PBR</div>
               <div class="node-content">
                 <div class="pin-row left active-input">
-                  <span class="pin-dot" :style="{ background: currentTint }"></span>
+                  <span class="pin-dot white"></span>
                   <span class="pin-name highlight">Base Color</span>
                 </div>
                 <div class="pin-row left active-input">
-                  <span class="pin-dot cyan"></span>
+                  <span class="pin-dot gray"></span>
                   <span class="pin-name highlight">Metallic</span>
                 </div>
                 <div class="pin-row left">
-                  <span class="pin-dot gray"></span>
+                  <span class="pin-dot dark-dot"></span>
                   <span class="pin-name dim">Specular</span>
                 </div>
                 <div class="pin-row left active-input">
-                  <span class="pin-dot green"></span>
+                  <span class="pin-dot gray"></span>
                   <span class="pin-name highlight">Roughness</span>
                 </div>
                 <div class="pin-row left">
-                  <span class="pin-dot gray"></span>
+                  <span class="pin-dot dark-dot"></span>
                   <span class="pin-name dim">Emissive Color</span>
                 </div>
                 <div class="pin-row left">
-                  <span class="pin-dot gray"></span>
+                  <span class="pin-dot dark-dot"></span>
                   <span class="pin-name dim">Opacity</span>
                 </div>
                 <div class="pin-row left active-input">
-                  <span class="pin-dot purple"></span>
+                  <span class="pin-dot gray"></span>
                   <span class="pin-name highlight">Normal</span>
                 </div>
                 <div class="pin-row left">
-                  <span class="pin-dot gray"></span>
+                  <span class="pin-dot dark-dot"></span>
                   <span class="pin-name dim">Ambient Occlusion</span>
                 </div>
               </div>
@@ -229,23 +229,22 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const canvasContainer = ref(null);
-const currentTint = ref('#e2e8f0'); // Cerámica neutra inicial
+const currentTint = ref('#e5e7eb'); // Cerámica / metal neutro
 const roughness = ref(0.35);
 const metallic = ref(0.65);
 const normalStrength = ref(1.5);
 
 const tintPresets = [
-  { name: 'Cerámica Blanca', color: '#e2e8f0' },
+  { name: 'Cerámica Blanca', color: '#e5e7eb' },
   { name: 'Oro Pulido', color: '#d4af37' },
   { name: 'Cobre Rojo', color: '#b85d38' },
   { name: 'Bronce Clásico', color: '#cd7f32' },
-  { name: 'Acero Azul', color: '#3b82f6' },
-  { name: 'Carbón Mate', color: '#27272a' }
+  { name: 'Acero Oscuro', color: '#4b5563' },
+  { name: 'Gris Grafito', color: '#27272a' }
 ];
 
 let scene, camera, renderer, teapotMesh, animId, proceduralNormal, proceduralAlbedo;
 
-// Textura procedural de relieve (adornos geométricos en la tetera)
 function createTeapotNormalMap(THREE) {
   const size = 256;
   const canvas = document.createElement('canvas');
@@ -271,7 +270,6 @@ function createTeapotNormalMap(THREE) {
   return texture;
 }
 
-// Textura base de patrón cuadriculado sutil
 function createTeapotBaseTexture(THREE) {
   const size = 256;
   const canvas = document.createElement('canvas');
@@ -282,7 +280,7 @@ function createTeapotBaseTexture(THREE) {
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, size, size);
 
-  ctx.fillStyle = '#e2e8f0';
+  ctx.fillStyle = '#e5e7eb';
   for (let y = 0; y < size; y += 16) {
     for (let x = 0; x < size; x += 16) {
       if ((x + y) % 32 === 0) {
@@ -310,7 +308,7 @@ const initThree = async () => {
   const height = 280;
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0f1117);
+  scene.background = new THREE.Color(0x18181b);
 
   camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
   camera.position.set(0, 1.3, 4.0);
@@ -324,7 +322,7 @@ const initThree = async () => {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Pedestal
+  // Pedestal neutro
   const pedGeo = new THREE.CylinderGeometry(1.3, 1.4, 0.2, 48);
   const pedMat = new THREE.MeshStandardMaterial({ color: 0x27272a, roughness: 0.85 });
   const pedestal = new THREE.Mesh(pedGeo, pedMat);
@@ -335,7 +333,6 @@ const initThree = async () => {
   proceduralNormal = createTeapotNormalMap(THREE);
   proceduralAlbedo = createTeapotBaseTexture(THREE);
 
-  // Utah Teapot
   const teapotGeo = new TeapotGeometry(0.75, 20, true, true, true, true, true);
   const teapotMat = new THREE.MeshStandardMaterial({
     map: proceduralAlbedo,
@@ -352,13 +349,13 @@ const initThree = async () => {
   teapotMesh.receiveShadow = true;
   scene.add(teapotMesh);
 
-  // Luces de 3 Puntos
+  // Iluminación 3 puntos sobria
   const keyLight = new THREE.DirectionalLight(0xfffaed, 2.8);
   keyLight.position.set(2.5, 2.5, 2.0);
   keyLight.castShadow = true;
   scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0x93c5fd, 0.8);
+  const fillLight = new THREE.DirectionalLight(0xd4d4d8, 0.8);
   fillLight.position.set(-2.5, 0.5, 1.5);
   scene.add(fillLight);
 
@@ -366,7 +363,7 @@ const initThree = async () => {
   rimLight.position.set(0, 2.0, -2.5);
   scene.add(rimLight);
 
-  const ambient = new THREE.AmbientLight(0x18181b, 0.4);
+  const ambient = new THREE.AmbientLight(0x27272a, 0.4);
   scene.add(ambient);
 
   const animate = () => {
@@ -410,13 +407,12 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .ue-material-studio {
-  border: 1px solid #334155;
-  border-radius: 6px;
-  margin: 20px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin: 18px 0;
   overflow: hidden;
-  background: #0f172a;
-  color: #f8fafc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #ffffff;
+  color: #111827;
 }
 
 .studio-header {
@@ -424,21 +420,21 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   align-items: center;
   padding: 8px 14px;
-  background: #090d16;
-  border-bottom: 1px solid #1e293b;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   font-weight: 700;
-  color: #38bdf8;
+  color: #111827;
   letter-spacing: 0.5px;
 }
 
 .desc {
-  font-size: 11px;
-  color: #94a3b8;
+  font-size: 11.5px;
+  color: #6b7280;
 }
 
 .canvas-wrapper {
@@ -452,21 +448,21 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  background: #1e293b;
-  border-top: 1px solid #334155;
-  border-bottom: 1px solid #334155;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .toolbar-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .toolbar-label {
   font-size: 11.5px;
   font-weight: 600;
-  color: #f1f5f9;
+  color: #111827;
 }
 
 .color-picker-wrapper {
@@ -477,24 +473,25 @@ onBeforeUnmount(() => {
 
 .color-input {
   -webkit-appearance: none;
-  border: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
   cursor: pointer;
   background: none;
+  padding: 0;
 }
 .color-input::-webkit-color-swatch-wrapper { padding: 0; }
-.color-input::-webkit-color-swatch { border: 1.5px solid #ffffff; border-radius: 4px; }
+.color-input::-webkit-color-swatch { border: none; border-radius: 2px; }
 
 .hex-text {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: #38bdf8;
-  background: #0f172a;
+  color: #111827;
+  background: #ffffff;
   padding: 2px 6px;
   border-radius: 3px;
-  border: 1px solid #334155;
+  border: 1px solid #d1d5db;
 }
 
 .toolbar-presets {
@@ -505,27 +502,28 @@ onBeforeUnmount(() => {
 
 .preset-label {
   font-size: 11px;
-  color: #94a3b8;
+  color: #6b7280;
 }
 
 .preset-btn {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #64748b;
+  border: 1px solid #9ca3af;
   cursor: pointer;
   transition: transform 0.15s, border-color 0.15s;
 }
 .preset-btn.selected {
-  border: 2px solid #ffffff;
-  transform: scale(1.2);
+  border: 2px solid #111827;
+  transform: scale(1.15);
 }
 
-/* MATERIAL GRAPH EN UNREAL ENGINE */
+/* MATERIAL GRAPH EN UNREAL ENGINE (ESTILO AUTÉNTICO) */
 .graph-editor {
-  background: #0b0f19;
+  background: #18181b;
   padding: 12px;
   position: relative;
+  color: #f4f4f5;
 }
 
 .graph-header {
@@ -534,28 +532,31 @@ onBeforeUnmount(() => {
   align-items: baseline;
   margin-bottom: 8px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 1px solid #27272a;
 }
 
 .graph-title {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #f4f4f5;
 }
 
 .graph-tip {
-  font-size: 10px;
-  color: #94a3b8;
+  font-size: 10.5px;
+  color: #a1a1aa;
 }
 
 .graph-canvas {
   position: relative;
-  min-height: 440px;
-  background: radial-gradient(circle, #1e293b 1px, transparent 1px);
-  background-size: 16px 16px;
-  border: 1px solid #1e293b;
-  border-radius: 4px;
+  min-height: 430px;
+  background-color: #121214;
+  background-image: 
+    linear-gradient(#1f1f23 1px, transparent 1px),
+    linear-gradient(90deg, #1f1f23 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid #27272a;
+  border-radius: 3px;
   padding: 12px;
   overflow-x: auto;
 }
@@ -572,81 +573,82 @@ onBeforeUnmount(() => {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 200px 160px 240px;
-  gap: 50px;
+  grid-template-columns: 190px 150px 220px;
+  gap: 45px;
 }
 
 .nodes-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* NODO UNREAL ENGINE */
 .ue-node {
-  background: #181e29;
-  border: 1px solid #334155;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  font-size: 10px;
+  background: #1e1e24;
+  border: 1px solid #333338;
+  border-radius: 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  font-size: 9.5px;
 }
 
 .node-titlebar {
-  padding: 4px 8px;
+  padding: 3px 6px;
   font-weight: 700;
-  font-size: 10px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  color: #ffffff;
+  font-size: 9.5px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  color: #f4f4f5;
 }
 
-.title-texture { background: #065f46; border-bottom: 1px solid #047857; }
-.title-param { background: #1e3a8a; border-bottom: 1px solid #1d4ed8; }
-.title-scalar { background: #075985; border-bottom: 1px solid #0284c7; }
-.title-normal { background: #581c87; border-bottom: 1px solid #7e22ce; }
-.title-math { background: #374151; border-bottom: 1px solid #4b5563; text-align: center; }
-.title-master { background: #831843; border-bottom: 1px solid #9d174d; }
+/* TONOS SUTILES AUTÉNTICOS DE UNREAL ENGINE */
+.title-texture { background: #16382c; border-bottom: 1px solid #1f4e3d; }
+.title-param { background: #1b2a4a; border-bottom: 1px solid #263c68; }
+.title-scalar { background: #26262b; border-bottom: 1px solid #383840; }
+.title-normal { background: #2f1d44; border-bottom: 1px solid #432961; }
+.title-math { background: #2a2a30; border-bottom: 1px solid #3a3a42; text-align: center; }
+.title-master { background: #4a1924; border-bottom: 1px solid #662232; }
 
 .node-content {
-  padding: 6px 8px;
+  padding: 5px 7px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .node-param-name {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: #94a3b8;
+  font-size: 8.5px;
+  color: #a1a1aa;
   margin-bottom: 2px;
 }
 
 .color-swatch-box {
   width: 100%;
-  height: 14px;
+  height: 12px;
   border-radius: 2px;
-  border: 1px solid #475569;
+  border: 1px solid #52525b;
   margin-bottom: 2px;
 }
 
 .inline-slider {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .inline-slider input {
   flex: 1;
-  accent-color: #38bdf8;
-  height: 4px;
+  accent-color: #d4d4d8;
+  height: 3px;
   cursor: pointer;
 }
 
 .inline-slider code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: #38bdf8;
-  width: 28px;
+  font-size: 8.5px;
+  color: #e4e4e7;
+  width: 26px;
   text-align: right;
 }
 
@@ -655,8 +657,8 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 9.5px;
-  color: #cbd5e1;
+  font-size: 9px;
+  color: #d4d4d8;
 }
 
 .pin-row.right {
@@ -673,35 +675,34 @@ onBeforeUnmount(() => {
 }
 
 .pin-row .dim {
-  color: #64748b;
+  color: #52525b;
 }
 
 .pin-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   display: inline-block;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
-.pin-dot.white { background: #ffffff; }
+.pin-dot.white { background: #e4e4e7; }
 .pin-dot.red { background: #ef4444; }
 .pin-dot.green { background: #22c55e; }
 .pin-dot.blue { background: #3b82f6; }
-.pin-dot.cyan { background: #06b6d4; }
-.pin-dot.purple { background: #a855f7; }
-.pin-dot.gray { background: #475569; }
+.pin-dot.gray { background: #9ca3af; }
+.pin-dot.dark-dot { background: #3f3f46; border-color: #27272a; }
 
 .pins-split {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 @media (max-width: 900px) {
   .nodes-container {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
   .wires-layer {
     display: none;

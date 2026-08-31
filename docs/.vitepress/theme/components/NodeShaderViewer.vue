@@ -1,225 +1,208 @@
 <template>
-  <div class="ue-material-studio">
-    <div class="studio-header">
-      <span class="label">MATERIAL GRAPH Y VIEWPORT 3D</span>
-      <span class="desc">Esquema Nodal Paramétrico PBR — Utah Teapot</span>
+  <div class="technical-figure">
+    <div class="figure-header">
+      <span class="label">SIMULADOR INTERACTIVO</span>
+      <span class="desc">Shader Nodal Paramétrico PBR — Utah Teapot</span>
     </div>
-
+    
     <!-- VIEWPORT 3D: UTAH TEAPOT -->
     <div class="canvas-wrapper" ref="canvasContainer"></div>
 
-    <!-- BARRA DE CONTROL SOBRIA -->
-    <div class="viewport-toolbar">
-      <div class="toolbar-item">
-        <label class="toolbar-label">Color Tint (Vector Parameter):</label>
-        <div class="color-picker-wrapper">
-          <input type="color" v-model="currentTint" @input="updateTintFromPicker" class="color-input" />
-          <code class="hex-text">{{ currentTint.toUpperCase() }}</code>
+    <!-- CONTROLES PARAMÉTRICOS EN FORMATO BLANCO Y NEGRO -->
+    <div class="controls-grid">
+      
+      <!-- CONTROL 1: COLOR TINT (VECTOR PARAMETER) -->
+      <div class="control-card">
+        <div class="control-label">
+          <span>1. Tinte de Color (Vector Parameter):</span>
+          <code>{{ currentTint.toUpperCase() }}</code>
         </div>
+        <div class="picker-row">
+          <input type="color" v-model="currentTint" @input="updateTintFromPicker" class="color-picker" />
+          <div class="preset-list">
+            <button 
+              v-for="t in tintPresets" 
+              :key="t.name" 
+              :style="{ background: t.color }" 
+              :title="t.name" 
+              @click="setTint(t.color)" 
+              :class="['preset-circle', { active: currentTint.toLowerCase() === t.color.toLowerCase() }]"
+            ></button>
+          </div>
+        </div>
+        <div class="hints"><span>Multiplicación directa sobre la textura base</span></div>
       </div>
 
-      <div class="toolbar-presets">
-        <span class="preset-label">Muestras:</span>
-        <button 
-          v-for="t in tintPresets" 
-          :key="t.name" 
-          :style="{ background: t.color }" 
-          :title="t.name" 
-          @click="setTint(t.color)" 
-          :class="['preset-btn', { selected: currentTint.toLowerCase() === t.color.toLowerCase() }]"
-        ></button>
+      <!-- CONTROL 2: ROUGHNESS -->
+      <div class="control-card">
+        <div class="control-label">
+          <span>2. Rugosidad (Roughness):</span>
+          <code>{{ roughness.toFixed(2) }}</code>
+        </div>
+        <input type="range" min="0" max="1" step="0.01" v-model.number="roughness" @input="updateShader" />
+        <div class="hints"><span>0.0 (Especular liso)</span><span>1.0 (Difuso mate)</span></div>
       </div>
+
+      <!-- CONTROL 3: METALLIC -->
+      <div class="control-card">
+        <div class="control-label">
+          <span>3. Metalicidad (Metallic):</span>
+          <code>{{ metallic.toFixed(2) }}</code>
+        </div>
+        <input type="range" min="0" max="1" step="0.01" v-model.number="metallic" @input="updateShader" />
+        <div class="hints"><span>0.0 (Dieléctrico)</span><span>1.0 (Conductor puro)</span></div>
+      </div>
+
+      <!-- CONTROL 4: NORMAL STRENGTH -->
+      <div class="control-card">
+        <div class="control-label">
+          <span>4. Intensidad de Normales:</span>
+          <code>{{ normalStrength.toFixed(1) }}x</code>
+        </div>
+        <input type="range" min="0" max="3" step="0.1" v-model.number="normalStrength" @input="updateShader" />
+        <div class="hints"><span>0.0 (Plano)</span><span>3.0 (Relieve pronunciado)</span></div>
+      </div>
+
     </div>
 
-    <!-- ESQUEMA DEL MATERIAL GRAPH (ESTILO UNREAL ENGINE) -->
-    <div class="graph-editor">
-      <div class="graph-header">
-        <span class="graph-title">Graph: M_Master_PBR</span>
-        <span class="graph-tip">Estructura de conexiones (Texture Sample ──► Multiply ──► Base Color)</span>
+    <!-- ESQUEMA TÉCNICO DE NODOS (ESTILO DIAGRAMA DE INGENIERÍA / UNREAL ENGINE) -->
+    <div class="schematic-section">
+      <div class="schematic-header">
+        <span>Esquema Nodal en Unreal Engine (M_Master_PBR)</span>
       </div>
 
-      <div class="graph-canvas">
-        <svg class="wires-layer" width="100%" height="100%">
-          <!-- Cable 1: Texture Sample RGB -> Multiply A -->
-          <path d="M 195 58 C 225 58, 225 72, 255 72" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
+      <div class="schematic-canvas">
+        <svg class="wires-svg" viewBox="0 0 760 300" width="100%" height="280">
           
-          <!-- Cable 2: Color Tint RGB -> Multiply B -->
-          <path d="M 195 150 C 225 150, 225 90, 255 90" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
-
-          <!-- Cable 3: Multiply Result -> Master Node Base Color -->
-          <path d="M 355 81 C 395 81, 395 62, 435 62" fill="none" stroke="#d4d4d8" stroke-width="1.8" />
-
-          <!-- Cable 4: Metallic Scalar -> Master Node Metallic -->
-          <path d="M 195 228 C 315 228, 315 86, 435 86" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
-
-          <!-- Cable 5: Roughness Scalar -> Master Node Roughness -->
-          <path d="M 195 304 C 315 304, 315 110, 435 110" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
-
-          <!-- Cable 6: Normal Scale -> Master Node Normal -->
-          <path d="M 195 380 C 315 380, 315 158, 435 158" fill="none" stroke="#a1a1aa" stroke-width="1.5" />
-        </svg>
-
-        <div class="nodes-container">
+          <!-- CABLE 1: Texture Sample RGB -> Multiply A -->
+          <path d="M 210 50 C 255 50, 255 65, 290 65" fill="none" stroke="#111827" stroke-width="2" />
           
-          <!-- COLUMNA IZQUIERDA -->
-          <div class="nodes-col left-col">
+          <!-- CABLE 2: Color Tint RGB -> Multiply B -->
+          <path d="M 210 135 C 255 135, 255 85, 290 85" fill="none" stroke="#111827" stroke-width="2" />
+
+          <!-- CABLE 3: Multiply Result -> Master Node Base Color -->
+          <path d="M 410 75 C 470 75, 470 60, 520 60" fill="none" stroke="#111827" stroke-width="2" />
+
+          <!-- CABLE 4: Metallic -> Master Node Metallic -->
+          <path d="M 210 195 C 380 195, 380 85, 520 85" fill="none" stroke="#4b5563" stroke-width="1.8" />
+
+          <!-- CABLE 5: Roughness -> Master Node Roughness -->
+          <path d="M 210 245 C 380 245, 380 110, 520 110" fill="none" stroke="#4b5563" stroke-width="1.8" />
+
+          <!-- CABLE 6: Normal Flatten -> Master Node Normal -->
+          <path d="M 210 285 C 380 285, 380 155, 520 155" fill="none" stroke="#4b5563" stroke-width="1.8" />
+
+          <!-- ================= NODOS IZQUIERDA ================= -->
+
+          <!-- NODO 1: TEXTURE SAMPLE -->
+          <g transform="translate(10, 20)">
+            <rect width="200" height="60" rx="3" fill="#ffffff" stroke="#111827" stroke-width="1.2"/>
+            <rect width="200" height="18" rx="3" fill="#1f2937"/>
+            <text x="8" y="13" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#ffffff">Texture Sample</text>
+            <text x="8" y="32" font-family="JetBrains Mono, monospace" font-size="8" fill="#4b5563">T_Teapot_Albedo</text>
+            <text x="175" y="52" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#111827">RGB</text>
+            <circle cx="195" cy="49" r="4" fill="#111827"/>
+          </g>
+
+          <!-- NODO 2: VECTOR PARAMETER (COLOR TINT) -->
+          <g transform="translate(10, 95)">
+            <rect width="200" height="65" rx="3" fill="#ffffff" stroke="#111827" stroke-width="1.2"/>
+            <rect width="200" height="18" rx="3" fill="#1f2937"/>
+            <text x="8" y="13" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#ffffff">Vector Parameter</text>
+            <text x="8" y="32" font-family="JetBrains Mono, monospace" font-size="8" fill="#4b5563">Color_Tint</text>
+            <!-- Muestra de color actual -->
+            <rect x="8" y="40" width="130" height="14" rx="2" :fill="currentTint" stroke="#9ca3af" stroke-width="0.8"/>
+            <text x="175" y="52" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#111827">RGB</text>
+            <circle cx="195" cy="49" r="4" fill="#111827"/>
+          </g>
+
+          <!-- NODO 3: SCALAR PARAMETER (METALLIC) -->
+          <g transform="translate(10, 175)">
+            <rect width="200" height="38" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+            <rect width="200" height="16" rx="3" fill="#374151"/>
+            <text x="8" y="12" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" fill="#ffffff">Scalar: Metallic</text>
+            <text x="8" y="29" font-family="JetBrains Mono, monospace" font-size="8" fill="#111827">Valor: {{ metallic.toFixed(2) }}</text>
+            <circle cx="195" cy="27" r="3.5" fill="#4b5563"/>
+          </g>
+
+          <!-- NODO 4: SCALAR PARAMETER (ROUGHNESS) -->
+          <g transform="translate(10, 222)">
+            <rect width="200" height="38" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+            <rect width="200" height="16" rx="3" fill="#374151"/>
+            <text x="8" y="12" font-family="Inter, sans-serif" font-size="8.5" font-weight="700" fill="#ffffff">Scalar: Roughness</text>
+            <text x="8" y="29" font-family="JetBrains Mono, monospace" font-size="8" fill="#111827">Valor: {{ roughness.toFixed(2) }}</text>
+            <circle cx="195" cy="27" r="3.5" fill="#4b5563"/>
+          </g>
+
+          <!-- NODO 5: NORMAL FLATTEN / STRENGTH -->
+          <g transform="translate(10, 267)">
+            <rect width="200" height="30" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+            <rect width="200" height="14" rx="3" fill="#374151"/>
+            <text x="8" y="11" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#ffffff">Normal Strength</text>
+            <text x="8" y="24" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#111827">Escala: {{ normalStrength.toFixed(1) }}x</text>
+            <circle cx="195" cy="22" r="3.5" fill="#4b5563"/>
+          </g>
+
+          <!-- ================= NODO CENTRAL: MULTIPLY ================= -->
+          <g transform="translate(290, 40)">
+            <rect width="120" height="65" rx="3" fill="#ffffff" stroke="#111827" stroke-width="1.2"/>
+            <rect width="120" height="18" rx="3" fill="#111827"/>
+            <text x="60" y="13" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" fill="#ffffff">Multiply</text>
+            <!-- Entrada A -->
+            <circle cx="10" cy="30" r="4" fill="#111827"/>
+            <text x="20" y="33" font-family="JetBrains Mono, monospace" font-size="8" fill="#111827">A (Textura)</text>
+            <!-- Entrada B -->
+            <circle cx="10" cy="50" r="4" fill="#111827"/>
+            <text x="20" y="53" font-family="JetBrains Mono, monospace" font-size="8" fill="#111827">B (Tinte)</text>
+            <!-- Salida Result -->
+            <circle cx="110" cy="40" r="4" fill="#111827"/>
+            <text x="75" y="43" font-family="JetBrains Mono, monospace" font-size="8" fill="#111827">Out</text>
+          </g>
+
+          <!-- ================= NODO DERECHA: MASTER NODE ================= -->
+          <g transform="translate(520, 20)">
+            <rect width="230" height="240" rx="3" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+            <rect width="230" height="22" rx="3" fill="#111827"/>
+            <text x="115" y="15" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle" fill="#ffffff">M_Master_PBR (Root)</text>
             
-            <!-- NODO 1: TEXTURE SAMPLE -->
-            <div class="ue-node">
-              <div class="node-titlebar title-texture">Texture Sample</div>
-              <div class="node-content">
-                <div class="node-param-name">T_Teapot_Albedo</div>
-                <div class="pin-row right">
-                  <span class="pin-name">RGB</span>
-                  <span class="pin-dot white"></span>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">R</span>
-                  <span class="pin-dot red"></span>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">G</span>
-                  <span class="pin-dot green"></span>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">B</span>
-                  <span class="pin-dot blue"></span>
-                </div>
-              </div>
-            </div>
+            <!-- Pines de entrada -->
+            <g transform="translate(10, 40)">
+              <circle cx="4" cy="0" r="4" fill="#111827"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#111827">Base Color</text>
+            </g>
 
-            <!-- NODO 2: VECTOR PARAMETER -->
-            <div class="ue-node">
-              <div class="node-titlebar title-param">Vector Parameter</div>
-              <div class="node-content">
-                <div class="node-param-name">Color_Tint</div>
-                <div class="color-swatch-box" :style="{ background: currentTint }"></div>
-                <div class="pin-row right">
-                  <span class="pin-name">RGB</span>
-                  <span class="pin-dot white"></span>
-                </div>
-              </div>
-            </div>
+            <g transform="translate(10, 65)">
+              <circle cx="4" cy="0" r="4" fill="#4b5563"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#111827">Metallic</text>
+            </g>
 
-            <!-- NODO 3: SCALAR PARAMETER METALLIC -->
-            <div class="ue-node">
-              <div class="node-titlebar title-scalar">Scalar Parameter</div>
-              <div class="node-content">
-                <div class="node-param-name">Metallic</div>
-                <div class="inline-slider">
-                  <input type="range" min="0" max="1" step="0.01" v-model.number="metallic" @input="updateShader" />
-                  <code>{{ metallic.toFixed(2) }}</code>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">Out</span>
-                  <span class="pin-dot gray"></span>
-                </div>
-              </div>
-            </div>
+            <g transform="translate(10, 90)">
+              <circle cx="4" cy="0" r="3" fill="#d1d5db"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8" fill="#9ca3af">Specular</text>
+            </g>
 
-            <!-- NODO 4: SCALAR PARAMETER ROUGHNESS -->
-            <div class="ue-node">
-              <div class="node-titlebar title-scalar">Scalar Parameter</div>
-              <div class="node-content">
-                <div class="node-param-name">Roughness</div>
-                <div class="inline-slider">
-                  <input type="range" min="0" max="1" step="0.01" v-model.number="roughness" @input="updateShader" />
-                  <code>{{ roughness.toFixed(2) }}</code>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">Out</span>
-                  <span class="pin-dot gray"></span>
-                </div>
-              </div>
-            </div>
+            <g transform="translate(10, 115)">
+              <circle cx="4" cy="0" r="4" fill="#4b5563"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#111827">Roughness</text>
+            </g>
 
-            <!-- NODO 5: NORMAL STRENGTH -->
-            <div class="ue-node">
-              <div class="node-titlebar title-normal">Normal Strength (Flatten)</div>
-              <div class="node-content">
-                <div class="node-param-name">Normal_Scale</div>
-                <div class="inline-slider">
-                  <input type="range" min="0" max="3" step="0.1" v-model.number="normalStrength" @input="updateShader" />
-                  <code>{{ normalStrength.toFixed(1) }}x</code>
-                </div>
-                <div class="pin-row right">
-                  <span class="pin-name">Out</span>
-                  <span class="pin-dot gray"></span>
-                </div>
-              </div>
-            </div>
+            <g transform="translate(10, 140)">
+              <circle cx="4" cy="0" r="3" fill="#d1d5db"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8" fill="#9ca3af">Emissive Color</text>
+            </g>
 
-          </div>
+            <g transform="translate(10, 165)">
+              <circle cx="4" cy="0" r="4" fill="#4b5563"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#111827">Normal</text>
+            </g>
 
-          <!-- COLUMNA CENTRAL: MULTIPLY -->
-          <div class="nodes-col mid-col">
-            <div class="ue-node math-node">
-              <div class="node-titlebar title-math">Multiply</div>
-              <div class="node-content">
-                <div class="pins-split">
-                  <div class="left-pins">
-                    <div class="pin-row left">
-                      <span class="pin-dot white"></span>
-                      <span class="pin-name">A</span>
-                    </div>
-                    <div class="pin-row left">
-                      <span class="pin-dot white"></span>
-                      <span class="pin-name">B</span>
-                    </div>
-                  </div>
-                  <div class="right-pins">
-                    <div class="pin-row right">
-                      <span class="pin-name">Result</span>
-                      <span class="pin-dot white"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <g transform="translate(10, 190)">
+              <circle cx="4" cy="0" r="3" fill="#d1d5db"/>
+              <text x="14" y="3" font-family="JetBrains Mono, monospace" font-size="8" fill="#9ca3af">Ambient Occlusion</text>
+            </g>
+          </g>
 
-          <!-- COLUMNA DERECHA: MASTER MATERIAL NODE -->
-          <div class="nodes-col right-col">
-            <div class="ue-node master-node">
-              <div class="node-titlebar title-master">M_Master_PBR</div>
-              <div class="node-content">
-                <div class="pin-row left active-input">
-                  <span class="pin-dot white"></span>
-                  <span class="pin-name highlight">Base Color</span>
-                </div>
-                <div class="pin-row left active-input">
-                  <span class="pin-dot gray"></span>
-                  <span class="pin-name highlight">Metallic</span>
-                </div>
-                <div class="pin-row left">
-                  <span class="pin-dot dark-dot"></span>
-                  <span class="pin-name dim">Specular</span>
-                </div>
-                <div class="pin-row left active-input">
-                  <span class="pin-dot gray"></span>
-                  <span class="pin-name highlight">Roughness</span>
-                </div>
-                <div class="pin-row left">
-                  <span class="pin-dot dark-dot"></span>
-                  <span class="pin-name dim">Emissive Color</span>
-                </div>
-                <div class="pin-row left">
-                  <span class="pin-dot dark-dot"></span>
-                  <span class="pin-name dim">Opacity</span>
-                </div>
-                <div class="pin-row left active-input">
-                  <span class="pin-dot gray"></span>
-                  <span class="pin-name highlight">Normal</span>
-                </div>
-                <div class="pin-row left">
-                  <span class="pin-dot dark-dot"></span>
-                  <span class="pin-name dim">Ambient Occlusion</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        </svg>
       </div>
     </div>
   </div>
@@ -305,7 +288,7 @@ const initThree = async () => {
   if (!container) return;
 
   const width = container.clientWidth || 600;
-  const height = 280;
+  const height = 260;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x18181b);
@@ -406,7 +389,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.ue-material-studio {
+.technical-figure {
   border: 1px solid #d1d5db;
   border-radius: 4px;
   margin: 18px 0;
@@ -415,7 +398,7 @@ onBeforeUnmount(() => {
   color: #111827;
 }
 
-.studio-header {
+.figure-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -439,39 +422,59 @@ onBeforeUnmount(() => {
 
 .canvas-wrapper {
   width: 100%;
-  height: 280px;
+  height: 260px;
 }
 
-/* TOOLBAR CON COLOR PICKER */
-.viewport-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 16px;
-  background: #f9fafb;
+/* PANEL DE CONTROLES: EXACTO AL FORMATO DE IMAGEN 2 */
+.controls-grid {
+  padding: 14px;
+  background: #ffffff;
   border-top: 1px solid #e5e7eb;
   border-bottom: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-.toolbar-item {
+.control-card {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.toolbar-label {
+.control-label {
+  display: flex;
+  justify-content: space-between;
   font-size: 11.5px;
   font-weight: 600;
   color: #111827;
 }
 
-.color-picker-wrapper {
+.control-label code {
+  color: #111827;
+  font-size: 10.5px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #111827;
+  cursor: pointer;
+}
+
+.hints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #6b7280;
+}
+
+.picker-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.color-input {
+.color-picker {
   -webkit-appearance: none;
   border: 1px solid #d1d5db;
   width: 26px;
@@ -481,231 +484,60 @@ onBeforeUnmount(() => {
   background: none;
   padding: 0;
 }
-.color-input::-webkit-color-swatch-wrapper { padding: 0; }
-.color-input::-webkit-color-swatch { border: none; border-radius: 2px; }
+.color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+.color-picker::-webkit-color-swatch { border: none; border-radius: 2px; }
 
-.hex-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #111827;
-  background: #ffffff;
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid #d1d5db;
-}
-
-.toolbar-presets {
+.preset-list {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.preset-label {
-  font-size: 11px;
-  color: #6b7280;
-}
-
-.preset-btn {
-  width: 20px;
-  height: 20px;
+.preset-circle {
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1px solid #9ca3af;
   cursor: pointer;
   transition: transform 0.15s, border-color 0.15s;
 }
-.preset-btn.selected {
+
+.preset-circle.active {
   border: 2px solid #111827;
   transform: scale(1.15);
 }
 
-/* MATERIAL GRAPH EN UNREAL ENGINE (ESTILO AUTÉNTICO) */
-.graph-editor {
-  background: #18181b;
-  padding: 12px;
-  position: relative;
-  color: #f4f4f5;
+/* ESQUEMA TÉCNICO DE NODOS BLANCO Y NEGRO */
+.schematic-section {
+  background: #f9fafb;
+  padding: 12px 14px;
 }
 
-.graph-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid #27272a;
-}
-
-.graph-title {
+.schematic-header {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  color: #f4f4f5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #111827;
+  margin-bottom: 8px;
 }
 
-.graph-tip {
-  font-size: 10.5px;
-  color: #a1a1aa;
-}
-
-.graph-canvas {
-  position: relative;
-  min-height: 430px;
-  background-color: #121214;
-  background-image: 
-    linear-gradient(#1f1f23 1px, transparent 1px),
-    linear-gradient(90deg, #1f1f23 1px, transparent 1px);
-  background-size: 20px 20px;
-  border: 1px solid #27272a;
+.schematic-canvas {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 3px;
-  padding: 12px;
+  padding: 8px;
   overflow-x: auto;
 }
 
-.wires-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 1;
+.wires-svg {
+  display: block;
 }
 
-.nodes-container {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 190px 150px 220px;
-  gap: 45px;
-}
-
-.nodes-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* NODO UNREAL ENGINE */
-.ue-node {
-  background: #1e1e24;
-  border: 1px solid #333338;
-  border-radius: 3px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  font-size: 9.5px;
-}
-
-.node-titlebar {
-  padding: 3px 6px;
-  font-weight: 700;
-  font-size: 9.5px;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  color: #f4f4f5;
-}
-
-/* TONOS SUTILES AUTÉNTICOS DE UNREAL ENGINE */
-.title-texture { background: #16382c; border-bottom: 1px solid #1f4e3d; }
-.title-param { background: #1b2a4a; border-bottom: 1px solid #263c68; }
-.title-scalar { background: #26262b; border-bottom: 1px solid #383840; }
-.title-normal { background: #2f1d44; border-bottom: 1px solid #432961; }
-.title-math { background: #2a2a30; border-bottom: 1px solid #3a3a42; text-align: center; }
-.title-master { background: #4a1924; border-bottom: 1px solid #662232; }
-
-.node-content {
-  padding: 5px 7px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.node-param-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  color: #a1a1aa;
-  margin-bottom: 2px;
-}
-
-.color-swatch-box {
-  width: 100%;
-  height: 12px;
-  border-radius: 2px;
-  border: 1px solid #52525b;
-  margin-bottom: 2px;
-}
-
-.inline-slider {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.inline-slider input {
-  flex: 1;
-  accent-color: #d4d4d8;
-  height: 3px;
-  cursor: pointer;
-}
-
-.inline-slider code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  color: #e4e4e7;
-  width: 26px;
-  text-align: right;
-}
-
-/* PINS & DOTS */
-.pin-row {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 9px;
-  color: #d4d4d8;
-}
-
-.pin-row.right {
-  justify-content: flex-end;
-}
-
-.pin-row.left {
-  justify-content: flex-start;
-}
-
-.pin-row.active-input .pin-name {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.pin-row .dim {
-  color: #52525b;
-}
-
-.pin-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  display: inline-block;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-
-.pin-dot.white { background: #e4e4e7; }
-.pin-dot.red { background: #ef4444; }
-.pin-dot.green { background: #22c55e; }
-.pin-dot.blue { background: #3b82f6; }
-.pin-dot.gray { background: #9ca3af; }
-.pin-dot.dark-dot { background: #3f3f46; border-color: #27272a; }
-
-.pins-split {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-@media (max-width: 900px) {
-  .nodes-container {
+@media (max-width: 768px) {
+  .controls-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .wires-layer {
-    display: none;
   }
 }
 </style>

@@ -8,7 +8,7 @@ tags:
 date: 2026-08-18
 ---
 
-# 🧱 Fundamentos PBR y Mapas de Textura
+# Fundamentos PBR y Mapas de Textura
 
 El renderizado basado en la física (**PBR - Physically Based Rendering**) es el estándar moderno en videojuegos para describir cómo los materiales reaccionan a la luz de manera coherente en cualquier condición lumínica (día, noche, interiores o antorchas).
 

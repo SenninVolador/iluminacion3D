@@ -9,15 +9,15 @@ tags:
 date: 2026-08-18
 ---
 
-# 🎓 Clase 02: Taller 3-Point Lighting, Sol, Cielo, Movilidad y Análisis en Juegos
+# Clase 02: Taller 3-Point Lighting, Sol, Cielo, Movilidad y Análisis en Juegos
 
 Esta sesión se divide en cuatro bloques progresivos: la práctica directa del esquema clásico en Unreal Engine, el salto a la iluminación de exteriores con Sol y Cielo, el dominio de la movilidad técnica de luces, y el análisis de casos reales en la industria de los videojuegos.
 
 ---
 
-## 🛠️ Bloque 1: Taller Práctico - Iluminando un Objeto con 3-Point Lighting
+## Bloque 1: Taller Práctico - Iluminando un Objeto con 3-Point Lighting
 
-### 🎯 Objetivo:
+### Objetivo:
 Esculpir volumen, contraste y silueta en un modelo 3D (busto, esfera o personaje) partiendo desde la oscuridad absoluta.
 
 ```
@@ -43,7 +43,7 @@ Esculpir volumen, contraste y silueta en un modelo 3D (busto, esfera o personaje
                           [ CÁMARA ]
 ```
 
-### 📋 Paso a Paso en Unreal Engine:
+### Paso a Paso en Unreal Engine:
 1. **Preparar el Escenario**:
    * Crear un nivel vacío (`File -> New Level -> Empty Level`).
    * Añadir un plano de suelo (`Plane`) y colocar un objeto de prueba en el centro (coordenadas $0, 0, 0$).
@@ -61,16 +61,16 @@ Esculpir volumen, contraste y silueta en un modelo 3D (busto, esfera o personaje
 
 ---
 
-## ☀️ Bloque 2: Iluminando el Exterior (Directional Light + Sky Light)
+## Bloque 2: Iluminando el Exterior (Directional Light + Sky Light)
 
 En la naturaleza, un día soleado no está iluminado por bombillas locales, sino por un sistema dual: **Luz Solar Directa + Luz Difusa del Cielo**.
 
 ```
-                ☀️ [ DIRECTIONAL LIGHT ] (Sol)
+                 [ DIRECTIONAL LIGHT ] (Sol)
                 Rayos directos, paralelos y sombras duras
                            │
                            │   ┌───────────────────────────┐
-                           │   │  🌌 [ SKY LIGHT ] (Cielo) │
+                           │   │   [ SKY LIGHT ] (Cielo) │
                            │   │  Luz ambiental hemisférica│
                            │   │  Relleno azul en sombras  │
                            ▼   └─────────────┬─────────────┘
@@ -90,7 +90,7 @@ En la naturaleza, un día soleado no está iluminado por bombillas locales, sino
 
 ---
 
-## ⚙️ Bloque 3: El Gran Dilema Técnico - Movilidad de Luces
+## Bloque 3: El Gran Dilema Técnico - Movilidad de Luces
 
 En videojuegos, no todas las luces se calculan igual. Debemos elegir la movilidad según el tipo de juego y la plataforma:
 
@@ -98,37 +98,37 @@ En videojuegos, no todas las luces se calculan igual. Debemos elegir la movilida
 ┌───────────────┬───────────────────────────────┬───────────────────────────────┐
 │   MOVILIDAD   │ ¿CÓMO SE CALCULA?             │ CUÁNDO USARLA                 │
 ├───────────────┼───────────────────────────────┼───────────────────────────────┤
-│ 🪨 STATIC     │ 100% precalculada en texturas │ Juegos móviles, VR a 90 FPS,  │
+│  STATIC     │ 100% precalculada en texturas │ Juegos móviles, VR a 90 FPS,  │
 │    (Estática) │ (Lightmaps). Cero coste GPU   │ entornos inmutables.          │
 ├───────────────┼───────────────────────────────┼───────────────────────────────┤
-│ ⚖️ STATIONARY │ Híbrida: Luz directa dinámica  │ Entornos cerrados con luces   │
+│  STATIONARY │ Híbrida: Luz directa dinámica  │ Entornos cerrados con luces   │
 │ (Estacionaria)│ + rebotes y sombras baked.    │ fijas que cambian de color.   │
 ├───────────────┼───────────────────────────────┼───────────────────────────────┤
-│ 🏃 MOVABLE    │ 100% tiempo real fotograma a  │ UE5 con Lumen, linternas,     │
+│  MOVABLE    │ 100% tiempo real fotograma a  │ UE5 con Lumen, linternas,     │
 │   (Dinámica)  │ fotograma. Máxima libertad.   │ ciclos día/noche, proyectiles.│
 └───────────────┴───────────────────────────────┴───────────────────────────────┘
 ```
 
 ---
 
-## 🎮 Bloque 4: Análisis de Casos Reales en la Industria
+## Bloque 4: Análisis de Casos Reales en la Industria
 
 Veamos cómo grandes estudios han resuelto la iluminación según sus necesidades artísticas y técnicas:
 
-### 1. 🌿 *The Last of Us Part I & II* (Naughty Dog)
+### 1.  *The Last of Us Part I & II* (Naughty Dog)
 * **Técnica reina**: **Baking de máxima fidelidad y Lightmaps de ultra resolución**.
 * **¿Por qué?**: El juego busca un fotorrealismo cinematográfico desolador en interiores cubiertos de vegetación. Precalcular los rebotes de luz indirecta permite una suavidad física perfecta en las sombras sin ahogar la GPU de la consola.
 * **Elemento dinámico**: La linterna de Joel/Ellie es una `Spot Light Movable` con sombras dinámicas que rompe la oscuridad de forma aterradora.
 
-### 2. 🏙️ *Cyberpunk 2077* (CD Projekt RED)
+### 2.  *Cyberpunk 2077* (CD Projekt RED)
 * **Técnica reina**: **Iluminación Dinámica + Ray Tracing / Path Tracing**.
 * **¿Por qué?**: Night City es un entorno urbano denso con cientos de pantallas emisivas, neones parpadeantes, lluvia con charcos reflectantes y ciclo día/noche continuo. El baking sería imposible debido al dinamismo total de la ciudad.
 
-### 3. 🗡️ *The Legend of Zelda: Tears of the Kingdom* (Nintendo)
+### 3.  *The Legend of Zelda: Tears of the Kingdom* (Nintendo)
 * **Técnica reina**: **Directional Light + Sky Light estilizado + Sombras en cascada optimizadas**.
 * **¿Por qué?**: Nintendo Switch tiene una potencia gráfica limitada. El equipo diseñó una luz direccional muy limpia combinada con un shader cel-shading que aprovecha el contraste de colores complementarios (cielos azules dorados y sombras celestes).
 
-### 4. 🧟 *Resident Evil 2 & 4 Remake* (Capcom - RE Engine)
+### 4.  *Resident Evil 2 & 4 Remake* (Capcom - RE Engine)
 * **Técnica reina**: **Contraste Extremo, Niebla Volumétrica y Linterna de Protagonista**.
 * **¿Por qué?**: El terror se basa en la **ausencia de luz**. La luz direccional exterior casi no existe; todo se construye con pequeñas fuentes de luz puntuales temblorosas y la linterna del jugador que interactúa con el humo y la niebla volumétrica.
 

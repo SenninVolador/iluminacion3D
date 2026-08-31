@@ -7,13 +7,13 @@ tags:
 date: 2026-08-18
 ---
 
-# ⚡ Optimización de Iluminación y Profiling en UE5
+# Optimización de Iluminación y Profiling en UE5
 
 En el desarrollo de videojuegos, la iluminación suele ser uno de los mayores consumidores de tiempo de GPU. Como Lighting Artist o Technical Artist, es fundamental medir, diagnosticar y optimizar el coste de cada luz.
 
 ---
 
-## ⏱️ 1. Comandos de Consola y Herramientas de Medición
+## 1. Comandos de Consola y Herramientas de Medición
 
 Para diagnosticar el rendimiento en tiempo real dentro del editor o durante la ejecución:
 
@@ -26,7 +26,7 @@ Para diagnosticar el rendimiento en tiempo real dentro del editor o durante la e
 
 ---
 
-## 🎯 2. Los 4 Grandes Consumidores de Rendimiento en Iluminación
+## 2. Los 4 Grandes Consumidores de Rendimiento en Iluminación
 
 ### A. Sombras Dinámicas (Shadow Casting)
 Proyectar sombras dinámicas requiere renderizar la geometría de la escena desde el punto de vista de la luz hacia un mapa de sombras (*Shadow Map Pass*).
@@ -37,9 +37,9 @@ Proyectar sombras dinámicas requiere renderizar la geometría de la escena desd
 
 ### B. Solapamiento de Luces (Light Overlap / Light Complexity)
 * Presiona `Alt + 8` en el viewport para activar la vista **Light Complexity**:
-  * 🟩 **Verde**: 1-2 luces solapadas (Excelente).
-  * 🟧 **Naranja**: 3-4 luces solapadas (Aceptable).
-  * 🟥 **Rojo / Blanco**: 5+ luces solapadas en el mismo píxel (Sobrecoste severo / Shader Overdraw).
+  *  **Verde**: 1-2 luces solapadas (Excelente).
+  *  **Naranja**: 3-4 luces solapadas (Aceptable).
+  *  **Rojo / Blanco**: 5+ luces solapadas en el mismo píxel (Sobrecoste severo / Shader Overdraw).
 
 ### C. Niebla Volumétrica Excesiva
 * La niebla volumétrica renderiza sobre una cuadrícula 3D.
@@ -52,7 +52,7 @@ Proyectar sombras dinámicas requiere renderizar la geometría de la escena desd
 
 ---
 
-## 📋 Checklist de Optimización para Escenas
+## Checklist de Optimización para Escenas
 
 - [ ] ¿Todas las luces que no necesitan proyectar sombras tienen `Cast Shadows = False`?
 - [ ] ¿Los radios de atenuación (`Attenuation Radius`) están ajustados al mínimo necesario sin invadir habitaciones contiguas?

@@ -7,13 +7,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 🌐 Lumen vs. Baked Lighting en Unreal Engine 5
+# Lumen vs. Baked Lighting en Unreal Engine 5
 
 La iluminación global (GI) simula cómo la luz rebota en las superficies, tiñendo el entorno (*color bleeding*) y rellenando los interiores de forma natural. En Unreal Engine 5 existen dos filosofías principales: **Lumen (Dinámico)** y **Lightmass (Horneado / Baked)**.
 
 ---
 
-## ⚡ 1. Lumen: Iluminación Global y Reflejos en Tiempo Real
+## 1. Lumen: Iluminación Global y Reflejos en Tiempo Real
 
 Lumen es el sistema de iluminación global y reflejos dinámico de UE5. Diseñado para trabajar de la mano con **Nanite** y **Virtual Shadow Maps (VSM)**.
 
@@ -45,7 +45,7 @@ Lumen combina varias técnicas para resolver rebotes de luz sin necesidad de har
 
 ---
 
-## 🍞 2. Baked Lighting (Lightmass / GPU Lightmass)
+## 2. Baked Lighting (Lightmass / GPU Lightmass)
 
 El método tradicional donde una herramienta externa (CPU Lightmass o GPU Lightmass) simula millones de fotones mediante *Path Tracing* antes del juego y guarda el resultado en mapas de textura (**Lightmaps**).
 
@@ -62,7 +62,7 @@ El método tradicional donde una herramienta externa (CPU Lightmass o GPU Lightm
 
 ---
 
-## ⚖️ Cuadro Comparativo
+## Cuadro Comparativo
 
 | Característica | Lumen (Tiempo Real) | GPU / CPU Lightmass (Baking) |
 | :--- | :--- | :--- |
@@ -74,7 +74,7 @@ El método tradicional donde una herramienta externa (CPU Lightmass o GPU Lightm
 
 ---
 
-## 🛠️ Modos de Depuración de Lumen en UE5
+## Modos de Depuración de Lumen en UE5
 
 Para inspeccionar cómo ve Lumen tu nivel, en el viewport ve a:
 `View Mode (Lit) -> Lumen`:

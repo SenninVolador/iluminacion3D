@@ -1,10 +1,10 @@
-# 📐 Guía de Estilo y Sistema de Diseño Editorial
+# Guía de Estilo y Sistema de Diseño Editorial
 
 Sistema de diseño gráfico editorial y sobrio para las fichas y PDFs del curso de **Iluminación 3D y Shaders para Videojuegos**.
 
 ---
 
-## 🏛️ 1. Filosofía de Diseño
+## 1. Filosofía de Diseño
 
 * **Menos es más**: Inspirado en el diseño suizo y la documentación técnica de ingeniería (Braun, Dieter Rams, manuales de arquitectura).
 * **Sin artificios de IA**: Prohibidos los degradados estridentes, tarjetas oscuras saturadas de color neón y badges tipo píldora de arcoíris.
@@ -12,7 +12,7 @@ Sistema de diseño gráfico editorial y sobrio para las fichas y PDFs del curso 
 
 ---
 
-## 🎨 2. Paleta Monocromática y Neutra
+## 2. Paleta Monocromática y Neutra
 
 | Elemento | Código HEX | Función |
 | :--- | :--- | :--- |
@@ -25,7 +25,7 @@ Sistema de diseño gráfico editorial y sobrio para las fichas y PDFs del curso 
 
 ---
 
-## 🔤 3. Tipografía y Estructura
+## 3. Tipografía y Estructura
 
 * **Tipografía**: `Inter` / `Helvetica` / `-apple-system`.
 * **Código y Atajos**: `JetBrains Mono` o `Consolas`.

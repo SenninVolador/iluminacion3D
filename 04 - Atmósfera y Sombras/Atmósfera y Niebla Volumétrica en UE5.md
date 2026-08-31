@@ -7,13 +7,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 🌫️ Atmósfera, Cielo y Niebla Volumétrica en UE5
+# Atmósfera, Cielo y Niebla Volumétrica en UE5
 
 El sistema de atmósfera y niebla en Unreal Engine 5 proporciona profundidad, escala planetaria, perspectiva aérea y dramatismo cinematográfico mediante dispersión de luz basada en física real (*Rayleigh & Mie Scattering*).
 
 ---
 
-## 🧩 El Stack de Iluminación Ambiental Exterior (Los 5 Actores Clave)
+## El Stack de Iluminación Ambiental Exterior (Los 5 Actores Clave)
 
 Para crear un entorno exterior realista en UE5, siempre se combinan estos 5 componentes en el nivel:
 
@@ -25,7 +25,7 @@ Para crear un entorno exterior realista en UE5, siempre se combinan estos 5 comp
 
 ---
 
-## 🔬 1. SkyAtmosphere: Física del Cielo
+## 1. SkyAtmosphere: Física del Cielo
 
 Simula la atmósfera de la Tierra (o de planetas alienígenas) calculando cómo la luz solar interactúa con las moléculas de aire:
 
@@ -40,11 +40,11 @@ Simula la atmósfera de la Tierra (o de planetas alienígenas) calculando cómo 
 
 ---
 
-## 🌫️ 2. Exponential Height Fog y Volumetric Fog
+## 2. Exponential Height Fog y Volumetric Fog
 
 El actor **Exponential Height Fog** agrega densidad de niebla basada en la altitud (más densa en los valles, más clara en las cumbres).
 
-### 💡 Activación de Niebla Volumétrica (Volumetric Fog)
+### Activación de Niebla Volumétrica (Volumetric Fog)
 Al activar la casilla `Volumetric Fog` dentro del componente:
 1. El motor divide el cono de visión de la cámara en una cuadrícula 3D de vóxeles (*Frustum Voxel Grid*).
 2. Cada luz (Point, Spot, Directional) puede iluminar e interactuar físicamente con esas partículas de niebla.
@@ -61,7 +61,7 @@ Al activar la casilla `Volumetric Fog` dentro del componente:
 
 ---
 
-## ⚙️ Control por Luz de la Niebla Volumétrica
+## Control por Luz de la Niebla Volumétrica
 
 Cada luz individual en tu nivel tiene dos parámetros específicos para afinar su impacto volumétrico:
 

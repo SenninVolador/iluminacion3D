@@ -7,13 +7,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 👁️ Lenguaje Visual y Guía al Jugador (Player Guidance)
+# Lenguaje Visual y Guía al Jugador (Player Guidance)
 
 En el diseño de niveles y arte de videojuegos, la luz no solo sirve para que el escenario sea visible; es la herramienta psicológica y visual más potente para **guiar al jugador de forma intuitiva sin necesidad de interfaces intrusivas (diegetic guidance)**.
 
 ---
 
-## 🧭 1. El Ojo Humano y el Principio de Atracción Lumínica
+## 1. El Ojo Humano y el Principio de Atracción Lumínica
 
 El ojo humano en cualquier encuadre o videojuego siempre busca automáticamente:
 1. **El punto de mayor contraste de luminancia** (zona más brillante rodeada de sombra).
@@ -22,7 +22,7 @@ El ojo humano en cualquier encuadre o videojuego siempre busca automáticamente:
 
 ---
 
-## 🛠️ 2. Técnicas Fundamentales de Guía Visual
+## 2. Técnicas Fundamentales de Guía Visual
 
 ### A. El "Efecto Polilla" (Puntos Focales de Salida)
 * Ilumina las puertas, pasillos clave o puntos de interés (*Points of Interest - POI*) con una intensidad notablemente superior al resto de la habitación.
@@ -44,7 +44,7 @@ El ojo humano en cualquier encuadre o videojuego siempre busca automáticamente:
 
 ---
 
-## 🎭 3. Las Tres Funciones de la Iluminación en Juegos
+## 3. Las Tres Funciones de la Iluminación en Juegos
 
 ```
            ┌─────────────────────────────────────────┐

@@ -8,13 +8,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 🎬 Exposición, Color Grading y ACES en UE5
+# Exposición, Color Grading y ACES en UE5
 
 El **PostProcessVolume** es el lente de la cámara en Unreal Engine. Define cómo la información física de luz (HDR en espacio lineal) se convierte en la imagen final visible en la pantalla (SDR / HDR display).
 
 ---
 
-## 👁️ 1. Exposición y Adaptación Ocular (Auto Exposure)
+## 1. Exposición y Adaptación Ocular (Auto Exposure)
 
 En la vida real, los ojos (o el sensor de una cámara) se adaptan al pasar de un exterior brillante a una cueva oscura.
 
@@ -33,7 +33,7 @@ En la vida real, los ojos (o el sensor de una cámara) se adaptan al pasar de un
 
 ---
 
-## 🎨 2. Tonemapping y ACES en Unreal Engine
+## 2. Tonemapping y ACES en Unreal Engine
 
 Unreal Engine 5 utiliza una curva de mapeo tonal basada en **ACES (Academy Color Encoding System)** por defecto.
 
@@ -48,7 +48,7 @@ Convierte los valores lineales de alto rango dinámico ($[0, \infty)$) al rango 
 
 ---
 
-## 🌈 3. Color Grading y LUTs
+## 3. Color Grading y LUTs
 
 El Color Grading permite establecer el tono emocional de una escena (terror, misterio, calidez veraniega, ciencia ficción ciberpunk).
 
@@ -63,7 +63,7 @@ El Color Grading permite establecer el tono emocional de una escena (terror, mis
 
 ---
 
-## 🔮 4. Bloom (Resplandor)
+## 4. Bloom (Resplandor)
 
 El resplandor se produce cuando la luz excede el rango dinámico de la cámara y "sangra" en las lentes.
 

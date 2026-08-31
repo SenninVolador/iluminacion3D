@@ -15,7 +15,7 @@ Estudio de Iluminación de 3 Puntos y Shader Paramétrico PBR en Unreal Engine 5
 
 ---
 
-## 🎯 Descripción del Encargo
+## Descripción del Encargo
 
 El estudiante debe configurar un **estudio de iluminación de 3 puntos (Key, Fill, Rim)** sobre un elemento central (busto o prop 3D) dentro de un nivel vacío en Unreal Engine 5. 
 
@@ -23,7 +23,7 @@ Adicionalmente, deberá construir y asignar un **Master Material PBR** que dispo
 
 ---
 
-## 📦 Requisitos de Entrega
+## Requisitos de Entrega
 
 1. **Escena en Unreal Engine 5**: Nivel limpio con fondo neutro o ciclorama oscuro y cámara encuadrada.
 2. **Esquema de 3 Puntos**: Tres emisores configurados con roles claros (Key Light, Fill Light y Rim Light).
@@ -39,7 +39,7 @@ Adicionalmente, deberá construir y asignar un **Master Material PBR** que dispo
 
 ---
 
-## 📊 Matriz de Evaluación Detallada (60 Puntos)
+## Matriz de Evaluación Detallada (60 Puntos)
 
 | Criterio | Excelente (100%) | Bueno (75%) | Suficiente (50%) | Insuficiente (0-25%) | Puntaje |
 | :--- | :--- | :--- | :--- | :--- | :---: |
@@ -52,7 +52,7 @@ Adicionalmente, deberá construir y asignar un **Master Material PBR** que dispo
 
 ---
 
-## 📈 Tabla de Conversión de Puntaje a Nota (Escala 1.0 – 7.0 al 60%)
+## Tabla de Conversión de Puntaje a Nota (Escala 1.0 – 7.0 al 60%)
 
 | Puntaje | Nota | Nivel de Desempeño |
 | :---: | :---: | :--- |

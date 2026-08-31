@@ -117,7 +117,7 @@ Escala física que describe el tono cromático de una fuente luminosa:
   <MobilityViewer />
 </ClientOnly>
 
-> **Regla de los 4 Canales (Stationary Overlap)**: En Unreal clásico solo pueden solaparse un máximo de 4 luces Stationary con sombras sobre un mismo objeto (canales RGBA de la memoria de sombras). Si se añade una quinta luz, se marca con una cruz roja (`❌`) y pasa automáticamente a modo Movable, duplicando el consumo en GPU.
+> **Regla de los 4 Canales (Stationary Overlap)**: En Unreal clásico solo pueden solaparse un máximo de 4 luces Stationary con sombras sobre un mismo objeto (canales RGBA de la memoria de sombras). Si se añade una quinta luz, se marca con una cruz roja (``) y pasa automáticamente a modo Movable, duplicando el consumo en GPU.
 
 ---
 

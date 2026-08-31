@@ -7,7 +7,7 @@ tags:
 date: 2026-08-18
 ---
 
-# 🔄 Movilidad de Luces en Unreal Engine
+# Movilidad de Luces en Unreal Engine
 
 En Unreal Engine, cada actor de luz tiene una propiedad fundamental llamada **Mobility** (Movilidad). Esta opción determina cómo se calculan las luces y las sombras, afectando drásticamente la calidad visual y el rendimiento en GPU.
 
@@ -28,7 +28,7 @@ en Run │                 │ (Posición fija)   │ Ángulo, Color...)│
 
 ---
 
-## 1. 🪨 Static (Estática)
+## 1.  Static (Estática)
 
 * **¿Cómo funciona?**: La luz y sus sombras se calculan previamente (Baking) con **Lightmass** y se guardan directamente en las texturas de los objetos (Lightmaps).
 * **Ventajas**:
@@ -41,7 +41,7 @@ en Run │                 │ (Posición fija)   │ Ángulo, Color...)│
 
 ---
 
-## 2. ⚖️ Stationary (Estacionaria)
+## 2.  Stationary (Estacionaria)
 
 * **¿Cómo funciona?**: Enfoque híbrido:
   * **Luz Directa**: Se renderiza dinámicamente en tiempo real (proyecta sombras nítidas sobre personajes y objetos móviles).
@@ -50,13 +50,13 @@ en Run │                 │ (Posición fija)   │ Ángulo, Color...)│
   * Puedes cambiar su **color e intensidad** en tiempo de ejecución (Run-time).
   * **NO puedes mover su posición ni rotación**.
   * Utiliza un canal especial llamado **Distance Field Shadow Maps** para sombras precalculadas nítidas en objetos estáticos.
-* **🚨 Regla de los 4 Canales (Overlap Limit)**:
+* ** Regla de los 4 Canales (Overlap Limit)**:
   * En Unreal (Deferred Renderer clásico), solo pueden solaparse un máximo de **4 luces Stationary que proyecten sombras** en un mismo objeto/espacio (canales RGBA de la máscara de sombras).
-  * Si solapas 5 o más, la luz excedente se convierte automáticamente en **Movable** (con un icono de cruz roja `❌` en el editor), disparando el coste de rendimiento.
+  * Si solapas 5 o más, la luz excedente se convierte automáticamente en **Movable** (con un icono de cruz roja `` en el editor), disparando el coste de rendimiento.
 
 ---
 
-## 3. 🏃 Movable (Dinámica / Móvil)
+## 3.  Movable (Dinámica / Móvil)
 
 * **¿Cómo funciona?**: Se calcula completamente en tiempo real en cada fotograma.
 * **Ventajas**:
@@ -69,7 +69,7 @@ en Run │                 │ (Posición fija)   │ Ángulo, Color...)│
 
 ---
 
-## 🧭 ¿Cuándo usar cada tipo?
+## ¿Cuándo usar cada tipo?
 
 | Escenario | Movilidad Recomendada | Motivo |
 | :--- | :--- | :--- |

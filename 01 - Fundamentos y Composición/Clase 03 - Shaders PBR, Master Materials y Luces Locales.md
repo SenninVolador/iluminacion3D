@@ -12,13 +12,13 @@ tags:
 date: 2026-08-25
 ---
 
-# 🎓 Clase 03: Shaders PBR en el Busto, Master Materials, Sol, Cielo y Luces Locales
+# Clase 03: Shaders PBR en el Busto, Master Materials, Sol, Cielo y Luces Locales
 
 En esta sesión continuamos directamente con el **busto 3D de la Clase 02**: construimos su primer **Master Material PBR** con texturas empaquetadas (ORM), y estudiamos cómo reaccionan sus propiedades físicas al combinarse con **Directional Light (Sol)**, **Sky Light (Cielo)** y luces de acento local (**Point, Spot y Rect Lights**).
 
 ---
 
-## 🧱 Bloque 1: Master Material PBR y Texturas ORM para el Busto
+## Bloque 1: Master Material PBR y Texturas ORM para el Busto
 
 En lugar de usar materiales planos, creamos una arquitectura profesional en Unreal Engine 5 para vestir nuestro modelo:
 
@@ -47,16 +47,16 @@ En lugar de usar materiales planos, creamos una arquitectura profesional en Unre
 
 ---
 
-## ☀️ Bloque 2: El Busto bajo Luz Exterior (Directional + Sky Light)
+## Bloque 2: El Busto bajo Luz Exterior (Directional + Sky Light)
 
 Colocamos el busto en un entorno abierto para analizar la interacción física de la luz natural con el shader:
 
 ```
-                ☀️ [ DIRECTIONAL LIGHT ] (Sol)
+                 [ DIRECTIONAL LIGHT ] (Sol)
                 Rayos paralelos: genera sombra dura y brillo especular principal
                            │
                            │   ┌───────────────────────────┐
-                           │   │  🌌 [ SKY LIGHT ] (Cielo) │
+                           │   │   [ SKY LIGHT ] (Cielo) │
                            │   │  Relleno hemisférico azul │
                            ▼   └─────────────┬─────────────┘
                      ╔═══════════════╗       │
@@ -71,7 +71,7 @@ Colocamos el busto en un entorno abierto para analizar la interacción física d
 
 ---
 
-## 💡 Bloque 3: Luces Locales de Acento (Point, Spot y Rect Lights)
+## Bloque 3: Luces Locales de Acento (Point, Spot y Rect Lights)
 
 Para complementar la luz solar y destacar detalles escultóricos en el busto, sumamos luces locales:
 
@@ -79,9 +79,9 @@ Para complementar la luz solar y destacar detalles escultóricos en el busto, su
 ┌───────────────┬───────────────────────────────┬────────────────────────────────────────┐
 │ TIPO DE LUZ   │ GEOMETRÍA DE EMISIÓN          │ APLICACIÓN EN EL BUSTO                 │
 ├───────────────┼───────────────────────────────┼────────────────────────────────────────┤
-│ 💡 Point Light│ Esfera omnidireccional de 360°│ Luz de antorcha o chispa cercana.      │
-│ 🔦 Spot Light │ Cono direccional acotado      │ Foco de acento, recorte o linterna.    │
-│ 🔲 Rect Light │ Superficie plana (semiesfera) │ Luz de estudio fotográfico suave.      │
+│  Point Light│ Esfera omnidireccional de 360°│ Luz de antorcha o chispa cercana.      │
+│  Spot Light │ Cono direccional acotado      │ Foco de acento, recorte o linterna.    │
+│  Rect Light │ Superficie plana (semiesfera) │ Luz de estudio fotográfico suave.      │
 └───────────────┴───────────────────────────────┴────────────────────────────────────────┘
 ```
 
@@ -90,16 +90,16 @@ Para complementar la luz solar y destacar detalles escultóricos en el busto, su
 
 ---
 
-## 🎮 Bloque 4: Casos de Estudio en la Industria
+## Bloque 4: Casos de Estudio en la Industria
 
-* 🪓 **[God of War Ragnarök (Santa Monica Studio)](https://www.artstation.com/artwork/g8GZ8K)**: Shaders maestros en el busto y rostro de Kratos, adaptando el roughness según sudor, nieve o sangre bajo luz solar y antorchas.
-* 🤖 **[Horizon Forbidden West (Guerrilla Games)](https://www.guerrilla-games.com/read/the-technology-of-horizon-forbidden-west)**: Respuesta del sol y luz de cielo sobre la piel de Aloy y las piezas metálicas reflectantes.
-* 🔦 **[Alan Wake 2 (Remedy Entertainment)](https://www.youtube.com/watch?v=k5lO_68b3cQ)**: Interacción de focos Spot con perfiles IES sobre personajes con piel y ropa húmeda.
-* ⚙️ **[Gears 5 (The Coalition)](https://www.youtube.com/watch?v=J3e2Ea7vJ8Q)**: Optimización de sombras dinámicas sobre personajes y armaduras metálicas bajo luz direccional y puntual.
+*  **[God of War Ragnarök (Santa Monica Studio)](https://www.artstation.com/artwork/g8GZ8K)**: Shaders maestros en el busto y rostro de Kratos, adaptando el roughness según sudor, nieve o sangre bajo luz solar y antorchas.
+*  **[Horizon Forbidden West (Guerrilla Games)](https://www.guerrilla-games.com/read/the-technology-of-horizon-forbidden-west)**: Respuesta del sol y luz de cielo sobre la piel de Aloy y las piezas metálicas reflectantes.
+*  **[Alan Wake 2 (Remedy Entertainment)](https://www.youtube.com/watch?v=k5lO_68b3cQ)**: Interacción de focos Spot con perfiles IES sobre personajes con piel y ropa húmeda.
+*  **[Gears 5 (The Coalition)](https://www.youtube.com/watch?v=J3e2Ea7vJ8Q)**: Optimización de sombras dinámicas sobre personajes y armaduras metálicas bajo luz direccional y puntual.
 
 ---
 
-## 🛠️ Taller Práctico para la Clase
+## Taller Práctico para la Clase
 
 1. **Abrir la escena del busto 3D** de la Clase 02.
 2. **Crear el Master Material `M_Master_PBR`** con parámetros de *Tiling*, *Tint*, *Roughness* y *Metallic*.

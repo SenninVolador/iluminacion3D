@@ -9,7 +9,7 @@ tags:
 date: 2026-08-31
 ---
 
-# 📋 Rúbrica de Evaluación: Entrega N°1 — Estudio de 3-Point Lighting y Shader Paramétrico
+# Rúbrica de Evaluación: Entrega N°1 — Estudio de 3-Point Lighting y Shader Paramétrico
 
 > **Cátedra**: Iluminación 3D  
 > **Docente**: Daniel Rojas (UNIACC)  
@@ -19,13 +19,13 @@ date: 2026-08-31
 
 ---
 
-## 🎯 Descripción del Encargo
+## Descripción del Encargo
 
 El estudiante debe configurar un **estudio de iluminación de 3 puntos (Key, Fill, Rim)** sobre un elemento central (busto o prop 3D) dentro de un nivel vacío en Unreal Engine 5. Adicionalmente, deberá construir y asignar un **Master Material PBR** que disponga de al menos **tres (3) parámetros expuestos** en una **Instancia de Material (`MI_...`)**, demostrando control sobre la respuesta física de la superficie y la jerarquía lumínica.
 
 ---
 
-## 📦 Requisitos de Entrega
+## Requisitos de Entrega
 
 1. **Escena en Unreal Engine 5**: Nivel limpio con fondo neutro o ciclorama oscuro y cámara encuadrada.
 2. **Esquema de 3 Puntos**: Tres emisores configurados con roles claros (Key Light, Fill Light y Rim Light).
@@ -41,7 +41,7 @@ El estudiante debe configurar un **estudio de iluminación de 3 puntos (Key, Fil
 
 ---
 
-## 📊 Matriz de Evaluación (Puntaje Total: 60 Puntos)
+## Matriz de Evaluación (Puntaje Total: 60 Puntos)
 
 | Criterio | Excelente (100%) | Bueno (75%) | Suficiente (50%) | Insuficiente (0-25%) | Puntaje |
 | :--- | :--- | :--- | :--- | :--- | :---: |
@@ -54,7 +54,7 @@ El estudiante debe configurar un **estudio de iluminación de 3 puntos (Key, Fil
 
 ---
 
-## 📈 Tabla de Conversión: Puntaje a Nota (Escala 1.0 – 7.0 al 60%)
+## Tabla de Conversión: Puntaje a Nota (Escala 1.0 – 7.0 al 60%)
 
 $$Puntaje \ge 36 \implies Nota = 4.0 + 3.0 \times \left(\frac{Puntaje - 36}{24}\right)$$
 $$Puntaje < 36 \implies Nota = 1.0 + 3.0 \times \left(\frac{Puntaje}{36}\right)$$

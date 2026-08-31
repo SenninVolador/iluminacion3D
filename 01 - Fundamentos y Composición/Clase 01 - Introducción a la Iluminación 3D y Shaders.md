@@ -8,13 +8,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 🎓 Clase 01: Introducción a la Iluminación 3D, Juegos vs. Cine y Shaders
+# Clase 01: Introducción a la Iluminación 3D, Juegos vs. Cine y Shaders
 
 Bienvenido a los fundamentos de la iluminación tridimensional. Esta clase sienta las bases para comprender cómo funciona la luz en los entornos virtuales, cómo se construye el volumen de un objeto y cómo los motores gráficos interpretan los materiales.
 
 ---
 
-## 1. 💡 La Luz: Del Mundo Físico al Espacio Digital
+## 1.  La Luz: Del Mundo Físico al Espacio Digital
 
 En la física real, la luz está compuesta por fotones que viajan en línea recta, rebotan miles de millones de veces en las superficies circundantes y entran en nuestros ojos o en la lente de una cámara.
 
@@ -25,13 +25,13 @@ En el mundo digital 3D:
 
 ---
 
-## 2. 🎮 Videojuegos vs. 🎬 Cine: Dos Paradigmas de Iluminación
+## 2.  Videojuegos vs.  Cine: Dos Paradigmas de Iluminación
 
 Una de las distinciones más importantes para un artista de iluminación es comprender para qué medio está trabajando:
 
 ```
 ┌────────────────────────────────────────┬────────────────────────────────────────┐
-│     🎮 ILUMINACIÓN PARA VIDEOJUEGOS    │         🎬 ILUMINACIÓN PARA CINE       │
+│      ILUMINACIÓN PARA VIDEOJUEGOS    │          ILUMINACIÓN PARA CINE       │
 │          (Real-Time Rendering)         │          (Offline / Path Tracing)      │
 ├────────────────────────────────────────┼────────────────────────────────────────┤
 │ • Debe calcularse en tiempo real       │ • Puede tardar minutos u horas por     │
@@ -49,7 +49,7 @@ Una de las distinciones más importantes para un artista de iluminación es comp
 
 ---
 
-## 3. 📐 Esquema de Iluminación de 3 Puntos (3-Point Lighting)
+## 3.  Esquema de Iluminación de 3 Puntos (3-Point Lighting)
 
 El **esquema de 3 puntos** es la técnica clásica nacida en la fotografía y el cine tradicional para esculpir y dar volumen tridimensional a un personaje u objeto frente a la cámara.
 
@@ -95,7 +95,7 @@ El **esquema de 3 puntos** es la técnica clásica nacida en la fotografía y el
 
 ---
 
-## 4. 🧪 ¿Qué es un Shader? (La Relación entre Luz y Superficie)
+## 4.  ¿Qué es un Shader? (La Relación entre Luz y Superficie)
 
 A menudo los principiantes confunden **Textura**, **Material** y **Shader**:
 
@@ -121,7 +121,7 @@ Los shaders modernos utilizan el estándar **PBR (Physically Based Rendering)** 
 
 ---
 
-## 💡 Ejercicio Práctico Sugerido para Clase 1
+## Ejercicio Práctico Sugerido para Clase 1
 
 1. **Crear una escena vacía** con un plano en el suelo y una esfera o busto 3D en el centro.
 2. **Apagar todas las luces** (escena 100% a oscuras).

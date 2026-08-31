@@ -8,7 +8,7 @@ tags:
 date: 2026-08-18
 ---
 
-# 🎛️ Anatomía del Shader Graph en Unreal: Master Materials e Instances
+# Anatomía del Shader Graph en Unreal: Master Materials e Instances
 
 En la producción profesional de videojuegos, **nunca se crea un Material nuevo desde cero para cada objeto**. En su lugar, se diseña un **Master Material (Material Maestro)** flexible y se crean **Material Instances (Instancias de Material)** para cada prop, personaje o superficie del juego.
 

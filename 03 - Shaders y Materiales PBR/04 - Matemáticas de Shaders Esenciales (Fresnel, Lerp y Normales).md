@@ -8,7 +8,7 @@ tags:
 date: 2026-08-18
 ---
 
-# 📐 Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)
+# Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)
 
 Los Shaders son esencialmente álgebra vectorial y operaciones matemáticas aplicadas en paralelo por píxel y por vértice. Conocer los 5 operadores maestros te permite crear casi cualquier efecto visual en tiempo real.
 

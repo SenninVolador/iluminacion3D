@@ -15,10 +15,10 @@
         </label>
         <div class="explanation">
           <span v-if="normalMapEnabled">
-            ✅ <strong>Normal Map Activado:</strong> Los vectores de luz rebotan en micro-valles simulados, generando sombras y volumen 3D <em>sin añadir un solo polígono</em>.
+             <strong>Normal Map Activado:</strong> Los vectores de luz rebotan en micro-valles simulados, generando sombras y volumen 3D <em>sin añadir un solo polígono</em>.
           </span>
           <span v-else>
-            ❌ <strong>Superficie Plana:</strong> La luz rebota en un plano uniforme. El modelo se percibe plano y sin relieve.
+             <strong>Superficie Plana:</strong> La luz rebota en un plano uniforme. El modelo se percibe plano y sin relieve.
           </span>
         </div>
       </div>

@@ -7,7 +7,7 @@ tags:
 date: 2026-08-18
 ---
 
-# 🎭 Modelos de Sombreado (Shading Models) en Videojuegos
+# Modelos de Sombreado (Shading Models) en Videojuegos
 
 El **Shading Model (Modelo de Sombreado)** define la fórmula matemática exacta que la GPU utiliza para calcular la interacción entre la luz y el material. En Unreal Engine y motores modernos, no todas las superficies se comportan igual: la piel humana, el cristal de un coche o las hojas de un árbol requieren ecuaciones físicas distintas.
 

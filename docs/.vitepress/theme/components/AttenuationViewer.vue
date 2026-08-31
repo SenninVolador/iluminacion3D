@@ -35,7 +35,7 @@ const radiusFeedback = computed(() => {
   const r = radiusValue.value;
   if (r < 180) return 'Alcance corto · Optimizado';
   if (r < 380) return 'Alcance medio estándar';
-  return '⚠️ Riesgo de sobrecoste en GPU (Overdraw)';
+  return ' Riesgo de sobrecoste en GPU (Overdraw)';
 });
 
 const initThree = async () => {

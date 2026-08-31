@@ -6,13 +6,13 @@ tags:
 date: 2026-08-18
 ---
 
-# 💡 Tipos de Luces en Unreal Engine
+# Tipos de Luces en Unreal Engine
 
 Unreal Engine proporciona cinco fuentes de luz principales. Cada una tiene propiedades físicas, costes computacionales y usos artísticos específicos.
 
 ---
 
-## 1. ☀️ Directional Light (Luz Direccional)
+## 1.  Directional Light (Luz Direccional)
 Simula una fuente de luz infinitamente distante (como el **Sol** o la **Luna**).
 
 * **Comportamiento**: Todos los rayos de luz viajan en **líneas paralelas**.
@@ -24,7 +24,7 @@ Simula una fuente de luz infinitamente distante (como el **Sol** o la **Luna**).
 
 ---
 
-## 2. 💡 Point Light (Luz Puntual)
+## 2.  Point Light (Luz Puntual)
 Emite luz omnidireccional (en todas direcciones, esfera de 360°) desde un único punto en el espacio.
 
 * **Casos de uso**: Bombillas desnudas, velas, fogatas, destellos, chispas.
@@ -36,7 +36,7 @@ Emite luz omnidireccional (en todas direcciones, esfera de 360°) desde un únic
 
 ---
 
-## 3. 🔦 Spot Light (Luz Focal / Foco)
+## 3.  Spot Light (Luz Focal / Foco)
 Emite luz en forma de cono desde un punto hacia una dirección específica.
 
 * **Casos de uso**: Linternas, farolas de calle, luces de escenario, focos de techo empotrados (Downlights), faros de vehículos.
@@ -48,7 +48,7 @@ Emite luz en forma de cono desde un punto hacia una dirección específica.
 
 ---
 
-## 4. 🔲 Rect Light (Luz Rectangular / de Área)
+## 4.  Rect Light (Luz Rectangular / de Área)
 Emite luz desde una superficie rectangular hacia una sola dirección (semiesfera).
 
 * **Casos de uso**: Paneles LED, pantallas de TV/monitores, tragaluces o ventanas interiores, fluorescentes de techo en oficinas, cajas de luz fotográficas (Softboxes).
@@ -59,7 +59,7 @@ Emite luz desde una superficie rectangular hacia una sola dirección (semiesfera
 
 ---
 
-## 5. 🌌 Sky Light (Luz de Cielo / Ambiente)
+## 5.  Sky Light (Luz de Cielo / Ambiente)
 Captura el entorno distante (cielo, nubes, montañas lejanas o mapa HDRI) y proyecta luz ambiental difusa e indirecta en toda la escena.
 
 * **Modos de Captura**:
@@ -69,7 +69,7 @@ Captura el entorno distante (cielo, nubes, montañas lejanas o mapa HDRI) y proy
 
 ---
 
-## 📊 Tabla Comparativa de Rendimiento y Características
+## Tabla Comparativa de Rendimiento y Características
 
 | Tipo de Luz | Complejidad de Sombras | Coste GPU | Soporte IES Profile | Uso Principal |
 | :--- | :--- | :--- | :--- | :--- |

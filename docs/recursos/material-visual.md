@@ -16,6 +16,15 @@ Fichas técnicas de cátedra maquetadas en dos páginas para consulta de laborat
 
 ---
 
+### Rúbrica de Evaluación: Entrega N°1 (3-Point Lighting y Shaders)
+* [Descargar Rúbrica Oficial (PDF)](/Rubrica_Entrega_01.pdf)
+* **Contenidos**:
+  * Pauta de evaluación de 60 puntos (Key, Fill, Rim Light).
+  * Requisitos de Master Material e Instancia con 3+ parámetros expuestos.
+  * Tabla de conversión a escala chilena de 1.0 a 7.0 al 60% de exigencia.
+
+---
+
 ### Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales
 * [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_03.pdf)
 * **Contenidos**:

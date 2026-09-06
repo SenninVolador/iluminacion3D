@@ -96,6 +96,11 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Sistemas Nodales �
 </div>
 
 <div class="academic-card">
+<h3><a href="./recursos/shortcuts">Atajos de Teclado y Nodos</a></h3>
+<p>Guía rápida de combinaciones de teclas para el Viewport, pilotaje de luces y creación de nodos con 1 click en el Material Editor.</p>
+</div>
+
+<div class="academic-card">
 <h3><a href="./clases/lenguaje-visual">Guía Visual al Jugador</a></h3>
 <p>Técnicas de composición e iluminación para guiar la atención del jugador y construir jerarquía visual en niveles 3D.</p>
 </div>

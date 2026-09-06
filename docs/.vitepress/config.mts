@@ -24,6 +24,7 @@ export default defineConfig({
       { text: "Rúbrica Entrega 1", link: "/clases/rubrica-entrega-01" },
       { text: "Shaders PBR", link: "/shaders/01-fundamentos-pbr" },
       { text: "Glosario", link: "/glosario" },
+      { text: "Atajos", link: "/recursos/shortcuts" },
       { text: "Videos", link: "/recursos/videos" },
       { text: "Documentos PDF", link: "/recursos/material-visual" }
     ],
@@ -58,6 +59,7 @@ export default defineConfig({
           text: 'Documentación General',
           items: [
             { text: 'Índice de Clases', link: '/clases/' },
+            { text: 'Atajos de Teclado y Nodos', link: '/recursos/shortcuts' },
             { text: 'Videos Tutoriales', link: '/recursos/videos' },
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },

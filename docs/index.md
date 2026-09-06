@@ -86,6 +86,11 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Sistemas Nodales �
 </div>
 
 <div class="academic-card">
+<h3><a href="./recursos/videos">Videos Tutoriales de Apoyo</a></h3>
+<p>Serie de cápsulas audiovisuales cortas (máximo 10 min) para repasar ejercicios prácticos en Unreal Engine 5 desde cero hasta la Clase 04.</p>
+</div>
+
+<div class="academic-card">
 <h3><a href="./recursos/material-visual">Documentación Técnica (PDF)</a></h3>
 <p>Fichas técnicas descargables en formato A4 de 2 páginas con diagramas vectoriales y análisis de videojuegos de la industria.</p>
 </div>

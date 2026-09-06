@@ -2,36 +2,68 @@
 
 Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
-Serie de cápsulas audiovisuales cortas (máximo 10 minutos) diseñadas para reforzar los ejercicios prácticos de Unreal Engine 5 desde los fundamentos hasta la Clase 04.
+Cápsulas audiovisuales paso a paso para reforzar los ejercicios prácticos de Unreal Engine 5. Cada video aborda un tema específico y puedes reproducirlo directamente desde esta página.
 
 ---
 
-## Lista de Reproducción Oficial
+## 1. Creación de Escena y Setting Básico en Unreal Engine
 
-Puedes reproducir la lista de videos directamente desde este reproductor o abrirla en YouTube:
+Configuración inicial de un proyecto, creación de nivel limpio y parámetros esenciales para preparar el escenario de iluminación.
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 4px; margin: 18px 0; border: 1px solid #d1d5db; background: #000000;">
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 4px; margin: 14px 0 8px 0; border: 1px solid #d1d5db; background: #000000;">
   <iframe 
-    src="https://www.youtube-nocookie.com/embed/videoseries?list=PLQMh5CxwQ9T0" 
-    title="Lista de Reproducción - Iluminación 3D"
+    src="https://www.youtube-nocookie.com/embed/BilcOCSYwpQ" 
+    title="Creación de escena y setting básico en Unreal"
     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
     allowfullscreen>
   </iframe>
 </div>
 
-> **Enlace directo a la lista**:  
-> [Ver lista completa en YouTube](https://www.youtube.com/playlist?list=PLQMh5CxwQ9T0)
+> [Ver video en YouTube](https://www.youtube.com/watch?v=BilcOCSYwpQ)
 
 ---
 
-## Contenido de las Cápsulas
+## 2. Luces Básicas: Manejo de Luces en la Escena Unreal
 
-| Video | Tema Principal | Software y Herramientas |
+Tipos de fuentes luminosas, colocación de focos en el Viewport 3D, rotación de luz solar y control de intensidad y sombras.
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 4px; margin: 14px 0 8px 0; border: 1px solid #d1d5db; background: #000000;">
+  <iframe 
+    src="https://www.youtube-nocookie.com/embed/1XbsNHLZGDU" 
+    title="Luces básicas: manejo de luces en la escena Unreal"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+> [Ver video en YouTube](https://www.youtube.com/watch?v=1XbsNHLZGDU)
+
+---
+
+## 3. Nodos de Materiales, Texturas e Instancias de Material
+
+Construcción en el Material Graph, conexión de texturas al nodo Multiply para tinte de color, exposición de parámetros y creación de Material Instances para modificar propiedades en tiempo real.
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 4px; margin: 14px 0 8px 0; border: 1px solid #d1d5db; background: #000000;">
+  <iframe 
+    src="https://www.youtube-nocookie.com/embed/jI0Ryg1Y_XA" 
+    title="Nodos de materiales, texturas e instancias de material"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+> [Ver video en YouTube](https://www.youtube.com/watch?v=jI0Ryg1Y_XA)
+
+---
+
+## Resumen de Temas Tratados
+
+| Cápsula | Contenido Técnico | Herramientas Utilizadas |
 | :--- | :--- | :--- |
-| **01** | Primera vez en Unreal Engine 5, interfaz y navegación de cámara | Unreal Engine 5 (Blank Level) |
-| **02** | Esquema clásico de 3 puntos (Key, Fill y Rim Light) | Directional / Rect / Spot Lights |
-| **03** | Tu primer Master Material PBR e Instancias con parámetros | Material Graph (`M_` y `MI_`) |
-| **04** | Iluminación exterior, luz solar (`Ctrl + L`), cielo y movilidad | Directional, Sky Light y Movilidad |
-| **05** | Atmósfera, niebla volumétrica y rayos de sol (*God Rays*) | SkyAtmosphere y Exponential Height Fog |
-| **06** | Checklist de rúbrica y preparación de la Entrega N°1 | Criterios de evaluación (1.0 a 7.0) |
+| **Video 1** | Creación de proyecto, nivel vacío y preparación de escena | Unreal Engine 5 (Blank Level, Viewport) |
+| **Video 2** | Fuentes de luz, colocación de Key/Fill, rotación y sombras | Directional Light, Point Light, Spot Light |
+| **Video 3** | Material Graph, texturas, Multiply, parámetros e instancias | Master Material (`M_`), Instancias (`MI_`) |

@@ -8,7 +8,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 La sesión se divide en dos fases:
 1. **Fase Teórico-Práctica**: Introducción a la iluminación de espacios confinados mediante la taxonomía de **Chris Brejon (*CG Cinematography*)**, fuentes de luz locales en Unreal Engine 5 y estándares oficiales de nomenclatura de Epic Games.
-2. **Fase de Evaluación**: Montaje de una escena interior simple y **calificación presencial al cierre de la clase de la Entrega N°1** según la [Rúbrica Oficial de 60 Puntos](./rubrica-entrega-01).
+2. **Fase de Evaluación**: Montaje de una escena interior simple y **calificación presencial al cierre de la clase de la Entrega N°1** según la [Rúbrica Oficial de 60 Puntos](/clases/rubrica-entrega-01).
 
 ---
 

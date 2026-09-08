@@ -81,6 +81,6 @@ Permite simular materiales de dos capas físicas reales:
 
 ---
 **Notas relacionadas**:
-- [[Fundamentos PBR y Mapas de Textura]]
-- [[Anatomía del Shader Graph en Unreal (Master Materials e Instances)]]
-- [[Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)]]
+- [Fundamentos PBR y Mapas de Textura](/shaders/01-fundamentos-pbr)
+- [Anatomía del Shader Graph en Unreal (Master Materials e Instances)](/shaders/02-master-materials)
+- [Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)](/shaders/04-matematicas-shaders)

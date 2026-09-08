@@ -67,7 +67,7 @@ En videojuegos, leer una textura desde la GPU tiene un coste de memoria y ancho 
 
 ---
 **Notas relacionadas**:
-- [[Anatomía del Shader Graph en Unreal (Master Materials e Instances)]]
-- [[Modelos de Sombreado (Shading Models)]]
-- [[Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)]]
-- [[Glosario de Iluminación 3D]]
+- [Anatomía del Shader Graph en Unreal (Master Materials e Instances)](/shaders/02-master-materials)
+- [Modelos de Sombreado (Shading Models)](/shaders/03-shading-models)
+- [Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)](/shaders/04-matematicas-shaders)
+- [Glosario de Iluminación 3D](/glosario)

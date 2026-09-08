@@ -14,7 +14,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./clase-01" style="color: #111827; text-decoration: none;">Clase 01: Fundamentos de la Luz y Esquema de 3 Puntos</a>
+      <a href="/iluminacion3D/clases/clase-01" style="color: #111827; text-decoration: none;">Clase 01: Fundamentos de la Luz y Esquema de 3 Puntos</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 01</span>
   </div>
@@ -30,7 +30,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./clase-02" style="color: #111827; text-decoration: none;">Clase 02: Taller de 3 Puntos, Luz Solar, Cielo y Movilidad</a>
+      <a href="/iluminacion3D/clases/clase-02" style="color: #111827; text-decoration: none;">Clase 02: Taller de 3 Puntos, Luz Solar, Cielo y Movilidad</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 02</span>
   </div>
@@ -46,7 +46,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./clase-03" style="color: #111827; text-decoration: none;">Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales</a>
+      <a href="/iluminacion3D/clases/clase-03" style="color: #111827; text-decoration: none;">Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 03</span>
   </div>
@@ -62,7 +62,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./clase-04" style="color: #111827; text-decoration: none;">Clase 04: Taller de Entrega N°1, Shaders Nodales y Atmósfera Volumétrica</a>
+      <a href="/iluminacion3D/clases/clase-04" style="color: #111827; text-decoration: none;">Clase 04: Taller de Entrega N°1, Shaders Nodales y Atmósfera Volumétrica</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 04</span>
   </div>
@@ -78,7 +78,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./clase-05" style="color: #111827; text-decoration: none;">Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura</a>
+      <a href="/iluminacion3D/clases/clase-05" style="color: #111827; text-decoration: none;">Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 05</span>
   </div>
@@ -94,7 +94,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./lenguaje-visual" style="color: #111827; text-decoration: none;">Lectura: Lenguaje Visual y Guía al Jugador</a>
+      <a href="/iluminacion3D/clases/lenguaje-visual" style="color: #111827; text-decoration: none;">Lectura: Lenguaje Visual y Guía al Jugador</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Lectura Teórica</span>
   </div>
@@ -107,7 +107,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
-      <a href="./rubrica-entrega-01" style="color: #111827; text-decoration: none;">Rúbrica de Evaluación: Entrega N°1 (3-Point & Shaders)</a>
+      <a href="/iluminacion3D/clases/rubrica-entrega-01" style="color: #111827; text-decoration: none;">Rúbrica de Evaluación: Entrega N°1 (3-Point & Shaders)</a>
     </h3>
     <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Pauta Oficial</span>
   </div>

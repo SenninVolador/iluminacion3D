@@ -6,7 +6,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 ## 1. Bloque 1: Taller de Calificación y Shaders Nodales Universales
 
-La primera parte de la sesión está dedicada al apoyo individual de los estudiantes para pulir la **Entrega N°1 (Estudio de 3 Puntos y Shader Paramétrico)**, la cual se entrega y califica al cierre de la clase mediante la [Rúbrica Oficial de Evaluación](./rubrica-entrega-01).
+La primera parte de la sesión está dedicada al apoyo individual de los estudiantes para pulir la **Entrega N°1 (Estudio de 3 Puntos y Shader Paramétrico)**, la cual se entrega y califica al cierre de la clase mediante la [Rúbrica Oficial de Evaluación](/clases/rubrica-entrega-01).
 
 ### Simulador Interactivo: Shader Nodal Paramétrico (Utah Teapot)
 Prueba a modificar el tinte de color mediante la operación *Multiply*, la rugosidad, la metalicidad y la fuerza de normales sobre la icónica tetera de Utah:

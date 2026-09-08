@@ -1,64 +1,52 @@
 ---
-tags:
-  - iluminacion3d
-  - shaders
-  - pbr
-  - gamedev
-  - unreal-engine
-  - moc
-date: 2026-08-25
+layout: doc
 ---
 
 # MOC - Iluminación 3D y Shaders para Videojuegos
 
-Base de conocimiento integral para el ramo de **Iluminación 3D y Shaders para Videojuegos** (Game Lighting, Shaders, PBR & Tech Art).
+Docente: Daniel Rojas (UNIACC)
+
+Base de conocimiento integral para la asignatura de **Iluminación 3D y Shaders para Videojuegos** (Game Lighting, Shaders, PBR y Arte Técnico).
 
 ---
 
 ## Accesos Rápidos
--  [[Glosario de Iluminación 3D]]: Diccionario unificado de términos de Iluminación, PBR y Shaders.
--  [[Clase 01 - Introducción a la Iluminación 3D y Shaders]]
--  [[Clase 02 - Práctica 3-Point, Luz Solar, Cielo y Movilidad]] |  [Material Visual PDF (Clase 02)](file:///c:/Users/danie/OneDrive/Escritorio/Iluminacion3D/Material_Visual_Clase_02.pdf) |  [Presentación HTML](file:///c:/Users/danie/OneDrive/Escritorio/Iluminacion3D/Presentacion_Clase_02.html)
--  [[Clase 03 - Shaders PBR, Master Materials y Luces Locales]] |  [Material Visual PDF (Clase 03)](file:///c:/Users/danie/OneDrive/Escritorio/Iluminacion3D/Material_Visual_Clase_03.pdf) |  [Presentación HTML](file:///c:/Users/danie/OneDrive/Escritorio/Iluminacion3D/Presentacion_Clase_03.html)
+* [Glosario Técnico de Términos](/glosario): Diccionario unificado de conceptos de iluminación, PBR y shaders.
+* [Programa y Clases del Semestre](/clases/): Índice cronológico de las sesiones teórico-prácticas.
+* [Atajos de Teclado y Nodos (UE5)](/recursos/shortcuts): Combinaciones de teclas para Viewport y Material Graph.
+* [Videos Tutoriales de Apoyo](/recursos/videos): Cápsulas audiovisuales paso a paso.
+* [Rúbrica de Evaluación N°1](/clases/rubrica-entrega-01): Pauta oficial de 60 puntos.
 
 ---
 
-## Módulos Integrados del Ramo
+## Módulos de la Cátedra
 
-### 1.  Fundamentos, Clases y Composición
-- [[Clase 01 - Introducción a la Iluminación 3D y Shaders]]
-- [[Clase 02 - Práctica 3-Point, Luz Solar, Cielo y Movilidad]]
-- [[Clase 03 - Shaders PBR, Master Materials y Luces Locales]]
-- [[Presentacion_Clase_02]] | [[Presentacion_Clase_03]]
-- [[Lenguaje Visual y Guía al Jugador]]: Cómo dirigir la mirada del jugador, affordance y contraste.
+### 1. Fundamentos, Clases y Composición
+* [Clase 01: Fundamentos de la Luz y Esquema de 3 Puntos](/clases/clase-01)
+* [Clase 02: Taller de 3 Puntos, Luz Solar, Cielo y Movilidad](/clases/clase-02)
+* [Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales](/clases/clase-03)
+* [Clase 04: Taller de Entrega N°1, Shaders Nodales y Atmósfera Volumétrica](/clases/clase-04)
+* [Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura](/clases/clase-05)
+* [Lectura: Lenguaje Visual y Guía al Jugador](/clases/lenguaje-visual)
 
-### 2.  Shaders, Materiales y Pipeline PBR
-- [[01 - Fundamentos PBR y Mapas de Textura]]: Base Color, Roughness, Metallic, Normal, AO y texturas ORM.
-- [[02 - Anatomía del Shader Graph en Unreal (Master Materials e Instances)]]: Flujo profesional, parámetros y optimización.
-- [[03 - Modelos de Sombreado (Shading Models)]]: Default Lit, Subsurface Scattering (piel/cera), Two Sided Foliage, Clear Coat.
-- [[04 - Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)]]: Fresnel, Lerp, Panning, World Position Offset.
+### 2. Shaders, Materiales y Pipeline PBR
+* [01. Fundamentos PBR y Mapas de Textura](/shaders/01-fundamentos-pbr)
+* [02. Anatomía del Shader Graph en Unreal (Master Materials e Instances)](/shaders/02-master-materials)
+* [03. Modelos de Sombreado (Shading Models)](/shaders/03-shading-models)
+* [04. Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)](/shaders/04-matematicas-shaders)
 
-### 3.  Fuentes de Luz y Movilidad en Motores
-- [[Tipos de Luces en Unreal Engine]]: Directional Light, Point Light, Spot Light, Rect Light y Sky Light.
-- [[Movilidad de Luces (Static, Stationary, Movable)]]: Cuándo usar cada movilidad, canales de sombras y costes.
-
-### 4.  Iluminación Global (GI) y Baking
-- [[Lumen vs Baked Lighting (UE5)]]: Arquitectura de Lumen vs Lightmass tradicional.
-
-### 5.  Atmósfera, Niebla y Sombras
-- [[Atmósfera y Niebla Volumétrica en UE5]]: SkyAtmosphere, Volumetric Cloud, Exponential Height Fog y God Rays.
-
-### 6.  Post-Processing y Color Management
-- [[Exposición, Color Grading y ACES en UE5]]: PostProcessVolume, Auto-Exposure, Curvas de Tonemapping y LUTs.
-
-### 7.  Optimización y Rendimiento (Tech Art)
-- [[Optimización de Iluminación y Profiling en UE5]]: `stat gpu`, GPU Visualizer (`Ctrl + Shift + ,`), Draw Calls y complejidad de shaders y luces.
+### 3. Fichas Técnicas Descargables (PDF)
+* [Ficha Técnica Clase 02 (PDF)](/Material_Visual_Clase_02.pdf)
+* [Ficha Técnica Clase 03 (PDF)](/Material_Visual_Clase_03.pdf)
+* [Ficha Técnica Clase 04 (PDF)](/Material_Visual_Clase_04.pdf)
+* [Rúbrica Oficial de Evaluación N°1 (PDF)](/Rubrica_Entrega_01.pdf)
+* [Catálogo Completo de Descargas](/recursos/material-visual)
 
 ---
 
-> [!TIP] Atajos clave en el Viewport de Unreal Engine
-> - `Alt + 4`: Vista Lit (Iluminada).
-> - `Alt + 3`: Vista Unlit (Sin iluminación / Texturas base).
-> - `Alt + 8`: Vista Light Complexity (Verde = óptimo, Rojo/Blanco = sobrecoste).
-> - `Ctrl + L`: Mover el sol/luz direccional interactivamente.
-> - `G`: Game View (Oculta iconos y gizmos).
+## Atajos Clave en el Viewport de Unreal Engine
+* `Alt + 4`: Vista Lit (Iluminada).
+* `Alt + 3`: Vista Unlit (Sin iluminación / Texturas base).
+* `Alt + 8`: Vista Light Complexity (Verde = óptimo, Rojo/Blanco = sobrecoste).
+* `Ctrl + L`: Mover el sol / luz direccional interactivamente.
+* `G`: Game View (Oculta iconos y gizmos para ver la imagen final).

@@ -85,6 +85,6 @@ Permite desplazar la posición geométrica de los vértices directamente en la G
 
 ---
 **Notas relacionadas**:
-- [[Fundamentos PBR y Mapas de Textura]]
-- [[Anatomía del Shader Graph en Unreal (Master Materials e Instances)]]
-- [[Modelos de Sombreado (Shading Models)]]
+- [Fundamentos PBR y Mapas de Textura](/shaders/01-fundamentos-pbr)
+- [Anatomía del Shader Graph en Unreal (Master Materials e Instances)](/shaders/02-master-materials)
+- [Modelos de Sombreado (Shading Models)](/shaders/03-shading-models)

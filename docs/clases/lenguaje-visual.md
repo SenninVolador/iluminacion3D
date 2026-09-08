@@ -61,7 +61,7 @@ El ojo humano en cualquier encuadre o videojuego siempre busca automáticamente:
 3. **Navigation & Affordance (Navegación)**: Resolver el flujo del nivel (*flow*) sin que el jugador se sienta perdido.
 
 ---
-**Notas relacionadas**:
-- [[MOC - Iluminación para Videojuegos]]
-- [[Tipos de Luces en Unreal Engine]]
-- [[Exposición, Color Grading y ACES en UE5]]
+**Enlaces relacionados**:
+* [MOC - Mapa de Contenidos](/moc)
+* [Glosario Técnico de Iluminación](/glosario)
+* [Programa de Clases](/clases/)

@@ -86,6 +86,6 @@ Si necesitas que un material cambie durante la partida mediante código C++ o Bl
 
 ---
 **Notas relacionadas**:
-- [[Fundamentos PBR y Mapas de Textura]]
-- [[Modelos de Sombreado (Shading Models)]]
-- [[Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)]]
+- [Fundamentos PBR y Mapas de Textura](/shaders/01-fundamentos-pbr)
+- [Modelos de Sombreado (Shading Models)](/shaders/03-shading-models)
+- [Matemáticas de Shaders Esenciales (Fresnel, Lerp y Normales)](/shaders/04-matematicas-shaders)

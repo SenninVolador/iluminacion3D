@@ -1,54 +1,48 @@
 ---
-layout: page
+layout: doc
 ---
 
-<div class="academic-home">
-<div class="academic-header">
-<h1>Iluminación 3D</h1>
-<div class="meta">
-<strong>Docente:</strong> Daniel Rojas (UNIACC)
-</div>
-</div>
+# Iluminación 3D
 
-<p style="font-size: 14px; line-height: 1.6; color: #374151; margin-bottom: 24px;">
-Repositorio académico y base de conocimientos técnicos sobre iluminación digital, sombreadores basados en la física (PBR), optimización de rendimiento en GPU y flujos de trabajo en motores de videojuegos (Unreal Engine).
-</p>
+Docente: Daniel Rojas (UNIACC)
 
-<h2 style="font-size: 18px; font-weight: 700; color: #111827; border-bottom: 2px solid #111827; padding-bottom: 6px; margin-bottom: 16px;">
-Programa de Clases
-</h2>
+Plataforma técnica de la asignatura de **Iluminación 3D y Shaders para Videojuegos**. Recursos de cátedra, fundamentación física PBR, laboratorios de iluminación en Unreal Engine 5 y simuladores interactivos en tiempo real.
 
-<div class="class-list" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
+---
+
+## Programa de Clases y Sesiones Prácticas
+
+<div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px;">
 
 <div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-01" style="color: #111827; text-decoration: none;">Clase 01: Fundamentos de la Luz, Videojuegos vs. Cine y Shaders</a></h3>
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/clases/clase-01" style="color: #111827; text-decoration: none;">Clase 01: Fundamentos de la Luz y Esquema de 3 Puntos</a></h3>
 <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 01</span>
 </div>
 <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
-Naturaleza del cálculo vectorial de la luz, diferencias entre render en tiempo real y offline (cine), esquema clásico de iluminación de 3 puntos (Key, Fill, Rim) e introducción a los sombreadores PBR.
+Introducción a la luz digital en tiempo real vs. cine, tiempo de fotograma (frametime), el esquema de 3 puntos (Key, Fill, Rim) y concepto fundamental de Shaders PBR.
 </p>
 <div style="font-size: 11px; color: #111827; font-weight: 600;">
-Conceptos: <span style="font-weight: normal; color: #4b5563;">3-Point Lighting · Frametime (16.6 ms) · Albedo · Roughness · Metallic</span>
+Conceptos: <span style="font-weight: normal; color: #4b5563;">Frametime · 3-Point Lighting · Key Light · Fill Light · Rim Light · PBR</span>
 </div>
 </div>
 
 <div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-02" style="color: #111827; text-decoration: none;">Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad de Luces</a></h3>
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/clases/clase-02" style="color: #111827; text-decoration: none;">Clase 02: Taller de 3 Puntos, Luz Solar, Cielo y Movilidad</a></h3>
 <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 02</span>
 </div>
 <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
-Taller práctico sobre el busto 3D en Unreal Engine 5, iluminación exterior diurna con Directional Light (Sol) y Sky Light (Cielo), y matriz técnica de movilidad (Static, Stationary, Movable).
+Práctica de iluminación sobre el busto 3D en Unreal Engine 5. Luz solar directa (Directional Light), cielo envolvente (Sky Light), temperatura Kelvin y movilidad técnica (Static, Stationary, Movable).
 </p>
 <div style="font-size: 11px; color: #111827; font-weight: 600;">
-Conceptos: <span style="font-weight: normal; color: #4b5563;">Directional Light (Ctrl+L) · Sky Light · Lightmaps · Regla de los 4 Canales</span>
+Conceptos: <span style="font-weight: normal; color: #4b5563;">Directional Light · Sky Light · Grados Kelvin · Movilidad Técnica · Regla de los 4 Canales</span>
 </div>
 </div>
 
 <div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-03" style="color: #111827; text-decoration: none;">Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales</a></h3>
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/clases/clase-03" style="color: #111827; text-decoration: none;">Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales</a></h3>
 <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 03</span>
 </div>
 <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
@@ -61,7 +55,7 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Master Materials �
 
 <div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-04" style="color: #111827; text-decoration: none;">Clase 04: Shaders Nodales, Atmósfera y Niebla Volumétrica</a></h3>
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/clases/clase-04" style="color: #111827; text-decoration: none;">Clase 04: Shaders Nodales, Atmósfera y Niebla Volumétrica</a></h3>
 <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 04</span>
 </div>
 <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
@@ -74,7 +68,7 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Sistemas Nodales �
 
 <div class="class-item" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
-<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="./clases/clase-05" style="color: #111827; text-decoration: none;">Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura</a></h3>
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/clases/clase-05" style="color: #111827; text-decoration: none;">Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura</a></h3>
 <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 05</span>
 </div>
 <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
@@ -89,32 +83,32 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Metodología Brejo
 
 <div class="academic-nav-grid">
 <div class="academic-card">
-<h3><a href="./glosario">Glosario Interactivo</a></h3>
+<h3><a href="/iluminacion3D/glosario">Glosario Interactivo</a></h3>
 <p>Definiciones de términos explicados con simuladores 3D interactivos en tiempo real (Temperatura Kelvin, Normal Maps, Atenuación, 3 Puntos, Sol y Sombras).</p>
 </div>
 
 <div class="academic-card">
-<h3><a href="./shaders/01-fundamentos-pbr">Módulo: Shaders y Materiales</a></h3>
+<h3><a href="/iluminacion3D/shaders/01-fundamentos-pbr">Módulo: Shaders y Materiales</a></h3>
 <p>Guía técnica sobre modelos de sombreado (Default Lit, SSS, Foliage), matemáticas de shaders (Fresnel, Lerp) y mapas de textura.</p>
 </div>
 
 <div class="academic-card">
-<h3><a href="./recursos/videos">Videos Tutoriales de Apoyo</a></h3>
+<h3><a href="/iluminacion3D/recursos/videos">Videos Tutoriales de Apoyo</a></h3>
 <p>Serie de cápsulas audiovisuales cortas (máximo 10 min) para repasar ejercicios prácticos en Unreal Engine 5 desde cero hasta la Clase 04.</p>
 </div>
 
 <div class="academic-card">
-<h3><a href="./recursos/material-visual">Documentación Técnica (PDF)</a></h3>
-<p>Fichas técnicas descargables en formato A4 de 2 páginas con diagramas vectoriales y análisis de videojuegos de la industria.</p>
-</div>
-
-<div class="academic-card">
-<h3><a href="./recursos/shortcuts">Atajos de Teclado y Nodos</a></h3>
+<h3><a href="/iluminacion3D/recursos/shortcuts">Atajos de Teclado y Nodos</a></h3>
 <p>Guía rápida de combinaciones de teclas para el Viewport, pilotaje de luces y creación de nodos con 1 click en el Material Editor.</p>
 </div>
 
 <div class="academic-card">
-<h3><a href="./clases/lenguaje-visual">Guía Visual al Jugador</a></h3>
+<h3><a href="/iluminacion3D/recursos/material-visual">Documentación Técnica (PDF)</a></h3>
+<p>Fichas técnicas descargables en formato A4 de 2 páginas con diagramas vectoriales y análisis de videojuegos de la industria.</p>
+</div>
+
+<div class="academic-card">
+<h3><a href="/iluminacion3D/clases/lenguaje-visual">Guía Visual al Jugador</a></h3>
 <p>Técnicas de composición e iluminación para guiar la atención del jugador y construir jerarquía visual en niveles 3D.</p>
 </div>
 </div>
@@ -130,5 +124,4 @@ Simulación en tiempo real de la ecuación de microfacetas sobre geometría trid
 <ClientOnly>
   <RoughnessViewer />
 </ClientOnly>
-</div>
 </div>

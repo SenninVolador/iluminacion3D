@@ -28,7 +28,7 @@
           :class="['preset-btn', { active: currentPreset === 'no-dramatic' }]"
           @click="applyPreset('no-dramatic')"
         >
-          Sin Luz Dramática (Ver el problema)
+          Sin Luz Dramática (Comparativa)
         </button>
         <button
           :class="['preset-btn', { active: currentPreset === 'dramatic-only' }]"
@@ -96,9 +96,9 @@
 
     </div>
 
-    <!-- EXPLICACIÓN CLARA DEL EJEMPLO -->
+    <!-- EXPLICACIÓN TÉCNICA DEL EJEMPLO -->
     <div class="methodology-note">
-      <strong>Clave del método Brejon:</strong> Si pruebas el botón <em>"Sin Luz Dramática"</em>, notarás que la lámpara sobre la mesa solo ilumina la parte inferior y deja la cara del busto empastada en sombras. Si le subiéramos tanta potencia a la lámpara para iluminar la cara, quemaríamos la mesa en blanco puro. La solución profesional es dejar la lámpara con potencia suave (como excusa visual) y sumar la <em>Luz Dramática</em> invisible para esculpir los rasgos.
+      <strong>Metodología de Brejon:</strong> Al seleccionar <em>"Sin Luz Dramática"</em>, se aprecia que la lámpara sobre la mesa solo ilumina la base del busto, dejando los rasgos faciales en penumbra. Aumentar la potencia de la lámpara para compensarlo sobreexpondría la mesa por completo. La solución consiste en mantener la lámpara con intensidad moderada (como motivación visual) y emplear una <em>Luz Dramática</em> invisible fuera de cuadro para esculpir el sujeto.
     </div>
   </div>
 </template>

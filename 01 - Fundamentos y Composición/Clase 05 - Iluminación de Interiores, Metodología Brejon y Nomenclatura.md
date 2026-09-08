@@ -16,17 +16,19 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
 
 ---
 
-## Estructura de la Sesión
+## ¿Qué vamos a ver hoy?
 
-1. **Bloque 1 (Teórico-Práctico)**: Metodología de Chris Brejon (*CG Cinematography*), fuentes locales de interior en Unreal Engine 5 y estándares oficiales de nomenclatura de Epic Games.
-2. **Bloque 2 (Taller en Sala)**: Montaje e iluminación de una escena interior simple con ventana y lámpara de mesa.
+1. **Bloque 1 (Teórico-Práctico)**: Cómo iluminar interiores con la metodología de **Chris Brejon** (*CG Cinematography*), tipos de luces locales en Unreal Engine 5 y cómo nombrar los assets según la guía oficial de Epic Games para mantener el proyecto limpio.
+2. **Bloque 2 (Taller en Sala)**: Montaje paso a paso de una habitación cerrada con ventana fría, lámpara de velador cálida y luz de estudio de modelado.
 3. **Bloque 3 (Evaluación)**: Calificación presencial individual de la **Entrega N°1** según la [[Rubrica_Entrega_01_3Point_y_Shaders]].
 
 ---
 
-## 1. Metodología Chris Brejon (*CG Cinematography*)
+## 1. El Método de Chris Brejon (*CG Cinematography*)
 
-En el libro de referencia *CG Cinematography* (Capítulo 4: *Light Categories*), Chris Brejon define la regla fundamental para todo artista técnico de iluminación: **Categoría vs. Rol**.
+Cuando nos toca iluminar un espacio cerrado en Unreal Engine, el error típico de principiante es empezar a tirar luces a tontas y a locas para que "se vea iluminado". En la industria se trabaja de manera opuesta: cada luz debe tener una justificación física o narrativa.
+
+En su libro *CG Cinematography* (Capítulo 4: *Light Categories*), Chris Brejon plantea una distinción que aclara todo el panorama: **Categoría vs. Rol**.
 
 ```
 Categoría (Lo que la luz ES en el mundo)  ──►  Natural / Practical / Dramatic
@@ -36,78 +38,86 @@ Rol (La función que cumple para la cámara) ──►  Key / Fill / Rim / Kicke
 ### Las Tres Familias de Luces (Categorías)
 
 1. **Natural Lights (Luces Naturales)**:
-   * Fuentes no manufacturadas del entorno exterior: Sol, cielo, luna, relámpagos.
-   * En interiores entran por vanos de ventanas o tragaluces y marcan la orientación general y la hora del día.
+   * Fuentes del entorno exterior que no fabrica el ser humano: sol, cielo, luna o relámpagos.
+   * En interiores entran por vanos de ventanas o tragaluces. Definen la hora del día, el clima y entregan la iluminación base ambiental de la habitación.
 2. **Practical Lights (Luces Prácticas)**:
-   * Fuentes de luz visibles integradas en la utilería o escenografía (*set dressing*): lámparas de velador, bombillas desnudas, tubos fluorescentes, pantallas o velas.
-   * Su función principal es romper la monotonía del fondo y **servir de motivación/justificación visual ante el espectador**.
+   * Fuentes de luz visibles integradas en la utilería o escenografía (*set dressing*): lámparas de velador, ampolletas colgando, tubos fluorescentes, velas o pantallas de TV.
+   * Su función principal es romper la monotonía del fondo y **darle al jugador la excusa o justificación visual** de por qué hay luz en esa zona.
 3. **Dramatic Lights (Luces Dramáticas / Studio Lights)**:
-   * Luces invisibles fuera de cuadro diseñadas con fines puramente narrativos para modelar el sujeto principal.
-   * Toman la dirección y el color sugeridos por las luces prácticas pero con intensidades calibradas para esculpir el volumen sin quemar la bombilla visible.
+   * Luces invisibles fuera de cuadro que ponemos nosotros para modelar al personaje o prop principal.
+   * Toman prestado el color y la dirección que insinúan las luces prácticas, pero con la potencia calibrada para esculpir volúmenes sin reventar la ampolleta en blanco puro.
 
-> *"A practical light does not have to actually illuminate the character, but its mere presence unconsciously and illogically justifies other light sources that might be used to light the character, like a rim or key light."* — Chris Brejon
+> *"Una luz práctica no tiene por qué iluminar por completo al personaje. Su sola presencia en escena justifica ante el cerebro del espectador las luces de estudio invisibles que usamos para esculpirlo."* — Chris Brejon
 
 ---
 
-## 2. Flujo de Iluminación de Interiores en 3 Capas
+## 2. El Flujo de Trabajo en 3 Capas para Interiores
 
-Al abordar una habitación cerrada, Brejon establece un orden de trabajo secuencial:
+Al abordar una habitación cerrada, trabajamos en este orden secuencial:
 
-1. **Capa 1: Luz Natural Exterior**: Configurar la luz del sol y el cielo que atraviesa el vano de la ventana. Usualmente tonos fríos (6.500K).
-2. **Capa 2: Luces Prácticas de Set**: Ubicar las lámparas visibles en escritorios o techos con intensidades físicamente creíbles (~2.800K cálidas).
-3. **Capa 3: Luces Dramáticas**: Introducir focos de apoyo suaves motivados por las lámparas para separar al personaje o prop del fondo.
+1. **Capa 1: Base Natural Exterior**: Ajustamos la luz que entra por la ventana desde afuera (~6.500K fría). Baña el suelo y las paredes en penumbra azulada.
+2. **Capa 2: Lámparas Prácticas de Set**: Ubicamos las lámparas visibles en escritorios o veladores con intensidades físicas moderadas (~2.700K cálidas). Generan un charco acogedor en la mesa.
+3. **Capa 3: Luces Dramáticas de Apoyo**: Introducimos focos suaves invisibles orientados desde la lámpara hacia el sujeto principal para recortar sus rasgos y darle tridimensionalidad.
 
 ---
 
 ## 3. Fuentes Locales y Parámetros en Unreal Engine 5
 
-* **Rect Light (Luz de Área)**: Superficie emisora rectangular. Indispensable para ventanas, paneles LED de techo y pantallas de computadores.
-* **Point Light**: Emisión omnidireccional en 360°. Para bombillas desnudas o faroles.
-* **Spot Light**: Emisión en cono dirigido con ángulo interno (*Inner Cone*) y externo (*Outer Cone*).
-* **Attenuation Radius**: Radio de corte de la luz. **Regla estricta**: Ajustar para que no traspase los muros del cuarto contiguo, evitando *Shader Overdraw* y fugas lumínicas.
-* **Source Radius / Source Length**: Dimensión física del emisor para obtener reflejos especulares verosímiles en materiales PBR en lugar de puntos matemáticos rígidos.
+| Tipo de Luz en UE5 | Forma de Emisión | ¿Cuándo conviene usarla en interiores? |
+| :--- | :--- | :--- |
+| **Rect Light** | Plano rectangular | Ventanas, tubos fluorescentes de techo y pantallas. Proyecta sombras suaves muy realistas. |
+| **Point Light** | Esfera en 360° | Ampolletas desnudas, velas o fogatas. |
+| **Spot Light** | Cono direccional | Focos empotrados de techo, lámparas de escritorio dirigidas y linternas. |
+
+### Dos Parámetros Críticos de Optimización:
+
+* **Attenuation Radius (Radio de Atenuación)**: Define hasta dónde viaja la luz.
+  * *Ojo con esto*: Nunca dejen el radio gigante por descuido. Si el radio atraviesa muros, la tarjeta de video calculará luz innecesaria en piezas contiguas, consumiendo recursos y provocando fugas de luz (*light leaking*).
+* **Source Radius (Radio de la Fuente)**: Otorga dimensiones físicas reales al emisor.
+  * *Efecto PBR*: En vez de un punto blanco microscópico irreal en los reflejos, verán el reflejo ancho, circular y suave de una bombilla real.
 
 ---
 
-## 4. Nomenclatura Recomendada de Assets (Epic Games)
+## 4. Nomenclatura Oficial de Assets en Unreal Engine
 
-Siguiendo el estándar oficial de Epic Games ([Recommended Asset Naming Conventions](https://dev.epicgames.com/documentation/en-us/unreal-engine/recommended-asset-naming-conventions-in-unreal-engine-projects)):
+Para trabajar con orden profesional y que cualquier persona del equipo entienda su proyecto, seguimos el estándar oficial de Epic Games ([Recommended Asset Naming Conventions](https://dev.epicgames.com/documentation/en-us/unreal-engine/recommended-asset-naming-conventions-in-unreal-engine-projects)):
 
-$$\text{[PrefijoTipoAsset]\_} \text{[NombreDelAsset]\_} \text{[Descriptor/Sufijo]}$$
+$$\text{[Prefijo]\_} \text{[NombreDelAsset]\_} \text{[Descriptor/Sufijo]}$$
 
-### Tabla de Convenciones
-* **Materiales**:
-  * `M_` Master Material (ej. `M_Master_PBR`, `M_Wood_Floor`)
-  * `MI_` Material Instance (ej. `MI_DeskLamp`, `MI_Bust_Marble`)
-  * `MF_` Material Function (ej. `MF_RoughnessRange`)
-* **Texturas**:
-  * `T_` Textura base con descriptor final:
-    * `_BC` / `_D`: Base Color / Diffuse (`T_Wood_Floor_BC`)
-    * `_N`: Normal Map (`T_Wood_Floor_N`)
-    * `_ORM`: Oclusión, Rugosidad y Metal empaquetados (`T_Wood_Floor_ORM`)
-    * `_R`: Roughness individual (`T_Metal_R`)
-    * `_M`: Metallic individual (`T_Metal_M`)
-    * `_E`: Emissive (`T_LampBulb_E`)
-* **Mallas y Geometría**:
-  * `SM_` Static Mesh (`SM_Desk`, `SM_Window_Frame`)
-  * `SK_` Skeletal Mesh (`SK_Character`)
-* **Nivel / Mapa**:
-  * `L_` / `LVL_` Nivel (`L_Interior_Study`)
-* **Rig de Iluminación en el Outliner**:
-  * `L_Nat_Sun`, `L_Nat_Sky`
-  * `L_Prac_DeskLamp`, `L_Prac_CeilingSpot`
-  * `L_Dram_Key_Hero`, `L_Dram_Fill_Desk`
+### Tabla de Prefijos Recomendados
+
+| Tipo de Elemento | Prefijo / Formato | Ejemplo Oficial |
+| :--- | :--- | :--- |
+| **Master Material** | `M_` | `M_Wood_Floor`, `M_Master_PBR` |
+| **Material Instance** | `MI_` | `MI_DeskLamp_Brass`, `MI_Bust_Marble` |
+| **Material Function** | `MF_` | `MF_RoughnessRemap` |
+| **Textura: Base Color** | `T_` ... `_BC` (o `_D`) | `T_Chair_Wood_BC` |
+| **Textura: Normal Map** | `T_` ... `_N` | `T_Chair_Wood_N` |
+| **Textura: Empaquetada ORM** | `T_` ... `_ORM` | `T_Chair_Wood_ORM` |
+| **Static Mesh (Malla 3D)** | `SM_` | `SM_Desk_Office`, `SM_Window_Frame` |
+| **Blueprint** | `BP_` | `BP_DeskLamp_Interactive` |
+| **Nivel / Mapa** | `L_` (o `LVL_`) | `L_Interior_Office_Study` |
+
+### Organización en el Outliner por Categorías de Brejon:
+* `Lights_Natural/`: `L_Nat_Window_Rect`, `L_Nat_Sky_Ambient`
+* `Lights_Practical/`: `L_Prac_DeskLamp_Point`, `L_Prac_Ceiling_Spot`
+* `Lights_Dramatic/`: `L_Dram_Bust_Key`, `L_Dram_Desk_Fill`
 
 ---
 
-## 5. Trabajo en Clase
+## 5. Ejercicio Práctico: Rincón de Estudio Nocturno
 
-* Montaje de una habitación interior simple con ventana y lámpara de mesa aplicando la taxonomía de Brejon.
-* Evaluación presencial de la Entrega N°1 con rúbrica oficial.
+1. **Montar la Habitación**: Crear una caja simple cerrada con un vano de ventana (`SM_Window_Frame`), un escritorio (`SM_Desk_Wood`) y un busto escultórico sobre la mesa (`SM_Bust_Marble`).
+2. **Paso 1 (Luz de Ventana)**: `Rect Light` fría (~6.500K) en el vano para simular la noche exterior entrando al cuarto.
+3. **Paso 2 (Lámpara de Mesa)**: `Point Light` cálida (~2.700K) bajo la pantalla con `Source Radius = 3 cm` y `Attenuation Radius = 120 cm`.
+4. **Paso 3 (Luz de Estudio de Modelado)**: `Spot Light` invisible apuntando a la cara del busto con el mismo tono cálido de la lámpara (~3.000K) para modelar la mejilla y nariz.
+5. **Cierre de Clase**: Revisión y calificación presencial individual de la **Entrega N°1** según pauta oficial.
 
 ---
 **Notas relacionadas**:
+- [[Clase 01 - Fundamentos de la Luz y Esquema de 3 Puntos]]
+- [[Clase 02 - Taller de Iluminación 3 Puntos, Sol y Cielo en Unreal Engine 5]]
+- [[Clase 03 - Shaders PBR en el Busto, Sol y Fuentes Locales]]
+- [[Clase 04 - Taller de Entrega 01, Shaders Nodales y Atmósfera Volumétrica]]
 - [[Rubrica_Entrega_01_3Point_y_Shaders]]
-- [[Clase 03 - Shaders PBR, Master Materials y Luces Locales]]
-- [[Clase 04 - Taller de Entrega 01, Sistemas Nodales y Atmósfera Volumétrica]]
-- [[Tipos de Luces en Unreal Engine]]
+- [[Glosario de Iluminación 3D]]

@@ -227,3 +227,50 @@ Parámetro físico que controla hacia dónde rebota la luz al chocar con las par
 
 ### Mood (Atmósfera Emocional y Narrativa)
 El uso coordinado de la temperatura de color, el contraste de sombras, la densidad de la niebla y la dirección del sol para evocar una emoción específica en el jugador (tensión, misterio, calidez, aislamiento, peligro o heroísmo).
+
+---
+
+## Unidad 5: Iluminación de Interiores, Metodología Brejon y Nomenclatura
+
+### Categoría vs. Rol (Metodología Chris Brejon)
+Diferenciación conceptual fundamental establecida por Chris Brejon en *CG Cinematography*:
+* **Categoría (Lo que la luz es)**: Clasificación intrínseca e inmutable de la fuente (*Natural, Practical, Dramatic*).
+* **Rol (La función según la cámara)**: Lo que la luz hace en un plano específico (*Key, Fill, Rim, Kicker, Bounce*). Un sol siempre pertenece a la categoría *Natural*, pero su rol puede ser *Key* o *Rim* según hacia dónde apunte la cámara.
+
+---
+
+### Natural Lights (Luces Naturales)
+Fuentes de luz no manufacturadas del entorno exterior (sol, cielo, luna, relámpagos). En espacios cerrados, ingresan a través de ventanas y vanos definiendo la orientación y el momento del día.
+
+---
+
+### Practical Lights (Luces Prácticas)
+Luminarias visibles que forman parte del decorado o utilería (*set dressing*): lámparas de escritorio, tubos fluorescentes, velas, pantallas o apliqués de pared. Su función primordial es enriquecer la composición y **servir de motivación o justificación visual** para el espectador.
+
+---
+
+### Dramatic Lights / Studio Lights (Luces Dramáticas)
+Fuentes de luz invisibles fuera de cuadro que el artista introduce para esculpir al personaje o punto focal, aportar volumen o guiar la mirada del jugador. Están motivadas visualmente por las luces prácticas pero operan con intensidades y posiciones independientes para no quemar la escena.
+
+<ClientOnly>
+  <InteriorLightingViewer />
+</ClientOnly>
+
+---
+
+### Rect Light (Luz de Área Rectangular)
+Emisor tridimensional con forma de plano rectangular. Es la herramienta por excelencia para simular el vano de ventanas, tubos fluorescentes de techo y pantallas emisivas, generando penumbras suaves y reflejos especulares realistas.
+
+---
+
+### Source Radius / Source Length (Radio y Longitud de Fuente)
+Parámetros que otorgan volumen y dimensiones físicas reales a un emisor puntual en Unreal Engine. En lugar de reflejarse como un punto microscópico rígido e irreal en superficies brillantes, el reflejo PBR adopta el ancho de una ampolleta esférica o la longitud de un tubo fluorescente real.
+
+---
+
+### Convención de Nomenclatura de Assets (Epic Games)
+Estándar oficial de prefijos y sufijos para organizar archivos en el Content Browser:
+* `M_` Master Material / `MI_` Material Instance / `MF_` Material Function.
+* `T_` Texturas con sufijos descriptivos (`_BC` Base Color, `_N` Normal, `_ORM` Occlusion/Roughness/Metallic).
+* `SM_` Static Mesh / `SK_` Skeletal Mesh / `BP_` Blueprint / `L_` Nivel.
+

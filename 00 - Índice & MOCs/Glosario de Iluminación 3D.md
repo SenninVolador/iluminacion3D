@@ -111,3 +111,35 @@ Control angular de dispersión luminosa. Valores entre $0.7$ y $0.9$ generan hac
 
 ### Mood (Atmósfera Escénica)
 Uso coordinado de temperatura de color, contraste y niebla volumétrica para definir el tono emocional y narrativo de un entorno 3D.
+
+---
+
+## Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura
+
+### Categoría vs. Rol (Metodología Chris Brejon)
+Diferenciación conceptual fundamental de *CG Cinematography*:
+* **Categoría (Lo que la luz es)**: Clasificación de origen (*Natural, Practical, Dramatic*).
+* **Rol (La función según la cámara)**: Lo que la luz hace en un plano específico (*Key, Fill, Rim, Kicker, Bounce*).
+
+### Natural Lights (Luces Naturales)
+Fuentes de luz no manufacturadas del exterior (Sol, cielo, luna). En interiores ingresan a través de vanos y ventanas.
+
+### Practical Lights (Luces Prácticas)
+Luminarias visibles del set dressing (lámparas de velador, bombillas, tubos fluorescentes, velas, pantallas). Su función es aportar verosimilitud y **servir de motivación visual**.
+
+### Dramatic Lights / Studio Lights (Luces Dramáticas)
+Fuentes de luz fuera de cuadro que esculpen el sujeto o personaje principal, motivadas por las prácticas del entorno pero con intensidades controladas para no quemar la imagen.
+
+### Rect Light (Luz de Área Rectangular)
+Emisor tridimensional con forma de plano rectangular. Herramienta estándar para ventanas, paneles LED de techo y pantallas emisivas.
+
+### Source Radius / Source Length
+Parámetros de Unreal Engine que otorgan volumen real al emisor para producir reflejos especulares verosímiles en materiales PBR en vez de puntos microscópicos irreales.
+
+### Nomenclatura Recomendada de Assets (Epic Games)
+Estructura `[Prefijo]_[Nombre]_[Descriptor]`:
+* `M_` Master Material, `MI_` Material Instance.
+* `T_` Textura con sufijos `_BC`, `_N`, `_ORM`, `_R`, `_M`, `_E`.
+* `SM_` Static Mesh, `SK_` Skeletal Mesh, `BP_` Blueprint, `L_` Nivel.
+* Rig de luces: `L_Nat_...`, `L_Prac_...`, `L_Dram_...`.
+

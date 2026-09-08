@@ -74,6 +74,22 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </div>
 </div>
 
+<!-- CLASE 05 -->
+<div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="./clase-05" style="color: #111827; text-decoration: none;">Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura</a>
+    </h3>
+    <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 05</span>
+  </div>
+  <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+    Iluminación de una habitación interior simple bajo la taxonomía de Chris Brejon (Natural, Practical y Dramatic Lights), fuentes locales (Rect, Point, Spot), contraste térmico Kelvin y nomenclatura oficial de Epic Games.
+  </p>
+  <div style="font-size: 11px; color: #111827; font-weight: 600;">
+    Simulador: <span style="font-weight: normal; color: #4b5563;">Habitación interior 3D con capas de Brejon (Ventana fría, Lámpara cálida y Luz de estudio)</span>
+  </div>
+</div>
+
 <!-- LECTURA COMPLEMENTARIA -->
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">

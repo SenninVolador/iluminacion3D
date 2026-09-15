@@ -11,7 +11,10 @@ Estudio de Iluminación de 3 Puntos y Shader Paramétrico PBR en Unreal Engine 5
 * **Puntaje Total**: 60 puntos
 * **Escala de Calificación**: 1.0 a 7.0 (Exigencia del 60% para nota 4.0 = 36 puntos)
 * **Software Requerido**: Unreal Engine 5
-* **Documento para Descarga**: [Descargar Rúbrica Oficial en PDF](/Rubrica_Entrega_01.pdf)
+* **Documentos de Evaluación**: 
+  * [Descargar Rúbrica Oficial en PDF](/Rubrica_Entrega_01.pdf)
+  * [Abrir Planilla de Calificación en Google Sheets](https://docs.google.com/spreadsheets/d/10_RqrIjw_Ed-X2icaICfkd8JbSb2yIJ3rnCBg1Lhptg/edit)
+  * <a href="/iluminacion3D/Rubrica_Evaluacion_Entrega_01.xlsx" download>Descargar Planilla en Formato Excel (.xlsx)</a>
 
 ---
 

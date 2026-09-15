@@ -18,6 +18,7 @@ export default defineConfig({
           { text: "Clase 03: Shaders PBR y Fuentes Locales", link: "/clases/clase-03" },
           { text: "Clase 04: Shaders Nodales y Atmósfera", link: "/clases/clase-04" },
           { text: "Clase 05: Interiores, Brejon y Nomenclatura", link: "/clases/clase-05" },
+          { text: "Clase 06: Interiores, Referencia y Réplica", link: "/clases/clase-06" },
           { text: "Lectura: Lenguaje Visual", link: "/clases/lenguaje-visual" },
           { text: "Rúbrica: Entrega N°1", link: "/clases/rubrica-entrega-01" }
         ]
@@ -40,6 +41,7 @@ export default defineConfig({
             { text: 'Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales', link: '/clases/clase-03' },
             { text: 'Clase 04: Shaders Nodales, Atmósfera y Niebla Volumétrica', link: '/clases/clase-04' },
             { text: 'Clase 05: Interiores, Brejon y Nomenclatura', link: '/clases/clase-05' },
+            { text: 'Clase 06: Interiores, Análisis de Referencia y Réplica', link: '/clases/clase-06' },
             { text: 'Lectura: Lenguaje Visual y Guía al Jugador', link: '/clases/lenguaje-visual' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' }
           ]

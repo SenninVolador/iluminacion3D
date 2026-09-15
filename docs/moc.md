@@ -27,6 +27,7 @@ Base de conocimiento integral para la asignatura de **Iluminación 3D y Shaders 
 * [Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales](/clases/clase-03)
 * [Clase 04: Taller de Entrega N°1, Shaders Nodales y Atmósfera Volumétrica](/clases/clase-04)
 * [Clase 05: Iluminación de Interiores, Metodología Brejon y Nomenclatura](/clases/clase-05)
+* [Clase 06: Iluminación de Interiores — Análisis de Referencia y Réplica](/clases/clase-06)
 * [Lectura: Lenguaje Visual y Guía al Jugador](/clases/lenguaje-visual)
 
 ### 2. Shaders, Materiales y Pipeline PBR

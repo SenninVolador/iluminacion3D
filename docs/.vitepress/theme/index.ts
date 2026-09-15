@@ -11,6 +11,7 @@ import MobilityViewer from './components/MobilityViewer.vue';
 import NodeShaderViewer from './components/NodeShaderViewer.vue';
 import VolumetricFogViewer from './components/VolumetricFogViewer.vue';
 import InteriorLightingViewer from './components/InteriorLightingViewer.vue';
+import TLOUInteriorViewer from './components/TLOUInteriorViewer.vue';
 import './custom.css';
 
 export default {
@@ -28,5 +29,6 @@ export default {
     app.component('NodeShaderViewer', NodeShaderViewer);
     app.component('VolumetricFogViewer', VolumetricFogViewer);
     app.component('InteriorLightingViewer', InteriorLightingViewer);
+    app.component('TLOUInteriorViewer', TLOUInteriorViewer);
   }
 };

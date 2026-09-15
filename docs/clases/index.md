@@ -90,6 +90,22 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </div>
 </div>
 
+<!-- CLASE 06 -->
+<div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="/iluminacion3D/clases/clase-06" style="color: #111827; text-decoration: none;">Clase 06: Iluminación de Interiores — Análisis de Referencia y Réplica</a>
+    </h3>
+    <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Sesión 06</span>
+  </div>
+  <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+    Taller práctico de réplica de interior en Unreal Engine 5. Estudio de caso cinematográfico sobre el prólogo nocturno de The Last of Us, calibración de exposición manual (EV100), simulación de TV/luna y selección de referencia visual de videojuego o película para iniciar la réplica en sala.
+  </p>
+  <div style="font-size: 11px; color: #111827; font-weight: 600;">
+    Simulador: <span style="font-weight: normal; color: #4b5563;">Desglose 3D de capas nocturnas (Luna fría, TV emisivo, luz de pasillo cálida y rim light de silueta)</span>
+  </div>
+</div>
+
 <!-- LECTURA COMPLEMENTARIA -->
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">

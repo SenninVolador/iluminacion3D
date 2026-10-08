@@ -119,7 +119,7 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </p>
 </div>
 
-<!-- RUBRICA DE EVALUACION -->
+<!-- RUBRICA DE EVALUACION 01 -->
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
     <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
@@ -129,6 +129,19 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </div>
   <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
     Criterios de evaluación de 60 puntos para la primera entrega del semestre: Esquema de 3 puntos (20 pts), Shader PBR (15 pts), Master Material e Instancia con 3+ parámetros expuestos (15 pts) y orden/nomenclatura (10 pts).
+  </p>
+</div>
+
+<!-- RUBRICA DE EVALUACION 02 -->
+<div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="/iluminacion3D/clases/rubrica-entrega-02" style="color: #111827; text-decoration: none;">Rúbrica de Evaluación: Entrega N°2 (Iluminación de Interior & Moodboard)</a>
+    </h3>
+    <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Pauta Oficial</span>
+  </div>
+  <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+    Pauta analítica de 60 puntos para la segunda entrega del semestre: Referencias y Moodboard (15%), Iluminación Interior y Espacialidad (25%), Uso Correcto de Luces (30%), Intención y Atmósfera (20%) y Orden/Nomenclatura (10%).
   </p>
 </div>
 

@@ -121,6 +121,11 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Caso The Last of U
 </div>
 
 <div class="academic-card">
+<h3><a href="/iluminacion3D/clases/rubrica-entrega-02">Rúbricas de Evaluación</a></h3>
+<p>Pautas oficiales de evaluación del semestre: Entrega N°1 (3 Puntos y Shaders) y Entrega N°2 (Iluminación Interior y Moodboard).</p>
+</div>
+
+<div class="academic-card">
 <h3><a href="/iluminacion3D/clases/lenguaje-visual">Guía Visual al Jugador</a></h3>
 <p>Técnicas de composición e iluminación para guiar la atención del jugador y construir jerarquía visual en niveles 3D.</p>
 </div>

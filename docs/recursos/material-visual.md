@@ -25,6 +25,17 @@ Fichas técnicas maquetadas en dos páginas para consulta de laboratorio e impre
 
 ---
 
+### Rúbrica de Evaluación: Entrega N°2 (Iluminación de Interior y Moodboard)
+* [Descargar Rúbrica Oficial (PDF)](/Rubrica_Entrega_02.pdf)
+* <a href="/iluminacion3D/Rubrica_Evaluacion_Entrega_02.xlsx" download>Descargar Planilla de Calificación en Excel (.xlsx)</a>
+* **Contenidos**:
+  * Pauta de evaluación de 60 puntos basada en metodología de Chris Brejon.
+  * Ponderación Moodboard y Análisis de Referencia (15% = 9 puntos).
+  * Criterios de Iluminación Interior, Uso Técnico de Luces, Intención y Orden.
+  * Tabla de conversión a escala chilena de 1.0 a 7.0 al 60% de exigencia.
+
+---
+
 ### Clase 03: Shaders PBR en el Busto, Sol y Fuentes Locales
 * [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_03.pdf)
 * **Contenidos**:

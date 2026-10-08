@@ -20,10 +20,17 @@ export default defineConfig({
           { text: "Clase 05: Interiores, Brejon y Nomenclatura", link: "/clases/clase-05" },
           { text: "Clase 06: Interiores, Referencia y Réplica", link: "/clases/clase-06" },
           { text: "Lectura: Lenguaje Visual", link: "/clases/lenguaje-visual" },
-          { text: "Rúbrica: Entrega N°1", link: "/clases/rubrica-entrega-01" }
+          { text: "Rúbrica: Entrega N°1", link: "/clases/rubrica-entrega-01" },
+          { text: "Rúbrica: Entrega N°2", link: "/clases/rubrica-entrega-02" }
         ]
       },
-      { text: "Rúbrica Entrega 1", link: "/clases/rubrica-entrega-01" },
+      {
+        text: "Rúbricas",
+        items: [
+          { text: "Entrega 1: 3 Puntos & Shaders", link: "/clases/rubrica-entrega-01" },
+          { text: "Entrega 2: Iluminación de Interior", link: "/clases/rubrica-entrega-02" }
+        ]
+      },
       { text: "Shaders PBR", link: "/shaders/01-fundamentos-pbr" },
       { text: "Glosario", link: "/glosario" },
       { text: "Atajos", link: "/recursos/shortcuts" },
@@ -43,7 +50,8 @@ export default defineConfig({
             { text: 'Clase 05: Interiores, Brejon y Nomenclatura', link: '/clases/clase-05' },
             { text: 'Clase 06: Interiores, Análisis de Referencia y Réplica', link: '/clases/clase-06' },
             { text: 'Lectura: Lenguaje Visual y Guía al Jugador', link: '/clases/lenguaje-visual' },
-            { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' }
+            { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
+            { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' }
           ]
         }
       ],
@@ -67,6 +75,7 @@ export default defineConfig({
             { text: 'Videos Tutoriales', link: '/recursos/videos' },
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
+            { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' },
             { text: 'Mapa de Contenidos', link: '/moc' },
             { text: 'Fichas Técnicas y Descargas', link: '/recursos/material-visual' }
           ]

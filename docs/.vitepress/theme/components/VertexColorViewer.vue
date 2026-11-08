@@ -17,7 +17,7 @@
             :class="['preset-btn', { active: scenario === 'npr' }]"
             @click="setScenario('npr')"
           >
-            Caso A: Personaje NPR (Outline + Sombras Forzadas)
+            Caso A: Personaje Anime NPR (Outline + Sombra Bajo Mentón/Flequillo)
           </button>
           <button
             :class="['preset-btn', { active: scenario === 'env' }]"
@@ -62,13 +62,13 @@
             :class="['preset-btn chan-b', { active: viewChannel === 'b' }]"
             @click="setViewChannel('b')"
           >
-            Canal B ({{ scenario === 'npr' ? 'Rim Light' : 'Humedad' }})
+            Canal B ({{ scenario === 'npr' ? 'Rim Cabello' : 'Humedad' }})
           </button>
           <button
             :class="['preset-btn chan-a', { active: viewChannel === 'a' }]"
             @click="setViewChannel('a')"
           >
-            Canal A ({{ scenario === 'npr' ? 'Tinte Cálido' : 'Peso de Viento' }})
+            Canal A ({{ scenario === 'npr' ? 'Rubor Mejillas' : 'Peso de Viento' }})
           </button>
         </div>
       </div>
@@ -106,7 +106,7 @@
         </div>
         <div class="hints">
           <span v-if="scenario === 'npr'">
-            En 0% el contorno tiene grosor uniforme; en 100% el Canal R adelgaza trazos faciales internos (R=0) y engrosa hombros (R=1).
+            En 0% el contorno infla también ojos y nariz; en 100% el Canal R adelgaza rasgos faciales internos (R=0) y engrosa cabello/hombros (R=1).
           </span>
           <span v-else>
             Controla el Alpha del nodo <code>Lerp(Piedra, Musgo, VertexColor.R)</code> en las caras superiores del pilar.
@@ -119,7 +119,7 @@
         <div class="control-label">
           <span>
             <strong class="badge-g">G</strong>
-            {{ scenario === 'npr' ? 'Canal Verde — Sombra Permanente (Bajo Mentón/Cuello):' : 'Canal Verde — Desgaste y Grietas Expuestas:' }}
+            {{ scenario === 'npr' ? 'Canal Verde — Sombra Permanente (Mentón y Flequillo):' : 'Canal Verde — Desgaste y Grietas Expuestas:' }}
           </span>
           <code>{{ (channelGWeight * 100).toFixed(0) }}%</code>
         </div>
@@ -128,7 +128,7 @@
         </div>
         <div class="hints">
           <span v-if="scenario === 'npr'">
-            Desplaza el umbral <code>N · L</code> para forzar sombra fija bajo la barbilla y cuencas oculares aunque la luz dé de frente.
+            Desplaza el umbral <code>dot(N, L)</code> para forzar sombra fija bajo la barbilla y bajo el flequillo aunque la luz dé de frente.
           </span>
           <span v-else>
             Mezcla roca erosionada y oscurecimiento de cavidades en aristas y fisuras talladas.
@@ -141,7 +141,7 @@
         <div class="control-label">
           <span>
             <strong class="badge-b">B</strong>
-            {{ scenario === 'npr' ? 'Canal Azul — Máscara de Rim Light / Specular:' : 'Canal Azul — Humedad y Reflejo Especular en Base:' }}
+            {{ scenario === 'npr' ? 'Canal Azul — Máscara de Rim Light en Cabello:' : 'Canal Azul — Humedad y Reflejo Especular en Base:' }}
           </span>
           <code>{{ (channelBWeight * 100).toFixed(0) }}%</code>
         </div>
@@ -150,7 +150,7 @@
         </div>
         <div class="hints">
           <span v-if="scenario === 'npr'">
-            Restringe el recorte de luz de borde (Fresnel Rim) únicamente a la zona superior de la cabeza y hombros.
+            Restringe el brillo de borde (Fresnel Rim + Highlight) exclusivamente a los mechones del cabello y hombros.
           </span>
           <span v-else>
             Oscurece el Albedo por absorción de agua y eleva el brillo especular en la parte baja del monolito.
@@ -163,7 +163,7 @@
         <div class="control-label">
           <span>
             <strong class="badge-a">A</strong>
-            {{ scenario === 'npr' ? 'Canal Alfa — Subsurface / Tinte Cálido en Mejillas:' : 'Canal Alfa — Animación de Viento (World Position Offset):' }}
+            {{ scenario === 'npr' ? 'Canal Alfa — Subsurface / Rubor Cálido en Mejillas:' : 'Canal Alfa — Animación de Viento (World Position Offset):' }}
           </span>
           <code>{{ (channelAWeight * 100).toFixed(0) }}%</code>
         </div>
@@ -172,7 +172,7 @@
         </div>
         <div class="hints">
           <span v-if="scenario === 'npr'">
-            Inyecta calidez rojiza en la transición luz-sombra sobre mejillas, nariz y orejas (Alpha = 1.0).
+            Inyecta calidez coral/rojiza en mejillas y puente nasal (Alpha = 1.0) sobre la piel anime.
           </span>
           <span v-else>
             Multiplica la onda sinusoidal de viento por <code>VertexColor.A</code>: la base (A=0) queda fija a la roca y la punta (A=1) oscila.
@@ -184,8 +184,8 @@
     <!-- EXPLICACIÓN DINÁMICA -->
     <div class="methodology-note">
       <template v-if="scenario === 'npr'">
-        <strong>Flujo de Trabajo en Personajes NPR (Arc System Works / Hoyoverse):</strong>
-        En lugar de dejar que la matemática pura decida dónde cae cada línea y sombra, el artista técnico pinta los canales <strong>RGBA</strong> directamente en los vértices del modelo: el <strong>Canal R</strong> afina el contorno <em>Inverted Hull</em> en nariz y labios para que no parezcan manchones negros; el <strong>Canal G</strong> asegura que bajo el mentón siempre exista sombra estética; el <strong>Canal B</strong> acota el brillo de borde (Rim Light); y el <strong>Canal A</strong> suaviza la transición rojiza en la piel.
+        <strong>Flujo de Trabajo en Personajes Anime NPR (Arc System Works / HoYoverse):</strong>
+        Inspecciona el botón <strong>Vertex Color RGB (Raw)</strong>: verás por qué los modelos de producción lucen como un mapa técnico multicolor. El <strong>Canal R</strong> protege ojos, pestañas y nariz para que el <em>Inverted Hull Outline</em> no los convierta en parches negros; el <strong>Canal G</strong> pinta sombra fija en el cuello bajo el mentón y bajo el flequillo; el <strong>Canal B</strong> concentra el <em>Rim Light</em> en el cabello; y el <strong>Canal A</strong> controla el rubor cálido de las mejillas.
       </template>
       <template v-else>
         <strong>Flujo de Trabajo en Entornos (Environment Blending & WPO):</strong>
@@ -197,6 +197,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { withBase } from 'vitepress';
 
 const canvasContainer = ref(null);
 
@@ -208,121 +209,193 @@ const channelGWeight = ref(1.0);
 const channelBWeight = ref(1.0);
 const channelAWeight = ref(1.0);
 
-const sunAngle = ref(0.65);
+const sunAngle = ref(0.58);
 
 let THREE = null;
 let scene, camera, renderer, animId, clock;
 let mainMesh, outlineMesh;
+let cachedAnimeData = null;
 let isDragging = false;
 let prevMouse = { x: 0, y: 0 };
-let camOrbit = { theta: 0.35, phi: 0.22, radius: 3.9 };
+let camOrbit = { theta: 0.25, phi: 0.14, radius: 3.15 };
 
-// Esculpir busto estilizado con cabeza, cuello y hombros para mostrar las 4 máscaras NPR
-function createNPRBustGeometry() {
-  const base = new THREE.IcosahedronGeometry(1.0, 4);
-  const pos = base.attributes.position;
+async function loadAnimeBinary() {
+  if (cachedAnimeData) return cachedAnimeData;
+  const resp = await fetch(withBase('/models/anime_bust.bin'));
+  const buf = await resp.arrayBuffer();
+  const header = new Uint32Array(buf, 0, 4);
+  const [hVerts, hTris, hrVerts, hrTris] = header;
 
-  for (let i = 0; i < pos.count; i++) {
-    let x = pos.getX(i);
-    let y = pos.getY(i);
-    let z = pos.getZ(i);
+  let offset = 16;
+  const hPos = new Float32Array(buf, offset, hVerts * 3);
+  offset += hVerts * 3 * 4;
+  const hRgba = new Uint8Array(buf, offset, hVerts * 4);
+  offset += hVerts * 4;
+  const hTriIdx = new Uint32Array(buf, offset, hTris * 3);
+  offset += hTris * 3 * 4;
 
-    if (y < -0.35) {
-      // Cuello y apertura hacia los hombros en la base
-      const t = Math.min(1.0, (-y - 0.35) / 0.65);
-      const neckNarrow = 0.52;
-      const shoulderWide = 1.45;
-      const widthFactor = neckNarrow * (1.0 - t) + shoulderWide * (t * t);
-      x *= widthFactor;
-      z *= 0.55 * (1.0 - t * 0.25);
-      y *= 1.18;
-    } else {
-      // Cabeza y rasgos faciales
-      x *= 0.82;
-      y *= 1.05;
-      z *= 0.86;
+  const hrPos = new Float32Array(buf, offset, hrVerts * 3);
+  offset += hrVerts * 3 * 4;
+  const hrRgba = new Uint8Array(buf, offset, hrVerts * 4);
+  offset += hrVerts * 4;
+  const hrTriIdx = new Uint32Array(buf, offset, hrTris * 3);
 
-      if (z > 0.05) {
-        const nose = Math.exp(-(x * x) / 0.02) * Math.exp(-Math.pow(y - 0.05, 2) / 0.06);
-        const eyes =
-          Math.exp(-Math.pow(x - 0.26, 2) / 0.025) * Math.exp(-Math.pow(y - 0.18, 2) / 0.02) +
-          Math.exp(-Math.pow(x + 0.26, 2) / 0.025) * Math.exp(-Math.pow(y - 0.18, 2) / 0.02);
-        const chin = Math.exp(-(x * x) / 0.04) * Math.exp(-Math.pow(y + 0.32, 2) / 0.02);
-        z += nose * 0.24 - eyes * 0.18 + chin * 0.12;
+  cachedAnimeData = { hVerts, hTris, hPos, hRgba, hTriIdx, hrVerts, hrTris, hrPos, hrRgba, hrTriIdx };
+  return cachedAnimeData;
+}
+
+async function createNPRBustGeometry() {
+  const data = await loadAnimeBinary();
+  const totalTris = data.hTris + data.hrTris;
+  const vCount = totalTris * 3;
+
+  const posArr = new Float32Array(vCount * 3);
+  const baseColArr = new Float32Array(vCount * 3);
+  const partArr = new Float32Array(vCount);
+
+  let ptr = 0;
+  const appendSection = (pos, rgba, triIdx, triCount) => {
+    for (let t = 0; t < triCount; t++) {
+      for (let k = 0; k < 3; k++) {
+        const vi = triIdx[t * 3 + k];
+        posArr[ptr * 3] = pos[vi * 3];
+        posArr[ptr * 3 + 1] = pos[vi * 3 + 1];
+        posArr[ptr * 3 + 2] = pos[vi * 3 + 2];
+
+        baseColArr[ptr * 3] = rgba[vi * 4] / 255.0;
+        baseColArr[ptr * 3 + 1] = rgba[vi * 4 + 1] / 255.0;
+        baseColArr[ptr * 3 + 2] = rgba[vi * 4 + 2] / 255.0;
+        partArr[ptr] = rgba[vi * 4 + 3];
+        ptr++;
       }
     }
+  };
 
-    pos.setXYZ(i, x, y, z);
+  appendSection(data.hPos, data.hRgba, data.hTriIdx, data.hTris);
+  appendSection(data.hrPos, data.hrRgba, data.hrTriIdx, data.hrTris);
+
+  // Calcular normales por cara y promediarlas por posición espacial
+  const faceNormals = new Float32Array(vCount * 3);
+  const vA = new THREE.Vector3();
+  const vB = new THREE.Vector3();
+  const vC = new THREE.Vector3();
+  const cb = new THREE.Vector3();
+  const ab = new THREE.Vector3();
+
+  for (let i = 0; i < vCount; i += 3) {
+    vA.set(posArr[i * 3], posArr[i * 3 + 1], posArr[i * 3 + 2]);
+    vB.set(posArr[(i + 1) * 3], posArr[(i + 1) * 3 + 1], posArr[(i + 1) * 3 + 2]);
+    vC.set(posArr[(i + 2) * 3], posArr[(i + 2) * 3 + 1], posArr[(i + 2) * 3 + 2]);
+    cb.subVectors(vC, vB);
+    ab.subVectors(vA, vB);
+    cb.cross(ab).normalize();
+    for (let k = 0; k < 3; k++) {
+      faceNormals[(i + k) * 3] = cb.x;
+      faceNormals[(i + k) * 3 + 1] = cb.y;
+      faceNormals[(i + k) * 3 + 2] = cb.z;
+    }
   }
 
-  base.computeVertexNormals();
+  const smoothMap = new Map();
+  const keyOf = (x, y, z) => `${Math.round(x * 2000)},${Math.round(y * 2000)},${Math.round(z * 2000)}`;
+  for (let i = 0; i < vCount; i++) {
+    const k = keyOf(posArr[i * 3], posArr[i * 3 + 1], posArr[i * 3 + 2]);
+    let acc = smoothMap.get(k);
+    if (!acc) {
+      acc = new THREE.Vector3();
+      smoothMap.set(k, acc);
+    }
+    acc.x += faceNormals[i * 3];
+    acc.y += faceNormals[i * 3 + 1];
+    acc.z += faceNormals[i * 3 + 2];
+  }
 
-  // Asignar los 4 canales RGBA de Vertex Color y normales proxy suaves
-  const vCount = pos.count;
-  const rgba = new Float32Array(vCount * 4);
-  const proxyNorms = new Float32Array(vCount * 3);
+  const finalNormals = new Float32Array(vCount * 3);
+  const smoothHullNormals = new Float32Array(vCount * 3);
+  const rgbaMask = new Float32Array(vCount * 4);
   const pVec = new THREE.Vector3();
 
   for (let i = 0; i < vCount; i++) {
-    const x = pos.getX(i);
-    const y = pos.getY(i);
-    const z = pos.getZ(i);
+    const x = posArr[i * 3];
+    const y = posArr[i * 3 + 1];
+    const z = posArr[i * 3 + 2];
+    const pid = partArr[i];
 
-    // Normal suave estilo anime
-    pVec.set(x * 1.1, y * 0.85, z + 0.28).normalize();
-    proxyNorms[i * 3] = pVec.x;
-    proxyNorms[i * 3 + 1] = pVec.y;
-    proxyNorms[i * 3 + 2] = pVec.z;
+    const avg = smoothMap.get(keyOf(x, y, z));
+    pVec.copy(avg).normalize();
+    smoothHullNormals[i * 3] = pVec.x;
+    smoothHullNormals[i * 3 + 1] = pVec.y;
+    smoothHullNormals[i * 3 + 2] = pVec.z;
 
-    // CANAL R (Grosor de Outline):
-    // Fino (0.15) en centro del rostro (nariz, ojos, boca); Grueso (1.0) en silueta exterior, cráneo y hombros
-    const faceCenterMask =
-      z > 0.2 ? Math.exp(-(x * x) / 0.16) * Math.exp(-Math.pow(y - 0.02, 2) / 0.14) : 0.0;
-    const r = Math.max(0.12, Math.min(1.0, 1.0 - faceCenterMask * 0.88));
+    // En la cara (pid === 0 o 4), usamos Normal Transfer limpio
+    if (pid === 0 || pid === 4) {
+      pVec.set(x * 1.15, (y - 0.12) * 0.72, z + 0.52).normalize();
+    }
+    finalNormals[i * 3] = pVec.x;
+    finalNormals[i * 3 + 1] = pVec.y;
+    finalNormals[i * 3 + 2] = pVec.z;
 
-    // CANAL G (Sombra Permanente / Oclusión):
-    // Negro (0.0) bajo el mentón/cuello alto y cuencas oculares; Blanco (1.0) en el resto
-    const underChin =
-      z > -0.1 && y < -0.18 && y > -0.68
-        ? Math.exp(-(x * x) / 0.22) * Math.exp(-Math.pow(y + 0.42, 2) / 0.035)
-        : 0.0;
-    const eyeSockets =
-      z > 0.15
-        ? (Math.exp(-Math.pow(x - 0.26, 2) / 0.025) + Math.exp(-Math.pow(x + 0.26, 2) / 0.025)) *
-          Math.exp(-Math.pow(y - 0.18, 2) / 0.02)
-        : 0.0;
-    const g = Math.max(0.0, Math.min(1.0, 1.0 - Math.min(1.0, underChin * 1.15 + eyeSockets * 0.85)));
+    // 1. CANAL R (Grosor de Outline):
+    // 0.0 en ojos/cejas/pestañas (pid === 1) y centro facial (nariz/labios)
+    // 1.0 en silueta exterior, cabello (pid === 3) y cuello/hombros
+    let r = 1.0;
+    if (pid === 1) {
+      r = 0.0;
+    } else if (pid === 0 && z > 0.25) {
+      const innerFace = Math.exp(-(x * x) / 0.12) * Math.exp(-Math.pow(y + 0.05, 2) / 0.14);
+      r = Math.max(0.12, 1.0 - innerFace * 0.88);
+    }
 
-    // CANAL B (Máscara de Rim Light):
-    // Blanco (1.0) en coronilla, laterales superiores y hombros; Negro (0.0) en cuello/bajo mentón
-    const b = Math.max(0.0, Math.min(1.0, (y + 0.25) * 0.85 + Math.abs(x) * 0.45 - underChin));
+    // 2. CANAL G (Sombra Permanente / Oclusión):
+    // Negro (0.0) en el cuello alto bajo el mentón y en la frente bajo el flequillo
+    let g = 1.0;
+    if (pid === 2 && y > -0.82 && y < -0.36 && z > -0.15) {
+      const underChin = Math.exp(-(x * x) / 0.10) * Math.exp(-Math.pow(y + 0.52, 2) / 0.025);
+      g = Math.max(0.0, 1.0 - underChin * 1.35);
+    } else if (pid === 0 && z > 0.15) {
+      const bangsShadow = Math.exp(-(x * x) / 0.28) * Math.exp(-Math.pow(y - 0.34, 2) / 0.022);
+      const eyeSocket =
+        (Math.exp(-Math.pow(Math.abs(x) - 0.25, 2) / 0.012)) * Math.exp(-Math.pow(y - 0.05, 2) / 0.008);
+      g = Math.max(0.0, 1.0 - Math.min(1.0, bangsShadow * 1.15 + eyeSocket * 0.9));
+    }
 
-    // CANAL A (Subsurface / Rubor Cálido en mejillas y nariz):
-    const cheeks =
-      z > 0.2
-        ? (Math.exp(-Math.pow(x - 0.32, 2) / 0.035) +
-            Math.exp(-Math.pow(x + 0.32, 2) / 0.035) +
-            Math.exp(-(x * x) / 0.025)) *
-          Math.exp(-Math.pow(y - 0.02, 2) / 0.04)
-        : 0.0;
-    const a = Math.max(0.0, Math.min(1.0, cheeks));
+    // 3. CANAL B (Máscara de Rim Light / Specular en Cabello y Hombros):
+    let b = 0.0;
+    if (pid === 3 || pid === 4) {
+      b = Math.max(0.2, Math.min(1.0, (y + 0.4) * 0.85));
+    } else if (pid === 2 && Math.abs(x) > 0.32) {
+      b = 0.75;
+    }
 
-    rgba[i * 4] = r;
-    rgba[i * 4 + 1] = g;
-    rgba[i * 4 + 2] = b;
-    rgba[i * 4 + 3] = a;
+    // 4. CANAL A (Rubor / Subsurface Cálido en Mejillas y Nariz):
+    let a = 0.0;
+    if (pid === 0 && z > 0.25) {
+      const blush =
+        (Math.exp(-Math.pow(Math.abs(x) - 0.28, 2) / 0.018) +
+         Math.exp(-(x * x) / 0.012) * 0.7) *
+        Math.exp(-Math.pow(y + 0.10, 2) / 0.016);
+      a = Math.max(0.0, Math.min(1.0, blush * 1.15));
+    }
+
+    rgbaMask[i * 4] = r;
+    rgbaMask[i * 4 + 1] = g;
+    rgbaMask[i * 4 + 2] = b;
+    rgbaMask[i * 4 + 3] = a;
   }
 
-  base.setAttribute('normal', new THREE.BufferAttribute(proxyNorms, 3));
-  base.setAttribute('aVertexRGBA', new THREE.BufferAttribute(rgba, 4));
-  return base;
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(finalNormals, 3));
+  geo.setAttribute('aSmoothNormal', new THREE.BufferAttribute(smoothHullNormals, 3));
+  geo.setAttribute('aBaseColor', new THREE.BufferAttribute(baseColArr, 3));
+  geo.setAttribute('aPartId', new THREE.BufferAttribute(partArr, 1));
+  geo.setAttribute('aVertexRGBA', new THREE.BufferAttribute(rgbaMask, 4));
+  return geo;
 }
 
 // Construir un Pilar de Ruina + Tallos de Follaje en un mismo BufferGeometry para el Caso B (Entorno)
 function createEnvironmentGeometry() {
-  // 1. Pilar de piedra subdividido
   const pillar = new THREE.BoxGeometry(1.15, 1.9, 1.15, 14, 22, 14).toNonIndexed();
-  // 2. Placas de hojas/tallos de vegetación que salen de los costados del pilar
   const leaves = [];
   const leafConfigs = [
     { x: 0.58, y: 0.25, z: 0.2, dirX: 1, dirZ: 0.2 },
@@ -337,23 +410,17 @@ function createEnvironmentGeometry() {
     const blade = new THREE.PlaneGeometry(0.65, 0.24, 10, 2).toNonIndexed();
     const bPos = blade.attributes.position;
     for (let i = 0; i < bPos.count; i++) {
-      // u va de 0 (tallo pegado al pilar) a 1 (punta exterior de la hoja)
       const u = (bPos.getX(i) + 0.325) / 0.65;
       const v = bPos.getY(i);
-
-      // Curvar la hoja hacia afuera y ligeramente hacia abajo en la punta
       const worldX = cfg.x + cfg.dirX * (u * 0.62);
       const worldY = cfg.y + Math.sin(u * Math.PI) * 0.12 - u * u * 0.18 + v * 0.35;
       const worldZ = cfg.z + cfg.dirZ * (u * 0.62) + v * 0.7;
-
       bPos.setXYZ(i, worldX, worldY, worldZ);
     }
     blade.computeVertexNormals();
-    blade.userData.isFoliage = true;
     leaves.push(blade);
   });
 
-  // Fusionar pilar + hojas en un solo BufferGeometry
   const allGeos = [pillar, ...leaves];
   let totalVerts = 0;
   allGeos.forEach((g) => {
@@ -362,6 +429,8 @@ function createEnvironmentGeometry() {
 
   const mergedPos = new Float32Array(totalVerts * 3);
   const mergedNorm = new Float32Array(totalVerts * 3);
+  const mergedBaseCol = new Float32Array(totalVerts * 3);
+  const mergedPartId = new Float32Array(totalVerts);
   const mergedRGBA = new Float32Array(totalVerts * 4);
 
   let offset = 0;
@@ -379,10 +448,7 @@ function createEnvironmentGeometry() {
       let nz = n.getZ(i);
 
       if (!isLeaf) {
-        // Deformación orgánica sutil en los bloques del pilar de piedra
-        const bevel =
-          Math.sin(y * 7.0) * 0.025 +
-          Math.cos(x * 5.0 + z * 5.0) * 0.02;
+        const bevel = Math.sin(y * 7.0) * 0.025 + Math.cos(x * 5.0 + z * 5.0) * 0.02;
         x += nx * bevel;
         z += nz * bevel;
       }
@@ -394,13 +460,12 @@ function createEnvironmentGeometry() {
       mergedNorm[vi * 3] = nx;
       mergedNorm[vi * 3 + 1] = ny;
       mergedNorm[vi * 3 + 2] = nz;
+      mergedBaseCol[vi * 3] = 0.54;
+      mergedBaseCol[vi * 3 + 1] = 0.53;
+      mergedBaseCol[vi * 3 + 2] = 0.50;
+      mergedPartId[vi] = 0;
 
       if (isLeaf) {
-        // En las hojas:
-        // R = 1.0 (color verde vegetación)
-        // G = 0.0
-        // B = 0.2
-        // A = Peso de viento: 0.0 en la raíz pegada al pilar (dist <= 0.59) hasta 1.0 en la punta exterior
         const radialDist = Math.max(Math.abs(x), Math.abs(z));
         const windWeight = Math.max(0.0, Math.min(1.0, (radialDist - 0.56) / 0.55));
         mergedRGBA[vi * 4] = 1.0;
@@ -408,24 +473,18 @@ function createEnvironmentGeometry() {
         mergedRGBA[vi * 4 + 2] = 0.2;
         mergedRGBA[vi * 4 + 3] = windWeight;
       } else {
-        // En el pilar de piedra:
-        // CANAL R (Musgo): Blanco (1.0) en el tope superior y hombros altos con ruido orgánico
         const mossNoise = 0.5 + 0.5 * Math.sin(x * 4.5 + z * 3.8);
         const r = Math.max(0.0, Math.min(1.0, (y - 0.15) * 1.15 + mossNoise * 0.35 * (y > -0.1 ? 1 : 0)));
 
-        // CANAL G (Desgaste / Grietas): Blanco (1.0) en las esquinas verticales y grieta central
         const cornerDist = Math.abs(x) * Math.abs(z);
         const crackZone = Math.exp(-Math.pow(y - 0.05 + x * 0.35, 2) / 0.025);
-        const g = Math.max(0.0, Math.min(1.0, cornerDist * 2.2 + crackZone * 0.75));
+        const gVal = Math.max(0.0, Math.min(1.0, cornerDist * 2.2 + crackZone * 0.75));
 
-        // CANAL B (Humedad / Agua en la base): Blanco (1.0) en el tercio inferior del pilar
         const b = Math.max(0.0, Math.min(1.0, (-y - 0.1) * 1.35));
-
-        // CANAL A (Peso de Viento): 0.0 absoluto en toda la piedra para que el pilar sea rígido
         const a = 0.0;
 
         mergedRGBA[vi * 4] = r;
-        mergedRGBA[vi * 4 + 1] = g;
+        mergedRGBA[vi * 4 + 1] = gVal;
         mergedRGBA[vi * 4 + 2] = b;
         mergedRGBA[vi * 4 + 3] = a;
       }
@@ -436,6 +495,9 @@ function createEnvironmentGeometry() {
   const finalGeo = new THREE.BufferGeometry();
   finalGeo.setAttribute('position', new THREE.BufferAttribute(mergedPos, 3));
   finalGeo.setAttribute('normal', new THREE.BufferAttribute(mergedNorm, 3));
+  finalGeo.setAttribute('aSmoothNormal', new THREE.BufferAttribute(mergedNorm, 3));
+  finalGeo.setAttribute('aBaseColor', new THREE.BufferAttribute(mergedBaseCol, 3));
+  finalGeo.setAttribute('aPartId', new THREE.BufferAttribute(mergedPartId, 1));
   finalGeo.setAttribute('aVertexRGBA', new THREE.BufferAttribute(mergedRGBA, 4));
   return finalGeo;
 }
@@ -448,8 +510,11 @@ function getChannelModeInt() {
          viewChannel.value === 'b' ? 4 : 5;
 }
 
-function buildSceneMeshes() {
+async function buildSceneMeshes() {
   if (!THREE || !scene) return;
+
+  const isNPR = scenario.value === 'npr';
+  const geo = isNPR ? await createNPRBustGeometry() : createEnvironmentGeometry();
 
   if (mainMesh) {
     scene.remove(mainMesh);
@@ -461,9 +526,6 @@ function buildSceneMeshes() {
     outlineMesh.material.dispose();
     outlineMesh = null;
   }
-
-  const isNPR = scenario.value === 'npr';
-  const geo = isNPR ? createNPRBustGeometry() : createEnvironmentGeometry();
 
   const mat = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
@@ -480,22 +542,27 @@ function buildSceneMeshes() {
         )
       },
       uLightDir: {
-        value: new THREE.Vector3(Math.sin(sunAngle.value), 0.45, Math.cos(sunAngle.value)).normalize()
+        value: new THREE.Vector3(Math.sin(sunAngle.value), 0.32, Math.cos(sunAngle.value)).normalize()
       }
     },
     vertexShader: `
       attribute vec4 aVertexRGBA;
+      attribute vec3 aBaseColor;
+      attribute float aPartId;
       uniform float uTime;
       uniform int uScenario;
       uniform vec4 uWeights;
 
       varying vec4 vRGBA;
+      varying vec3 vBaseColor;
+      varying float vPartId;
       varying vec3 vNormal;
-      varying vec3 vWorldPos;
       varying vec3 vViewDir;
 
       void main() {
         vRGBA = aVertexRGBA;
+        vBaseColor = aBaseColor;
+        vPartId = aPartId;
         vec3 pos = position;
 
         // En Caso B (Entorno), el Canal A controla el World Position Offset (Viento)
@@ -508,7 +575,6 @@ function buildSceneMeshes() {
         }
 
         vec4 worldPos = modelMatrix * vec4(pos, 1.0);
-        vWorldPos = worldPos.xyz;
         vNormal = normalize(mat3(modelMatrix) * normal);
         vViewDir = normalize(cameraPosition - worldPos.xyz);
         gl_Position = projectionMatrix * viewMatrix * worldPos;
@@ -521,8 +587,9 @@ function buildSceneMeshes() {
       uniform vec3 uLightDir;
 
       varying vec4 vRGBA;
+      varying vec3 vBaseColor;
+      varying float vPartId;
       varying vec3 vNormal;
-      varying vec3 vWorldPos;
       varying vec3 vViewDir;
 
       void main() {
@@ -537,7 +604,8 @@ function buildSceneMeshes() {
           return;
         }
         if (uViewChannel == 3) {
-          float val = clamp(vRGBA.g * uWeights.y, 0.0, 1.0);
+          float val = clamp(1.0 - (1.0 - vRGBA.g) * uWeights.y, 0.0, 1.0);
+          if (uScenario == 1) val = clamp(vRGBA.g * uWeights.y, 0.0, 1.0);
           gl_FragColor = vec4(vec3(val), 1.0);
           return;
         }
@@ -557,29 +625,33 @@ function buildSceneMeshes() {
         vec3 V = normalize(vViewDir);
         float NdotL = dot(N, L);
 
-        // CASO A: PERSONAJE NPR (Cel Shading + Sombras Forzadas G + Rim B + Subsurface A)
+        // CASO A: PERSONAJE ANIME NPR
         if (uScenario == 0) {
-          // Canal G empuja la iluminación hacia sombra donde G es cercano a 0.0
-          float shadowBias = (vRGBA.g - 1.0) * 0.85 * uWeights.y;
+          if (vPartId > 0.5 && vPartId < 1.5) {
+            gl_FragColor = vec4(vBaseColor, 1.0);
+            return;
+          }
+
+          // Canal G empuja el producto punto hacia sombra donde G < 1.0 (bajo mentón y flequillo)
+          float shadowBias = (vRGBA.g - 1.0) * 0.95 * uWeights.y;
           float effectiveLight = NdotL + shadowBias;
+          float cel = smoothstep(0.01, 0.04, effectiveLight);
 
-          float cel = smoothstep(0.02, 0.06, effectiveLight);
+          vec3 litColor = vBaseColor;
+          vec3 shadowColor = vBaseColor * vec3(0.68, 0.56, 0.68);
 
-          vec3 shadowColor = vec3(0.40, 0.32, 0.43);
-          vec3 litColor = vec3(0.98, 0.90, 0.85);
-
-          // Canal A añade rubor / dispersión cálida en mejillas y nariz
-          vec3 blushColor = vec3(0.95, 0.56, 0.52);
+          // Canal A añade rubor coral en mejillas y nariz
+          vec3 blushCol = vec3(0.96, 0.50, 0.48);
           float blushMask = clamp(vRGBA.a * uWeights.w, 0.0, 1.0);
-          litColor = mix(litColor, blushColor, blushMask * 0.42);
-          shadowColor = mix(shadowColor, vec3(0.55, 0.32, 0.38), blushMask * 0.35);
+          litColor = mix(litColor, blushCol, blushMask * 0.42);
+          shadowColor = mix(shadowColor, blushCol * 0.75, blushMask * 0.35);
 
           vec3 col = mix(shadowColor, litColor, cel);
 
-          // Canal B controla dónde aparece la Rim Light estilizada
-          float fresnel = pow(1.0 - max(dot(N, V), 0.0), 3.2);
-          float rimMask = step(0.52, fresnel) * clamp(vRGBA.b * uWeights.z, 0.0, 1.0);
-          col += vec3(0.28, 0.36, 0.48) * rimMask;
+          // Canal B controla dónde aparece la Rim Light / Specular en el cabello
+          float fresnel = pow(1.0 - max(dot(N, V), 0.0), 2.8);
+          float rimMask = step(0.48, fresnel) * clamp(vRGBA.b * uWeights.z, 0.0, 1.0);
+          col += vec3(0.28, 0.34, 0.48) * rimMask;
 
           gl_FragColor = vec4(col, 1.0);
           return;
@@ -590,15 +662,12 @@ function buildSceneMeshes() {
         vec3 mossCol = vec3(0.22, 0.48, 0.20);
         vec3 wornRock = vec3(0.28, 0.24, 0.21);
 
-        // 1. Canal G: Desgaste de bordes y grietas
         float wearMask = clamp(vRGBA.g * uWeights.y, 0.0, 1.0);
         vec3 albedo = mix(baseStone, wornRock, wearMask * 0.78);
 
-        // 2. Canal R: Capa de musgo / follaje
         float mossMask = clamp(vRGBA.r * uWeights.x, 0.0, 1.0);
         albedo = mix(albedo, mossCol, smoothstep(0.25, 0.75, mossMask));
 
-        // 3. Canal B: Humedad en la base (oscurece el Albedo y genera reflejo especular fuerte)
         float wetMask = clamp(vRGBA.b * uWeights.z, 0.0, 1.0);
         albedo *= mix(1.0, 0.45, wetMask);
 
@@ -617,7 +686,6 @@ function buildSceneMeshes() {
   mainMesh = new THREE.Mesh(geo, mat);
   scene.add(mainMesh);
 
-  // En el Caso A (NPR), añadimos el contorno Inverted Hull cuyo grosor es modulado por el Canal R
   if (isNPR) {
     const outMat = new THREE.ShaderMaterial({
       side: THREE.BackSide,
@@ -627,19 +695,20 @@ function buildSceneMeshes() {
       },
       vertexShader: `
         attribute vec4 aVertexRGBA;
+        attribute vec3 aSmoothNormal;
         uniform float uWeightR;
         uniform float uHideInDebug;
         void main() {
-          // Si uWeightR == 0, usa grosor uniforme; si aumenta, modula el grosor con aVertexRGBA.r
+          // Si uWeightR == 0, usa grosor uniforme (inflando incluso ojos y pestañas); si uWeightR == 1, modula por Canal R
           float maskFactor = mix(1.0, aVertexRGBA.r, clamp(uWeightR, 0.0, 1.5));
-          float thickness = 0.048 * maskFactor * uHideInDebug;
-          vec3 displaced = position + normalize(normal) * thickness;
+          float thickness = 0.025 * maskFactor * uHideInDebug;
+          vec3 displaced = position + normalize(aSmoothNormal) * thickness;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
         }
       `,
       fragmentShader: `
         void main() {
-          gl_FragColor = vec4(0.07, 0.07, 0.09, 1.0);
+          gl_FragColor = vec4(0.08, 0.07, 0.10, 1.0);
         }
       `
     });
@@ -667,6 +736,8 @@ function updateUniforms() {
 
 function setScenario(key) {
   scenario.value = key;
+  camOrbit.radius = key === 'npr' ? 3.15 : 3.85;
+  updateCameraOrbit();
   buildSceneMeshes();
 }
 
@@ -678,9 +749,9 @@ function setViewChannel(ch) {
 function updateCameraOrbit() {
   if (!camera) return;
   camera.position.x = camOrbit.radius * Math.sin(camOrbit.theta) * Math.cos(camOrbit.phi);
-  camera.position.y = camOrbit.radius * Math.sin(camOrbit.phi);
+  camera.position.y = camOrbit.radius * Math.sin(camOrbit.phi) + 0.08;
   camera.position.z = camOrbit.radius * Math.cos(camOrbit.theta) * Math.cos(camOrbit.phi);
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, 0.08, 0);
 }
 
 const initThree = async () => {
@@ -691,12 +762,12 @@ const initThree = async () => {
   if (!container) return;
 
   const width = container.clientWidth || 680;
-  const height = 340;
+  const height = 360;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x141418);
 
-  camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+  camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
   updateCameraOrbit();
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -710,7 +781,7 @@ const initThree = async () => {
   scene.add(grid);
 
   clock = new THREE.Clock();
-  buildSceneMeshes();
+  await buildSceneMeshes();
 
   const dom = renderer.domElement;
   dom.addEventListener('pointerdown', (e) => {
@@ -743,7 +814,7 @@ const initThree = async () => {
 const handleResize = () => {
   if (!canvasContainer.value || !renderer || !camera) return;
   const width = canvasContainer.value.clientWidth;
-  const height = 340;
+  const height = 360;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
@@ -878,7 +949,7 @@ onBeforeUnmount(() => {
 
 .canvas-wrapper {
   width: 100%;
-  height: 340px;
+  height: 360px;
   cursor: grab;
 }
 

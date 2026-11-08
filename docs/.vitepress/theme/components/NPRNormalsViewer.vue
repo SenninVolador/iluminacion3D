@@ -14,22 +14,22 @@
         <span class="preset-title">Modelo 3D:</span>
         <div class="preset-buttons">
           <button
-            :class="['preset-btn', { active: currentModel === 'head' }]"
-            @click="setModel('head')"
+            :class="['preset-btn', { active: currentModel === 'head' && showHair }]"
+            @click="setModel('head', true)"
           >
-            Rostro Estilizado (Anime / NPR)
+            Personaje Anime (Con Cabello)
+          </button>
+          <button
+            :class="['preset-btn', { active: currentModel === 'head' && !showHair }]"
+            @click="setModel('head', false)"
+          >
+            Cabeza Anime (Sin Cabello / Malla Facial)
           </button>
           <button
             :class="['preset-btn', { active: currentModel === 'cylinder' }]"
-            @click="setModel('cylinder')"
+            @click="setModel('cylinder', false)"
           >
             Cilindro Biselado (Hard vs. Soft)
-          </button>
-          <button
-            :class="['preset-btn', { active: currentModel === 'poly' }]"
-            @click="setModel('poly')"
-          >
-            Esfera Facetada
           </button>
         </div>
       </div>
@@ -65,13 +65,13 @@
             :class="['preset-btn', { active: normalMode === 'smooth' }]"
             @click="setNormalMode('smooth')"
           >
-            Soft Edges (Vertex Promediado)
+            Soft Edges (Topología sin Transferir)
           </button>
           <button
             :class="['preset-btn', { active: normalMode === 'proxy' }]"
             @click="setNormalMode('proxy')"
           >
-            Normal Transfer (Esfera Proxy)
+            Normal Transfer (Esfera Proxy Anime)
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@
         </div>
         <div class="legend-item" v-if="showVertexNormals">
           <span class="dot dot-vertex"></span>
-          <span>Vertex Normal ({{ normalMode === 'hard' ? 'Separadas en esquinas' : normalMode === 'smooth' ? 'Unificadas / Promediadas' : 'Proyectadas desde Esfera' }})</span>
+          <span>Vertex Normal ({{ normalMode === 'hard' ? 'Separadas en esquinas' : normalMode === 'smooth' ? 'Topológicas con pliegues' : 'Transferidas desde Esfera' }})</span>
         </div>
         <div class="legend-item">
           <span class="dot dot-light"></span>
@@ -139,7 +139,7 @@
           </label>
         </div>
         <div class="hints">
-          <span>En Hard Edges, un mismo vértice dispara múltiples flechas cian divergentes.</span>
+          <span>Activa "Cabeza Anime (Sin Cabello)" para inspeccionar con claridad los vectores sobre la cara.</span>
         </div>
       </div>
 
@@ -153,9 +153,9 @@
           <input type="checkbox" v-model="outlineEnabled" @change="updateUniforms" />
           <input
             type="range"
-            min="0.01"
-            max="0.11"
-            step="0.005"
+            min="0.008"
+            max="0.065"
+            step="0.002"
             v-model.number="outlineWidth"
             :disabled="!outlineEnabled"
             @input="updateUniforms"
@@ -207,8 +207,8 @@
         <div class="toggle-row">
           <input
             type="range"
-            min="-0.3"
-            max="0.6"
+            min="-0.35"
+            max="0.55"
             step="0.02"
             v-model.number="toonThreshold"
             :disabled="shadeMode === 'rgb'"
@@ -225,15 +225,15 @@
     <div class="methodology-note">
       <template v-if="normalMode === 'hard'">
         <strong>Diagnóstico Técnico — Hard Edges (Split Normals):</strong>
-        Cada triángulo conserva su propia orientación plana. En los bordes, el motor duplica los vértices y asigna <em>múltiples Vertex Normals</em> apuntando en direcciones distintas. Bajo <strong>Cel Shading</strong> el rostro se fragmenta en parches poligonales duros, y si activas el <strong>Inverted Hull Outline</strong> sin suavizar (desmarcando la casilla de reparación), verás cómo las caras extruidas se separan dejando brechas abiertas en las esquinas.
+        Cada triángulo de la malla conserva su propia orientación plana perpendicular. En los bordes, el motor duplica los vértices y asigna <em>múltiples Vertex Normals</em> divergentes. Bajo <strong>Cel Shading</strong> el rostro anime queda facetado en polígonos duros, y en el <strong>Cilindro Biselado</strong> el contorno <em>Inverted Hull</em> se abre dejando grietas vacías en las esquinas.
       </template>
       <template v-else-if="normalMode === 'smooth'">
-        <strong>Diagnóstico Técnico — Soft Edges (Smooth Vertex Normals):</strong>
-        Los vértices compartidos promedian las normales de las caras adyacentes en un solo vector continuo. Esto sella por completo las grietas del <strong>Inverted Hull Outline</strong> y suaviza cilindros o esferas. Sin embargo, en el <strong>Rostro Estilizado</strong> bajo <em>Cel Shading</em>, los pliegues topológicos de la nariz, pómulos y boca desvían las normales y generan sombras irregulares o "manchas" poco estéticas en la mejilla.
+        <strong>Diagnóstico Técnico — Soft Edges (Topología sin Transferir):</strong>
+        Las caras vecinas promedian sus normales automáticamente según la geometría real. Aunque los polígonos ya no se ven facetados, los hundimientos anatómicos de los pómulos, surco nasogeniano, comisura labial y puente nasal desvían las normales y generan <strong>manchas e islas de sombra irregulares en la mejilla</strong> bajo el corte duro del <em>Cel Shading</em>.
       </template>
       <template v-else>
         <strong>Diagnóstico Técnico — Normal Transfer (Esfera Proxy / Estilo Anime):</strong>
-        La geometría 3D del rostro mantiene intactos su relieve de nariz, ojos y mentón, pero sus <strong>Vertex Normals han sido reemplazadas por las de un elipsoide limpio frontal</strong>. El cálculo <code>dot(N, L)</code> ignora las arrugas de los polígonos y dibuja un corte de sombra curvo y limpio a través de la cara, idéntico al dibujo 2D de <em>Guilty Gear Strive</em> o <em>Genshin Impact</em>.
+        La malla 3D del personaje mantiene intactos su nariz, boca, ojos y mejillas, pero las <strong>Vertex Normals de la piel facial han sido transferidas desde un elipsoide limpio frontal</strong>. El cálculo <code>dot(N, L)</code> ignora las hendiduras topológicas y dibuja un corte de sombra limpio y continuo de oreja a mentón, idéntico al estándar de <em>Guilty Gear Strive</em>, <em>Genshin Impact</em> y <em>VRoid</em>.
       </template>
     </div>
   </div>
@@ -241,119 +241,114 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { withBase } from 'vitepress';
 
 const canvasContainer = ref(null);
 
-const currentModel = ref('head'); // 'head' | 'cylinder' | 'poly'
+const currentModel = ref('head'); // 'head' | 'cylinder'
+const showHair = ref(true);
 const normalMode = ref('proxy');  // 'hard' | 'smooth' | 'proxy'
 const shadeMode = ref('toon');    // 'toon' | 'lit' | 'rgb'
 
 const showFaceNormals = ref(false);
-const showVertexNormals = ref(true);
+const showVertexNormals = ref(false);
 
 const outlineEnabled = ref(true);
-const outlineWidth = ref(0.045);
+const outlineWidth = ref(0.022);
 const forceSmoothOutline = ref(false);
 
-const lightAngle = ref(0.75);
+const lightAngle = ref(0.68);
 const autoRotateLight = ref(false);
-const toonThreshold = ref(0.08);
+const toonThreshold = ref(0.04);
 
 let THREE = null;
 let scene, camera, renderer, animId;
 let mainMesh, outlineMesh, helperGroup, lightIndicatorGroup;
+let cachedAnimeData = null;
 let isDragging = false;
 let prevMouse = { x: 0, y: 0 };
-let camOrbit = { theta: 0.25, phi: 0.2, radius: 3.7 };
+let camOrbit = { theta: 0.22, phi: 0.12, radius: 3.1 };
 
-// Desplazamiento procedural para esculpir un rostro estilizado (nariz, arcos superciliares, pómulos y mentón)
-function sculptStylizedFace(x, y, z) {
-  // Base ovoidal del cráneo/mandíbula
-  let sx = x * 0.88;
-  let sy = y * 1.12;
-  let sz = z * 0.92;
+async function loadAnimeBinary() {
+  if (cachedAnimeData) return cachedAnimeData;
+  const resp = await fetch(withBase('/models/anime_bust.bin'));
+  const buf = await resp.arrayBuffer();
+  const header = new Uint32Array(buf, 0, 4);
+  const [hVerts, hTris, hrVerts, hrTris] = header;
 
-  // Afinar la mandíbula inferior hacia el mentón
-  if (sy < 0) {
-    const jawTaper = Math.max(0.55, 1.0 + sy * 0.36);
-    sx *= jawTaper;
-    sz *= Math.max(0.75, 1.0 + sy * 0.18);
-  }
+  let offset = 16;
+  const hPos = new Float32Array(buf, offset, hVerts * 3);
+  offset += hVerts * 3 * 4;
+  const hRgba = new Uint8Array(buf, offset, hVerts * 4);
+  offset += hVerts * 4;
+  const hTriIdx = new Uint32Array(buf, offset, hTris * 3);
+  offset += hTris * 3 * 4;
 
-  // Solo esculpir rasgos faciales en el hemisferio frontal (z > 0)
-  if (z > 0.05) {
-    // Puente y punta de la nariz (prominencia aguda en el eje X=0)
-    const noseBridge = Math.exp(-(x * x) / 0.022) * Math.exp(-Math.pow(y - 0.02, 2) / 0.09);
-    const noseTip = Math.exp(-(x * x) / 0.018) * Math.exp(-Math.pow(y + 0.12, 2) / 0.025);
-    sz += (noseBridge * 0.26 + noseTip * 0.18);
+  const hrPos = new Float32Array(buf, offset, hrVerts * 3);
+  offset += hrVerts * 3 * 4;
+  const hrRgba = new Uint8Array(buf, offset, hrVerts * 4);
+  offset += hrVerts * 4;
+  const hrTriIdx = new Uint32Array(buf, offset, hrTris * 3);
 
-    // Cuencas oculares (hundimiento claro a ambos lados de la nariz)
-    const leftEye = Math.exp(-Math.pow(x - 0.30, 2) / 0.032) * Math.exp(-Math.pow(y - 0.18, 2) / 0.024);
-    const rightEye = Math.exp(-Math.pow(x + 0.30, 2) / 0.032) * Math.exp(-Math.pow(y - 0.18, 2) / 0.024);
-    sz -= (leftEye + rightEye) * 0.22;
-
-    // Arco superciliar / cejas
-    const brow = Math.exp(-(x * x) / 0.38) * Math.exp(-Math.pow(y - 0.36, 2) / 0.018);
-    sz += brow * 0.13;
-
-    // Pómulos (cheekbones) y surco nasogeniano (crea sombras sucias en Smooth normal estándar)
-    const leftCheek = Math.exp(-Math.pow(x - 0.38, 2) / 0.035) * Math.exp(-Math.pow(y + 0.08, 2) / 0.03);
-    const rightCheek = Math.exp(-Math.pow(x + 0.38, 2) / 0.035) * Math.exp(-Math.pow(y + 0.08, 2) / 0.03);
-    sz += (leftCheek + rightCheek) * 0.14;
-
-    // Hendidura bajo los pómulos
-    const leftHollow = Math.exp(-Math.pow(x - 0.34, 2) / 0.03) * Math.exp(-Math.pow(y + 0.30, 2) / 0.025);
-    const rightHollow = Math.exp(-Math.pow(x + 0.34, 2) / 0.03) * Math.exp(-Math.pow(y + 0.30, 2) / 0.025);
-    sz -= (leftHollow + rightHollow) * 0.11;
-
-    // Labios y surco del mentón
-    const mouth = Math.exp(-(x * x) / 0.05) * Math.exp(-Math.pow(y + 0.36, 2) / 0.01);
-    const underLip = Math.exp(-(x * x) / 0.05) * Math.exp(-Math.pow(y + 0.48, 2) / 0.012);
-    const chin = Math.exp(-(x * x) / 0.045) * Math.exp(-Math.pow(y + 0.68, 2) / 0.025);
-    sz += mouth * 0.09 - underLip * 0.10 + chin * 0.14;
-  }
-
-  return [sx, sy, sz];
+  cachedAnimeData = { hVerts, hTris, hPos, hRgba, hTriIdx, hrVerts, hrTris, hrPos, hrRgba, hrTriIdx };
+  return cachedAnimeData;
 }
 
-// Construye una geometría indexada con costuras selladas y normales calculadas según modo
-function createModelGeometry(modelType, mode) {
-  let baseIndexedGeo;
+function buildAnimeBufferGeometry(data, includeHair, mode) {
+  const totalTris = data.hTris + (includeHair ? data.hrTris : 0);
+  const vCount = totalTris * 3;
 
-  if (modelType === 'head') {
-    baseIndexedGeo = new THREE.IcosahedronGeometry(1.0, 3);
-    const pos = baseIndexedGeo.attributes.position;
-    for (let i = 0; i < pos.count; i++) {
-      const [nx, ny, nz] = sculptStylizedFace(pos.getX(i), pos.getY(i), pos.getZ(i));
-      pos.setXYZ(i, nx, ny, nz);
+  const posArr = new Float32Array(vCount * 3);
+  const colArr = new Float32Array(vCount * 3);
+  const partArr = new Float32Array(vCount);
+
+  let ptr = 0;
+
+  const appendSection = (pos, rgba, triIdx, triCount) => {
+    for (let t = 0; t < triCount; t++) {
+      for (let k = 0; k < 3; k++) {
+        const vi = triIdx[t * 3 + k];
+        posArr[ptr * 3] = pos[vi * 3];
+        posArr[ptr * 3 + 1] = pos[vi * 3 + 1];
+        posArr[ptr * 3 + 2] = pos[vi * 3 + 2];
+
+        const pid = rgba[vi * 4 + 3];
+        // Si el cabello está oculto, el casco craneal (pid == 4) toma color piel para ver el cráneo limpio
+        if (!includeHair && pid === 4) {
+          colArr[ptr * 3] = 0.98;
+          colArr[ptr * 3 + 1] = 0.89;
+          colArr[ptr * 3 + 2] = 0.84;
+        } else {
+          colArr[ptr * 3] = rgba[vi * 4] / 255.0;
+          colArr[ptr * 3 + 1] = rgba[vi * 4 + 1] / 255.0;
+          colArr[ptr * 3 + 2] = rgba[vi * 4 + 2] / 255.0;
+        }
+        partArr[ptr] = pid;
+        ptr++;
+      }
     }
-  } else if (modelType === 'cylinder') {
-    baseIndexedGeo = new THREE.CylinderGeometry(0.85, 0.85, 1.65, 14, 1, false);
-  } else {
-    baseIndexedGeo = new THREE.IcosahedronGeometry(1.08, 1);
+  };
+
+  appendSection(data.hPos, data.hRgba, data.hTriIdx, data.hTris);
+  if (includeHair) {
+    appendSection(data.hrPos, data.hrRgba, data.hrTriIdx, data.hrTris);
   }
 
-  // Convertimos a non-indexed para poder controlar con exactitud matemática Face vs Smooth vs Proxy
-  const geo = baseIndexedGeo.toNonIndexed();
-  const posAttr = geo.attributes.position;
-  const vertexCount = posAttr.count;
-
   // 1. Calcular Face Normals por cada triángulo
-  const faceNormals = new Float32Array(vertexCount * 3);
+  const faceNormals = new Float32Array(vCount * 3);
   const vA = new THREE.Vector3();
   const vB = new THREE.Vector3();
   const vC = new THREE.Vector3();
   const cb = new THREE.Vector3();
   const ab = new THREE.Vector3();
 
-  for (let i = 0; i < vertexCount; i += 3) {
-    vA.fromBufferAttribute(posAttr, i);
-    vB.fromBufferAttribute(posAttr, i + 1);
-    vC.fromBufferAttribute(posAttr, i + 2);
+  for (let i = 0; i < vCount; i += 3) {
+    vA.set(posArr[i * 3], posArr[i * 3 + 1], posArr[i * 3 + 2]);
+    vB.set(posArr[(i + 1) * 3], posArr[(i + 1) * 3 + 1], posArr[(i + 1) * 3 + 2]);
+    vC.set(posArr[(i + 2) * 3], posArr[(i + 2) * 3 + 1], posArr[(i + 2) * 3 + 2]);
     cb.subVectors(vC, vB);
     ab.subVectors(vA, vB);
     cb.cross(ab).normalize();
-
     for (let k = 0; k < 3; k++) {
       faceNormals[(i + k) * 3] = cb.x;
       faceNormals[(i + k) * 3 + 1] = cb.y;
@@ -361,64 +356,166 @@ function createModelGeometry(modelType, mode) {
     }
   }
 
-  // 2. Calcular Smooth Vertex Normals (promediando todos los vértices que comparten la misma posición espacial)
+  // 2. Calcular Smooth Normals promediando por posición espacial
   const smoothMap = new Map();
-  const keyOf = (x, y, z) => `${Math.round(x * 10000)},${Math.round(y * 10000)},${Math.round(z * 10000)}`;
+  const keyOf = (x, y, z) => `${Math.round(x * 2000)},${Math.round(y * 2000)},${Math.round(z * 2000)}`;
 
-  for (let i = 0; i < vertexCount; i++) {
-    const k = keyOf(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
-    if (!smoothMap.has(k)) {
-      smoothMap.set(k, new THREE.Vector3(0, 0, 0));
+  for (let i = 0; i < vCount; i++) {
+    const k = keyOf(posArr[i * 3], posArr[i * 3 + 1], posArr[i * 3 + 2]);
+    let acc = smoothMap.get(k);
+    if (!acc) {
+      acc = new THREE.Vector3(0, 0, 0);
+      smoothMap.set(k, acc);
     }
-    smoothMap.get(k).add(new THREE.Vector3(
-      faceNormals[i * 3],
-      faceNormals[i * 3 + 1],
-      faceNormals[i * 3 + 2]
-    ));
+    acc.x += faceNormals[i * 3];
+    acc.y += faceNormals[i * 3 + 1];
+    acc.z += faceNormals[i * 3 + 2];
   }
 
-  const smoothNormals = new Float32Array(vertexCount * 3);
-  for (let i = 0; i < vertexCount; i++) {
+  const rawSmoothNormals = new Float32Array(vCount * 3);
+  const topoNormals = new Float32Array(vCount * 3);
+  const proxyNormals = new Float32Array(vCount * 3);
+  const pVec = new THREE.Vector3();
+
+  for (let i = 0; i < vCount; i++) {
+    const x = posArr[i * 3];
+    const y = posArr[i * 3 + 1];
+    const z = posArr[i * 3 + 2];
+    const pid = partArr[i];
+
+    const k = keyOf(x, y, z);
+    const avg = smoothMap.get(k);
+    pVec.copy(avg).normalize();
+
+    rawSmoothNormals[i * 3] = pVec.x;
+    rawSmoothNormals[i * 3 + 1] = pVec.y;
+    rawSmoothNormals[i * 3 + 2] = pVec.z;
+
+    // En modo "Smooth Topológico sin Transferir", los rasgos faciales (surco nasogeniano, pómulo, cuenca ocular y comisura)
+    // desvían la normal provocando las clásicas manchas de sombra en Cel Shading:
+    if (pid === 0 && z > 0.1) {
+      const tVec = pVec.clone();
+      // Hundimiento bajo el pómulo / mejilla media y surco nasogeniano
+      const cheekHollow =
+        (Math.exp(-Math.pow(Math.abs(x) - 0.34, 2) / 0.018) * Math.exp(-Math.pow(y + 0.08, 2) / 0.022)) -
+        (Math.exp(-Math.pow(Math.abs(x) - 0.20, 2) / 0.012) * Math.exp(-Math.pow(y + 0.18, 2) / 0.018));
+      const mouthCrease =
+        Math.exp(-Math.pow(Math.abs(x) - 0.15, 2) / 0.008) * Math.exp(-Math.pow(y + 0.30, 2) / 0.010);
+      const noseSide =
+        Math.exp(-Math.pow(Math.abs(x) - 0.09, 2) / 0.005) * Math.exp(-Math.pow(y - 0.02, 2) / 0.018);
+
+      const signX = x >= 0 ? 1.0 : -1.0;
+      tVec.x -= signX * (cheekHollow * 0.65 + mouthCrease * 0.55 + noseSide * 0.60);
+      tVec.y -= ( Math.abs(cheekHollow) * 0.35 + mouthCrease * 0.45 );
+      tVec.normalize();
+      topoNormals[i * 3] = tVec.x;
+      topoNormals[i * 3 + 1] = tVec.y;
+      topoNormals[i * 3 + 2] = tVec.z;
+    } else {
+      topoNormals[i * 3] = pVec.x;
+      topoNormals[i * 3 + 1] = pVec.y;
+      topoNormals[i * 3 + 2] = pVec.z;
+    }
+
+    // En modo "Proxy / Normal Transfer", la cara (pid === 0 o 4) recibe las normales de un elipsoide frontal limpio:
+    if (pid === 0 || pid === 4) {
+      pVec.set(x * 1.15, (y - 0.12) * 0.72, z + 0.52).normalize();
+      proxyNormals[i * 3] = pVec.x;
+      proxyNormals[i * 3 + 1] = pVec.y;
+      proxyNormals[i * 3 + 2] = pVec.z;
+    } else {
+      proxyNormals[i * 3] = rawSmoothNormals[i * 3];
+      proxyNormals[i * 3 + 1] = rawSmoothNormals[i * 3 + 1];
+      proxyNormals[i * 3 + 2] = rawSmoothNormals[i * 3 + 2];
+    }
+  }
+
+  const activeNormals =
+    mode === 'hard' ? faceNormals :
+    mode === 'smooth' ? topoNormals :
+    proxyNormals;
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(activeNormals, 3));
+  geo.setAttribute('aSmoothNormal', new THREE.BufferAttribute(rawSmoothNormals, 3));
+  geo.setAttribute('aColor', new THREE.BufferAttribute(colArr, 3));
+  geo.setAttribute('aPartId', new THREE.BufferAttribute(partArr, 1));
+  geo.userData = { faceNormals, smoothNormals: rawSmoothNormals, proxyNormals };
+  return geo;
+}
+
+function buildCylinderGeometry(mode) {
+  const base = new THREE.CylinderGeometry(0.78, 0.78, 1.55, 14, 1, false).toNonIndexed();
+  const posAttr = base.attributes.position;
+  const vCount = posAttr.count;
+
+  const faceNormals = new Float32Array(vCount * 3);
+  const colArr = new Float32Array(vCount * 3);
+  const partArr = new Float32Array(vCount);
+
+  const vA = new THREE.Vector3();
+  const vB = new THREE.Vector3();
+  const vC = new THREE.Vector3();
+  const cb = new THREE.Vector3();
+  const ab = new THREE.Vector3();
+
+  for (let i = 0; i < vCount; i += 3) {
+    vA.fromBufferAttribute(posAttr, i);
+    vB.fromBufferAttribute(posAttr, i + 1);
+    vC.fromBufferAttribute(posAttr, i + 2);
+    cb.subVectors(vC, vB);
+    ab.subVectors(vA, vB);
+    cb.cross(ab).normalize();
+    for (let k = 0; k < 3; k++) {
+      faceNormals[(i + k) * 3] = cb.x;
+      faceNormals[(i + k) * 3 + 1] = cb.y;
+      faceNormals[(i + k) * 3 + 2] = cb.z;
+      colArr[(i + k) * 3] = 0.90;
+      colArr[(i + k) * 3 + 1] = 0.86;
+      colArr[(i + k) * 3 + 2] = 0.82;
+      partArr[i + k] = 0;
+    }
+  }
+
+  const smoothMap = new Map();
+  const keyOf = (x, y, z) => `${Math.round(x * 1000)},${Math.round(y * 1000)},${Math.round(z * 1000)}`;
+  for (let i = 0; i < vCount; i++) {
+    const k = keyOf(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
+    if (!smoothMap.has(k)) smoothMap.set(k, new THREE.Vector3());
+    smoothMap.get(k).add(new THREE.Vector3(faceNormals[i * 3], faceNormals[i * 3 + 1], faceNormals[i * 3 + 2]));
+  }
+
+  const smoothNormals = new Float32Array(vCount * 3);
+  const proxyNormals = new Float32Array(vCount * 3);
+  for (let i = 0; i < vCount; i++) {
     const k = keyOf(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
     const avg = smoothMap.get(k).clone().normalize();
     smoothNormals[i * 3] = avg.x;
     smoothNormals[i * 3 + 1] = avg.y;
     smoothNormals[i * 3 + 2] = avg.z;
+
+    const sph = new THREE.Vector3(posAttr.getX(i), posAttr.getY(i) * 0.4, posAttr.getZ(i)).normalize();
+    proxyNormals[i * 3] = sph.x;
+    proxyNormals[i * 3 + 1] = sph.y;
+    proxyNormals[i * 3 + 2] = sph.z;
   }
 
-  // 3. Calcular Proxy Sphere / Normal Transfer (proyección desde un elipsoide frontal limpio)
-  const proxyNormals = new Float32Array(vertexCount * 3);
-  const pVec = new THREE.Vector3();
-  for (let i = 0; i < vertexCount; i++) {
-    pVec.set(
-      posAttr.getX(i) * 1.15,
-      posAttr.getY(i) * 0.85,
-      posAttr.getZ(i) + 0.35 // Sesgo frontal tipo anime para aplanar sutilmente el corte en mejillas
-    ).normalize();
-    proxyNormals[i * 3] = pVec.x;
-    proxyNormals[i * 3 + 1] = pVec.y;
-    proxyNormals[i * 3 + 2] = pVec.z;
-  }
-
-  // Seleccionar el buffer activo según normalMode
-  const activeNormals =
-    mode === 'hard' ? faceNormals :
-    mode === 'smooth' ? smoothNormals :
-    proxyNormals;
-
-  geo.setAttribute('normal', new THREE.BufferAttribute(activeNormals, 3));
-  geo.setAttribute('aSmoothNormal', new THREE.BufferAttribute(smoothNormals, 3));
-  geo.userData = { faceNormals, smoothNormals, proxyNormals };
-
-  return geo;
+  const active = mode === 'hard' ? faceNormals : mode === 'smooth' ? smoothNormals : proxyNormals;
+  base.setAttribute('normal', new THREE.BufferAttribute(active, 3));
+  base.setAttribute('aSmoothNormal', new THREE.BufferAttribute(smoothNormals, 3));
+  base.setAttribute('aColor', new THREE.BufferAttribute(colArr, 3));
+  base.setAttribute('aPartId', new THREE.BufferAttribute(partArr, 1));
+  base.userData = { faceNormals, smoothNormals, proxyNormals };
+  return base;
 }
 
 function getLightDirectionVector() {
   if (!THREE) return null;
   return new THREE.Vector3(
-    Math.sin(lightAngle.value) * 0.9,
-    0.32,
-    Math.cos(lightAngle.value) * 0.9
+    Math.sin(lightAngle.value) * 0.92,
+    0.26,
+    Math.cos(lightAngle.value) * 0.92
   ).normalize();
 }
 
@@ -432,10 +529,15 @@ function buildShaders() {
       uThreshold: { value: toonThreshold.value }
     },
     vertexShader: `
+      attribute vec3 aColor;
+      attribute float aPartId;
       varying vec3 vNormal;
       varying vec3 vViewDir;
+      varying vec3 vColor;
+      varying float vPartId;
       void main() {
-        // Transformar normal al espacio de mundo (sin escala no uniforme)
+        vColor = aColor;
+        vPartId = aPartId;
         vNormal = normalize(mat3(modelMatrix) * normal);
         vec4 worldPos = modelMatrix * vec4(position, 1.0);
         vViewDir = normalize(cameraPosition - worldPos.xyz);
@@ -448,6 +550,8 @@ function buildShaders() {
       uniform float uThreshold;
       varying vec3 vNormal;
       varying vec3 vViewDir;
+      varying vec3 vColor;
+      varying float vPartId;
 
       void main() {
         vec3 N = normalize(vNormal);
@@ -461,28 +565,34 @@ function buildShaders() {
           return;
         }
 
+        // Ojos, cejas y pestañas mantienen alta legibilidad tipo anime
+        if (vPartId > 0.5 && vPartId < 1.5) {
+          gl_FragColor = vec4(vColor, 1.0);
+          return;
+        }
+
         float NdotL = dot(N, L);
+
+        // Color de sombra estilizado (multiplicando el color base por un tono frío/malva anime)
+        vec3 shadowTint = vec3(0.68, 0.57, 0.69);
+        vec3 shadowCol = vColor * shadowTint;
+        vec3 litCol = vColor;
 
         // Modo 1: Sombreado Suave Lambert PBR
         if (uShadeMode == 1) {
           float diff = clamp(NdotL * 0.5 + 0.5, 0.0, 1.0);
-          vec3 shadowCol = vec3(0.27, 0.25, 0.36);
-          vec3 litCol = vec3(0.95, 0.87, 0.82);
-          vec3 col = mix(shadowCol, litCol, smoothstep(0.15, 0.85, diff));
+          vec3 col = mix(shadowCol, litCol, smoothstep(0.12, 0.88, diff));
           gl_FragColor = vec4(col, 1.0);
           return;
         }
 
-        // Modo 0: Cel Shading NPR (2 tonos + Rim estilizado)
+        // Modo 0: Cel Shading NPR (Corte nítido Step + Rim Light en cabello/bordes)
         float celCut = smoothstep(uThreshold - 0.015, uThreshold + 0.015, NdotL);
-        vec3 animeShadow = vec3(0.42, 0.34, 0.44);
-        vec3 animeLit = vec3(0.98, 0.90, 0.85);
-        vec3 finalCol = mix(animeShadow, animeLit, celCut);
+        vec3 finalCol = mix(shadowCol, litCol, celCut);
 
-        // Pequeño toque de Rim Light estilizado en la zona iluminada
-        float fresnel = pow(1.0 - max(dot(N, V), 0.0), 3.8);
-        float rimMask = step(0.65, fresnel) * celCut;
-        finalCol += vec3(0.18, 0.20, 0.25) * rimMask;
+        float fresnel = pow(1.0 - max(dot(N, V), 0.0), 3.6);
+        float rimMask = step(0.68, fresnel) * celCut;
+        finalCol += vec3(0.14, 0.16, 0.22) * rimMask;
 
         gl_FragColor = vec4(finalCol, 1.0);
       }
@@ -497,17 +607,20 @@ function buildShaders() {
     },
     vertexShader: `
       attribute vec3 aSmoothNormal;
+      attribute float aPartId;
       uniform float uOutlineWidth;
       uniform float uUseSmoothNormal;
       void main() {
+        // No extruir ojos/pestañas (aPartId == 1) para mantener limpios los rasgos internos
+        float partMask = (aPartId > 0.5 && aPartId < 1.5) ? 0.0 : 1.0;
         vec3 extrudeDir = normalize(mix(normal, aSmoothNormal, uUseSmoothNormal));
-        vec3 displaced = position + extrudeDir * uOutlineWidth;
+        vec3 displaced = position + extrudeDir * (uOutlineWidth * partMask);
         gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
       }
     `,
     fragmentShader: `
       void main() {
-        gl_FragColor = vec4(0.07, 0.07, 0.09, 1.0);
+        gl_FragColor = vec4(0.08, 0.07, 0.10, 1.0);
       }
     `
   });
@@ -528,13 +641,14 @@ function rebuildHelpers() {
   const norm = geo.attributes.normal;
   const count = pos.count;
 
-  // 1. Flechas de Face Normals (amarillas, 1 por centro de triángulo)
+  // Submuestreo inteligente en el modelo anime para que las flechas sean limpias y legibles
+  const triStep = currentModel.value === 'head' ? 45 : 3;
+
   if (showFaceNormals.value) {
     const facePts = [];
     const faceNorms = geo.userData.faceNormals;
-    const stride = currentModel.value === 'head' ? 9 : 3; // Submuestreo en el rostro para lectura limpia
 
-    for (let i = 0; i < count; i += stride) {
+    for (let i = 0; i < count; i += triStep) {
       const cx = (pos.getX(i) + pos.getX(i + 1) + pos.getX(i + 2)) / 3;
       const cy = (pos.getY(i) + pos.getY(i + 1) + pos.getY(i + 2)) / 3;
       const cz = (pos.getZ(i) + pos.getZ(i + 1) + pos.getZ(i + 2)) / 3;
@@ -543,7 +657,7 @@ function rebuildHelpers() {
       const ny = faceNorms[i * 3 + 1];
       const nz = faceNorms[i * 3 + 2];
 
-      const len = 0.19;
+      const len = currentModel.value === 'head' ? 0.14 : 0.20;
       facePts.push(cx, cy, cz, cx + nx * len, cy + ny * len, cz + nz * len);
     }
 
@@ -553,12 +667,12 @@ function rebuildHelpers() {
     helperGroup.add(new THREE.LineSegments(lineGeo, lineMat));
   }
 
-  // 2. Flechas de Vertex Normals (cian, desde cada vértice)
   if (showVertexNormals.value) {
     const vertPts = [];
     const seenPairs = new Set();
+    const vStride = currentModel.value === 'head' ? 14 : 1;
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i += vStride) {
       const vx = pos.getX(i);
       const vy = pos.getY(i);
       const vz = pos.getZ(i);
@@ -566,17 +680,11 @@ function rebuildHelpers() {
       const ny = norm.getY(i);
       const nz = norm.getZ(i);
 
-      // En rostro denso filtramos algunos vértices para evitar saturar la vista
-      if (currentModel.value === 'head' && (Math.abs(vx) * 100 + Math.abs(vy) * 100) % 3 > 1.2) {
-        continue;
-      }
-
-      // Evitar dibujar dos veces exactamente la misma flecha en el mismo punto
-      const key = `${Math.round(vx * 100)},${Math.round(vy * 100)},${Math.round(vz * 100)}_${Math.round(nx * 50)},${Math.round(ny * 50)},${Math.round(nz * 50)}`;
+      const key = `${Math.round(vx * 100)},${Math.round(vy * 100)},${Math.round(vz * 100)}_${Math.round(nx * 40)},${Math.round(ny * 40)},${Math.round(nz * 40)}`;
       if (seenPairs.has(key)) continue;
       seenPairs.add(key);
 
-      const len = 0.22;
+      const len = currentModel.value === 'head' ? 0.15 : 0.22;
       vertPts.push(vx, vy, vz, vx + nx * len, vy + ny * len, vz + nz * len);
     }
 
@@ -598,22 +706,30 @@ function updateLightIndicator() {
   lightIndicatorGroup.clear();
 
   const dir = getLightDirectionVector();
-  const origin = dir.clone().multiplyScalar(2.1);
-  const target = dir.clone().multiplyScalar(1.35);
+  const origin = dir.clone().multiplyScalar(1.85);
+  const target = dir.clone().multiplyScalar(1.25);
 
   const lineGeo = new THREE.BufferGeometry().setFromPoints([origin, target]);
   const lineMat = new THREE.LineBasicMaterial({ color: 0xf97316 });
   lightIndicatorGroup.add(new THREE.Line(lineGeo, lineMat));
 
-  const bulbGeo = new THREE.SphereGeometry(0.06, 12, 12);
+  const bulbGeo = new THREE.SphereGeometry(0.055, 12, 12);
   const bulbMat = new THREE.MeshBasicMaterial({ color: 0xf97316 });
   const bulb = new THREE.Mesh(bulbGeo, bulbMat);
   bulb.position.copy(origin);
   lightIndicatorGroup.add(bulb);
 }
 
-function rebuildMesh() {
+async function rebuildMesh() {
   if (!THREE || !scene) return;
+
+  let geo;
+  if (currentModel.value === 'head') {
+    const data = await loadAnimeBinary();
+    geo = buildAnimeBufferGeometry(data, showHair.value, normalMode.value);
+  } else {
+    geo = buildCylinderGeometry(normalMode.value);
+  }
 
   if (mainMesh) {
     scene.remove(mainMesh);
@@ -625,7 +741,6 @@ function rebuildMesh() {
     outlineMesh.material.dispose();
   }
 
-  const geo = createModelGeometry(currentModel.value, normalMode.value);
   const { mainMaterial, outlineMaterial } = buildShaders();
 
   mainMesh = new THREE.Mesh(geo, mainMaterial);
@@ -654,8 +769,14 @@ function updateUniforms() {
   updateLightIndicator();
 }
 
-function setModel(modelKey) {
+function setModel(modelKey, hairFlag) {
   currentModel.value = modelKey;
+  showHair.value = hairFlag;
+  if (modelKey === 'cylinder') {
+    outlineWidth.value = 0.055;
+  } else {
+    outlineWidth.value = 0.022;
+  }
   rebuildMesh();
 }
 
@@ -672,32 +793,35 @@ function setShadeMode(modeKey) {
 function applyCase(caseKey) {
   if (caseKey === 'dirty_toon') {
     currentModel.value = 'head';
+    showHair.value = true;
     normalMode.value = 'smooth';
     shadeMode.value = 'toon';
     showFaceNormals.value = false;
-    showVertexNormals.value = true;
+    showVertexNormals.value = false;
     outlineEnabled.value = true;
-    outlineWidth.value = 0.04;
-    lightAngle.value = 0.72;
+    outlineWidth.value = 0.022;
+    lightAngle.value = 0.68;
     rebuildMesh();
   } else if (caseKey === 'clean_anime') {
     currentModel.value = 'head';
+    showHair.value = true;
     normalMode.value = 'proxy';
     shadeMode.value = 'toon';
     showFaceNormals.value = false;
-    showVertexNormals.value = true;
+    showVertexNormals.value = false;
     outlineEnabled.value = true;
-    outlineWidth.value = 0.04;
-    lightAngle.value = 0.72;
+    outlineWidth.value = 0.022;
+    lightAngle.value = 0.68;
     rebuildMesh();
   } else if (caseKey === 'broken_hull') {
     currentModel.value = 'cylinder';
+    showHair.value = false;
     normalMode.value = 'hard';
     shadeMode.value = 'toon';
     showFaceNormals.value = true;
     showVertexNormals.value = true;
     outlineEnabled.value = true;
-    outlineWidth.value = 0.085;
+    outlineWidth.value = 0.06;
     forceSmoothOutline.value = false;
     rebuildMesh();
   }
@@ -711,9 +835,9 @@ function onManualLightInput() {
 function updateCameraOrbit() {
   if (!camera) return;
   camera.position.x = camOrbit.radius * Math.sin(camOrbit.theta) * Math.cos(camOrbit.phi);
-  camera.position.y = camOrbit.radius * Math.sin(camOrbit.phi);
+  camera.position.y = camOrbit.radius * Math.sin(camOrbit.phi) + 0.08;
   camera.position.z = camOrbit.radius * Math.cos(camOrbit.theta) * Math.cos(camOrbit.phi);
-  camera.lookAt(0, 0, 0);
+  camera.lookAt(0, 0.08, 0);
 }
 
 const initThree = async () => {
@@ -724,12 +848,12 @@ const initThree = async () => {
   if (!container) return;
 
   const width = container.clientWidth || 680;
-  const height = 340;
+  const height = 360;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x141418);
 
-  camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+  camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
   updateCameraOrbit();
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -738,14 +862,12 @@ const initThree = async () => {
   container.innerHTML = '';
   container.appendChild(renderer.domElement);
 
-  // Grilla sutil de piso para referencia espacial
   const grid = new THREE.GridHelper(5, 10, 0x27272a, 0x1f1f23);
   grid.position.y = -1.25;
   scene.add(grid);
 
-  rebuildMesh();
+  await rebuildMesh();
 
-  // Eventos de órbita con mouse / touch
   const dom = renderer.domElement;
   dom.addEventListener('pointerdown', (e) => {
     isDragging = true;
@@ -760,7 +882,7 @@ const initThree = async () => {
     const dy = e.clientY - prevMouse.y;
     prevMouse = { x: e.clientX, y: e.clientY };
     camOrbit.theta -= dx * 0.008;
-    camOrbit.phi = Math.max(-0.8, Math.min(0.9, camOrbit.phi + dy * 0.008));
+    camOrbit.phi = Math.max(-0.7, Math.min(0.85, camOrbit.phi + dy * 0.008));
     updateCameraOrbit();
   });
 
@@ -779,7 +901,7 @@ const initThree = async () => {
 const handleResize = () => {
   if (!canvasContainer.value || !renderer || !camera) return;
   const width = canvasContainer.value.clientWidth;
-  const height = 340;
+  const height = 360;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
@@ -919,7 +1041,7 @@ onBeforeUnmount(() => {
 
 .canvas-wrapper {
   width: 100%;
-  height: 340px;
+  height: 360px;
   cursor: grab;
 }
 

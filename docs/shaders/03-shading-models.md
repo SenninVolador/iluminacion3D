@@ -76,7 +76,7 @@ Permite simular materiales de dos capas físicas reales:
 2. Una capa superior transparente, lisa y con alto brillo especular.
 
 * **Parámetros exclusivos**:
-  * `Clear Coat`: Intensidad de la capa de barniz ($0.0 - 1.0$).
+  * `Clear Coat`: Intensidad de la capa de barniz (`0.0 – 1.0`).
   * `Clear Coat Roughness`: Rugosidad específica del barniz protector.
 
 ---

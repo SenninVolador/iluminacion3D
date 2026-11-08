@@ -17,6 +17,54 @@
 
   --vp-c-border: #e5e7eb;
   --vp-c-divider: #e5e7eb;
+
+  /* Bloques de código legibles en alto contraste */
+  --vp-code-block-bg: #18181b;
+  --vp-code-block-color: #f4f4f5;
+}
+
+/* Forzar contraste nítido en cualquier bloque de código */
+.vp-doc div[class*='language-'] {
+  background-color: #18181b !important;
+  border: 1px solid #27272a;
+  border-radius: 4px;
+}
+
+.vp-doc div[class*='language-'] pre,
+.vp-doc div[class*='language-'] code {
+  color: #f4f4f5 !important;
+}
+
+/* Tarjetas de fórmulas y diagramas de flujo técnicos */
+.formula-card {
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #111827;
+  background: #f9fafb;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+.formula-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7280;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.formula-eq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.formula-sub {
+  font-size: 12px;
+  color: #4b5563;
 }
 
 /* Estilo sobrio y limpio */

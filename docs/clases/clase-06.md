@@ -63,7 +63,7 @@ Durante la demostración en pantalla, seguimos esta secuencia técnica para tras
 Antes de colocar cualquier luz, es indispensable fijar la exposición de la cámara para evitar que el motor aclare la escena automáticamente (*Eye Adaptation*):
 1. Añadir un actor **`PostProcessVolume`** y marcar **`Infinite Extent (Unbound)`**.
 2. En la sección **Exposure**, cambiar el método a **Manual**.
-3. Ajustar el valor **`Apply Physical Camera Exposure`** o fijar un **`EV100`** adecuado para interiores nocturnos (usualmente entre $4.0$ y $6.0$).
+3. Ajustar el valor **`Apply Physical Camera Exposure`** o fijar un **`EV100`** adecuado para interiores nocturnos (usualmente entre `4.0` y `6.0`).
 
 ### Paso 2: Configuración de la Luz Natural Exterior
 * Ubicar una **`Rect Light`** en el vano de la ventana, orientada hacia el interior.
@@ -76,7 +76,7 @@ Antes de colocar cualquier luz, es indispensable fijar la exposición de la cám
   * Colocar una **`Rect Light`** justo al frente de la pantalla apuntando hacia la habitación para proyectar la iluminación real sobre el suelo y el sofá.
 * **Lámparas o Focos de Pasillo**:
   * Utilizar una **`Point Light`** o **`Spot Light`** con temperatura cálida (~2.700K).
-  * Ajustar **`Source Radius`** a valores de bombilla física (entre $2\text{ cm}$ y $5\text{ cm}$) para que los reflejos especulares sean creíbles.
+  * Ajustar **`Source Radius`** a valores de bombilla física (entre `2 cm` y `5 cm`) para que los reflejos especulares sean creíbles.
   * Ceñir el **`Attenuation Radius`** estrictamente al espacio donde rebota la luz para optimizar el rendimiento.
 
 ### Paso 4: Luces Dramáticas de Apoyo

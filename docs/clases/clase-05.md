@@ -76,7 +76,7 @@ En proyectos profesionales de desarrollo de videojuegos, la consistencia y el or
 
 Siguiendo el estándar oficial de Epic Games ([Recommended Asset Naming Conventions](https://dev.epicgames.com/documentation/en-us/unreal-engine/recommended-asset-naming-conventions-in-unreal-engine-projects)), la estructura base es:
 
-$$\text{[Prefijo]\_} \text{[NombreDelAsset]\_} \text{[Sufijo/Descriptor]}$$
+<div class="formula-card"><div class="formula-title">ESTÁNDAR DE NOMENCLATURA EPIC GAMES</div><div class="formula-eq">[Prefijo]_[NombreDelAsset]_[Sufijo/Descriptor]</div></div>
 
 ### Tabla de Prefijos y Sufijos Oficiales
 

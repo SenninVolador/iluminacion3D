@@ -18,10 +18,10 @@ En lugar de hacer click derecho y buscar por nombre en la lista, mantén presion
 | **`T + Click`** | **Texture Sample** | Muestra de textura 2D (Albedo, mapa ORM o Normal Map). |
 | **`1 + Click`** | **Constant (Float)** | Valor numérico fijo de 1 solo canal (ej: 0.0 o 1.0). |
 | **`3 + Click`** | **Constant3Vector** | Color RGB estático sin exponer como parámetro. |
-| **`L + Click`** | **LinearInterpolate (Lerp)** | Mezcla dos entradas ($A$ y $B$) controladas por una máscara Alpha. |
+| **`L + Click`** | **LinearInterpolate (Lerp)** | Mezcla dos entradas (`A` y `B`) controladas por una máscara Alpha. |
 | **`A + Click`** | **Add** | Suma matemática de dos valores o canales. |
 | **`U + Click`** | **TextureCoordinate (TexCoord)** | Control de repetición y escala de coordenadas UV (*Tiling*). |
-| **`O + Click`** | **OneMinus** | Invierte un mapa o valor en escala de grises ($1.0 - x$). |
+| **`O + Click`** | **OneMinus** | Invierte un mapa o valor en escala de grises (`1.0 - x`). |
 
 ---
 

@@ -45,7 +45,7 @@ En la producción profesional de videojuegos, **nunca se crea un Material nuevo 
 
 ## 2. Tipos de Parámetros en el Shader Graph
 
-Para convertir un valor fijo en una propiedad configurable dentro de una instancia, se debe convertir en un **Parámetro** (clic derecho sobre el nodo $\rightarrow$ *Convert to Parameter*):
+Para convertir un valor fijo en una propiedad configurable dentro de una instancia, se debe convertir en un **Parámetro** (clic derecho sobre el nodo → *Convert to Parameter*):
 
 * **Scalar Parameter (Parámetro Escalar)**: Un único número flotante.
   * *Usos*: Multiplicador de rugosidad, intensidad emisiva, escala de UV (Tiling), contraste.

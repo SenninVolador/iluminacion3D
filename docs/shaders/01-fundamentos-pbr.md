@@ -63,7 +63,7 @@ En videojuegos, leer una textura desde la GPU tiene un coste de memoria y ancho 
 
 - **Metalicidad binaria**: En el mundo real, los materiales son casi siempre **100% metal (1.0)** o **100% no-metal (0.0)**. Los valores intermedios (como 0.5) solo se usan para transiciones sucias como polvo sobre metal oxidado.
 - **Sin sombras en el Base Color**: Nunca pintes oaxilas, sombras de pliegues o brillos especulares blancos en la textura de Base Color. Las sombras son trabajo de la luz y del Ambient Occlusion.
-- **Valores mínimos de luminosidad**: El negro absoluto ($RGB = 0, 0, 0$) no existe en la naturaleza. El carbón más negro refleja alrededor del $3-4\%$ de la luz ($sRGB \approx 30-50$).
+- **Valores mínimos de luminosidad**: El negro absoluto (`RGB = 0, 0, 0`) no existe en la naturaleza. El carbón más negro refleja alrededor del 3–4% de la luz (`sRGB ≈ 30–50`).
 
 ---
 **Notas relacionadas**:

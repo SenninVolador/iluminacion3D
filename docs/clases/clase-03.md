@@ -32,7 +32,7 @@ A fin de optimizar el ancho de banda de memoria de video (VRAM), se combinan tre
 
 1. **Directional Light (Sol)**:
    * Al rotar el emisor con `Ctrl + L`, la incidencia rasante revela la microgeometría almacenada en el **Normal Map** del busto.
-   * Se busca el esquema clásico de retrato **Rembrandt** (incidencia a $45^\circ$ lateral) para formar el triángulo luminoso característico en la mejilla opuesta.
+   * Se busca el esquema clásico de retrato **Rembrandt** (incidencia a 45° lateral) para formar el triángulo luminoso característico en la mejilla opuesta.
 2. **Sky Light (Bóveda Celeste)**:
    * Proyecta luz ambiental difusa sobre las áreas en sombra, respetando la información del canal R (AO) del shader para preservar la profundidad en cavidades faciales.
 
@@ -42,7 +42,7 @@ A fin de optimizar el ancho de banda de memoria de video (VRAM), se combinan tre
 
 | Tipo de Emisor | Geometría de Emisión | Función en el Sujeto | Parámetro Crítico |
 | :--- | :--- | :--- | :--- |
-| **Point Light** | Esfera omnidireccional ($360^\circ$) | Simulación de fuentes próximas (velas, antorchas) | `Attenuation Radius` |
+| **Point Light** | Esfera omnidireccional (360°) | Simulación de fuentes próximas (velas, antorchas) | `Attenuation Radius` |
 | **Spot Light** | Cono direccional acotado | Luz de acento y brillo corneal (*Eye Catchlight*) | `Inner/Outer Cone`, `IES` |
 | **Rect Light** | Plano rectangular (área) | Luz difusa de estudio para reflejos suaves | `Source Width / Height` |
 

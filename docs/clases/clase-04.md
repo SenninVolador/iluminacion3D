@@ -68,5 +68,5 @@ Ajusta la densidad de la niebla, la altura y la hora atmosférica para observar 
    * Genera el tono azul del cielo diurno y los tonos rojizos/anaranjados del atardecer.
 2. **Dispersión de Mie (Polvo, humedad y aerosoles)**:
    * Partículas más grandes generan la bruma del horizonte y el halo brillante alrededor del sol.
-3. **Anisotropía de Dispersión ($g$)**:
-   * Controla hacia dónde rebota la luz al chocar con la niebla. Valores entre $0.7$ y $0.9$ producen rayos crepusculares marcados (*God Rays*) cuando la cámara mira hacia la fuente luminosa.
+3. **Anisotropía de Dispersión (`g`)**:
+   * Controla hacia dónde rebota la luz al chocar con la niebla. Valores entre `0.7` y `0.9` producen rayos crepusculares marcados (*God Rays*) cuando la cámara mira hacia la fuente luminosa.

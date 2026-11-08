@@ -20,7 +20,7 @@ En el cómputo gráfico 3D:
 | Criterio | Videojuegos (Tiempo Real) | Cine y Efectos Visuales (Offline) |
 | :--- | :--- | :--- |
 | **Tiempo de Cómputo** | 30 a 120+ fotogramas por segundo | Minutos u horas por cada cuadro individual |
-| **Presupuesto GPU** | $\le 16.6\text{ ms}$ por fotograma (a 60 FPS) | Sin restricción estricta de tiempo de ejecución |
+| **Presupuesto GPU** | `<= 16.6 ms` por fotograma (a 60 FPS) | Sin restricción estricta de tiempo de ejecución |
 | **Control de Cámara** | Interactiva y libre (perspectiva del jugador) | Predefinida y fija según el encuadre del plano |
 | **Metodología** | Aproximaciones de sombreado, baking y rasterización | Simulación por trazado de caminos (Path Tracing) |
 
@@ -31,7 +31,7 @@ En el cómputo gráfico 3D:
 Técnica clásica para la construcción de jerarquía visual y separación de planos sobre el sujeto:
 
 1. **Key Light (Luz Principal o Clave)**:
-   * Emisor dominante situado a $45^\circ$ lateral y $45^\circ$ de elevación respecto al eje de cámara.
+   * Emisor dominante situado a 45° lateral y 45° de elevación respecto al eje de cámara.
    * Modela el volumen principal y proyecta la sombra dominante (100% de intensidad de referencia).
 2. **Fill Light (Luz de Relleno)**:
    * Emisor difuso situado en el lateral opuesto a la luz principal.
@@ -45,9 +45,9 @@ Técnica clásica para la construcción de jerarquía visual y separación de pl
 ## 4. Definición y Función del Shader
 
 Un **Shader (Sombreador)** es un programa computacional ejecutado en paralelo por la unidad de procesamiento gráfico (**GPU**):
-$$\text{Color del Píxel} = \text{Luz Incidente} \times \text{Función de Reflectancia (PBR)} \times \cos(\theta)$$
+<div class="formula-card"><div class="formula-title">ECUACIÓN DE RENDERIZADO EN TIEMPO REAL</div><div class="formula-eq">Color del Píxel = Luz Incidente × Reflectancia PBR × cos(θ)</div></div>
 
 ### Parámetros Fundamentales del Estándar PBR:
 1. **Base Color / Albedo**: Reflectancia difusa intrínseca sin información de oclusión ni brillo especular.
-2. **Roughness (Rugosidad)**: Distribución estadística de microfacetas (de $0.0$, reflexión especular especular pura, a $1.0$, dispersión lambertiana mate).
-3. **Metallic (Metalicidad)**: Comportamiento electrodinámico del material ($0.0$ dieléctrico / no-metal, $1.0$ conductor metálico puro).
+2. **Roughness (Rugosidad)**: Distribución estadística de microfacetas (de `0.0`, reflexión especular especular pura, a `1.0`, dispersión lambertiana mate).
+3. **Metallic (Metalicidad)**: Comportamiento electrodinámico del material (`0.0` dieléctrico / no-metal, `1.0` conductor metálico puro).

@@ -14,7 +14,7 @@ El ejercicio consiste en construir la volumetría de un busto tridimensional par
 
 ### Protocolo de Construcción en Unreal Engine 5:
 1. **Inicialización**: Crear un nivel vacío (`File -> New Level -> Empty Level`) e insertar un plano de suelo neutro junto al busto en el origen de coordenadas.
-2. **Emisor Principal (Key)**: Configurar un foco a $45^\circ$ lateral y $45^\circ$ cenital. Calibrar hasta obtener una penumbra definida.
+2. **Emisor Principal (Key)**: Configurar un foco a 45° lateral y 45° cenital. Calibrar hasta obtener una penumbra definida.
 3. **Emisor de Relleno (Fill)**: Situar una luz difusa en el flanco opuesto sin proyección de sombras duras, a un tercio de la potencia principal.
 4. **Emisor Posterior (Rim)**: Posicionar una luz trasera alineada con la silueta para generar la separación tonal respecto al fondo.
 
@@ -23,7 +23,7 @@ El ejercicio consiste en construir la volumetría de un busto tridimensional par
 ## 2. Fuentes de Iluminación Exterior: Sol y Atmósfera
 
 * **Directional Light (Luz Solar)**: Modela una fuente situada en el infinito; emite rayos rigurosamente paralelos. La traslación espacial carece de efecto; el cálculo depende exclusivamente del **vector de rotación** (atajo de calibración: `Ctrl + L`).
-* **Sky Light (Luz de Cielo / Hemisférica)**: Captura la radiancia difusa de la bóveda celeste para bañar las superficies en sombra, **evitando valores de negro absoluto ($RGB = 0, 0, 0$)**.
+* **Sky Light (Luz de Cielo / Hemisférica)**: Captura la radiancia difusa de la bóveda celeste para bañar las superficies en sombra, **evitando valores de negro absoluto (`RGB = 0, 0, 0`)**.
 
 <ClientOnly>
   <SunShadowViewer />

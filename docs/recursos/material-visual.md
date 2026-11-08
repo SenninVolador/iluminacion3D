@@ -1,23 +1,14 @@
 # Documentación Técnica en PDF
 
-Fichas técnicas maquetadas en dos páginas para consulta de laboratorio e impresión:
+Fichas técnicas y rúbricas oficiales maquetadas en dos páginas para consulta de laboratorio e impresión:
 
 ---
 
-## Fichas Disponibles
-
-### Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad
-* [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_02.pdf)
-* **Contenidos**:
-  * Esquema vectorial del sistema de tres puntos (Key, Fill, Rim).
-  * Principios de Directional Light y Sky Light.
-  * Matriz técnica de movilidad de emisores (Static, Stationary, Movable).
-  * Casos de estudio: *The Last of Us*, *Cyberpunk 2077*, *Zelda TotK*, *Resident Evil 4*.
-
----
+## Rúbricas Oficiales y Planillas de Evaluación
 
 ### Rúbrica de Evaluación: Entrega N°1 (3-Point Lighting y Shaders)
 * [Descargar Rúbrica Oficial (PDF)](/Rubrica_Entrega_01.pdf)
+* <a href="/iluminacion3D/Rubrica_Evaluacion_Entrega_01.xlsx" download>Descargar Planilla de Calificación en Excel (.xlsx)</a>
 * **Contenidos**:
   * Pauta de evaluación de 60 puntos (Key, Fill, Rim Light).
   * Requisitos de Master Material e Instancia con 3+ parámetros expuestos.
@@ -33,6 +24,40 @@ Fichas técnicas maquetadas en dos páginas para consulta de laboratorio e impre
   * Ponderación Moodboard y Análisis de Referencia (15% = 9 puntos).
   * Criterios de Iluminación Interior, Uso Técnico de Luces, Intención y Orden.
   * Tabla de conversión a escala chilena de 1.0 a 7.0 al 60% de exigencia.
+
+---
+
+### Rúbrica de Evaluación: Entrega N°3 (LookDev, NPR y Prototipo de Estilo)
+* [Descargar Rúbrica Oficial (PDF)](/Rubrica_Entrega_03.pdf)
+* <a href="/iluminacion3D/Rubrica_Evaluacion_Entrega_03.xlsx" download>Descargar Planilla de Calificación en Excel (.xlsx)</a>
+* **Contenidos**:
+  * Avance de Examen Final (60 puntos) adaptable a proyectos 3D y 2D.
+  * Referencias de Shaders, Luz y Otros Medios (20% = 12 pts).
+  * Creación del Shader / Material de Estilo (35% = 21 pts) y Prueba de Luz en Modelos/Sprites de Test (30% = 18 pts).
+  * Orden del grafo, nomenclatura y escala de conversión 1.0 a 7.0 (y escala Moodle 10 a 70).
+
+---
+
+### Rúbrica de Evaluación: Examen Final (Integración en Juego y Breakdown 80.lv)
+* [Descargar Rúbrica Oficial de Examen (PDF)](/Rubrica_Examen_Final.pdf)
+* <a href="/iluminacion3D/Rubrica_Evaluacion_Examen_Final.xlsx" download>Descargar Planilla de Calificación en Excel (.xlsx)</a>
+* **Contenidos**:
+  * Pauta oficial de cierre semestral (60 puntos) para proyectos de juego 3D y 2D.
+  * Implementación de Shaders en el Juego (30% = 18 pts) e Iluminación del Nivel y Guía al Jugador (35% = 21 pts).
+  * Artículo / Breakdown Técnico estilo *80 Level (80.lv)* paso a paso (20% = 12 pts).
+  * Post-Procesado, orden del proyecto y rendimiento en tiempo real (15% = 9 pts).
+
+---
+
+## Fichas Técnicas de Clases
+
+### Clase 02: Taller de 3 Puntos, Sol, Cielo y Movilidad
+* [Descargar Documento Técnico (PDF)](/Material_Visual_Clase_02.pdf)
+* **Contenidos**:
+  * Esquema vectorial del sistema de tres puntos (Key, Fill, Rim).
+  * Principios de Directional Light y Sky Light.
+  * Matriz técnica de movilidad de emisores (Static, Stationary, Movable).
+  * Casos de estudio: *The Last of Us*, *Cyberpunk 2077*, *Zelda TotK*, *Resident Evil 4*.
 
 ---
 

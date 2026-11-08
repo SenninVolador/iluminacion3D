@@ -21,14 +21,18 @@ export default defineConfig({
           { text: "Clase 06: Interiores, Referencia y Réplica", link: "/clases/clase-06" },
           { text: "Lectura: Lenguaje Visual", link: "/clases/lenguaje-visual" },
           { text: "Rúbrica: Entrega N°1", link: "/clases/rubrica-entrega-01" },
-          { text: "Rúbrica: Entrega N°2", link: "/clases/rubrica-entrega-02" }
+          { text: "Rúbrica: Entrega N°2", link: "/clases/rubrica-entrega-02" },
+          { text: "Rúbrica: Entrega N°3", link: "/clases/rubrica-entrega-03" },
+          { text: "Rúbrica: Examen Final", link: "/clases/rubrica-examen" }
         ]
       },
       {
         text: "Rúbricas",
         items: [
           { text: "Entrega 1: 3 Puntos & Shaders", link: "/clases/rubrica-entrega-01" },
-          { text: "Entrega 2: Iluminación de Interior", link: "/clases/rubrica-entrega-02" }
+          { text: "Entrega 2: Iluminación de Interior", link: "/clases/rubrica-entrega-02" },
+          { text: "Entrega 3: LookDev & Prototipo NPR", link: "/clases/rubrica-entrega-03" },
+          { text: "Examen Final: Juego + Breakdown 80.lv", link: "/clases/rubrica-examen" }
         ]
       },
       { text: "Shaders PBR", link: "/shaders/01-fundamentos-pbr" },
@@ -51,7 +55,9 @@ export default defineConfig({
             { text: 'Clase 06: Interiores, Análisis de Referencia y Réplica', link: '/clases/clase-06' },
             { text: 'Lectura: Lenguaje Visual y Guía al Jugador', link: '/clases/lenguaje-visual' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
-            { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' }
+            { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' },
+            { text: 'Rúbrica: Entrega N°3 (LookDev & Prototipo NPR)', link: '/clases/rubrica-entrega-03' },
+            { text: 'Rúbrica: Examen Final (Juego & Breakdown 80.lv)', link: '/clases/rubrica-examen' }
           ]
         }
       ],
@@ -76,6 +82,8 @@ export default defineConfig({
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
             { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' },
+            { text: 'Rúbrica: Entrega N°3 (LookDev & Prototipo NPR)', link: '/clases/rubrica-entrega-03' },
+            { text: 'Rúbrica: Examen Final (Juego & Breakdown 80.lv)', link: '/clases/rubrica-examen' },
             { text: 'Mapa de Contenidos', link: '/moc' },
             { text: 'Fichas Técnicas y Descargas', link: '/recursos/material-visual' }
           ]

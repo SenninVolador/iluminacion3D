@@ -145,4 +145,30 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </p>
 </div>
 
+<!-- RUBRICA DE EVALUACION 03 -->
+<div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="/iluminacion3D/clases/rubrica-entrega-03" style="color: #111827; text-decoration: none;">Rúbrica de Evaluación: Entrega N°3 (LookDev, NPR y Prototipo de Estilo)</a>
+    </h3>
+    <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Avance de Examen</span>
+  </div>
+  <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+    Pauta de 60 puntos (3D y 2D): Referencias de shaders, luz y otros medios (20%), Creación del Shader/Material de estilo (35%), Prueba de iluminación en modelos/sprites de test (30%) y Orden del grafo/nomenclatura (15%).
+  </p>
+</div>
+
+<!-- RUBRICA EXAMEN FINAL -->
+<div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="/iluminacion3D/clases/rubrica-examen" style="color: #111827; text-decoration: none;">Rúbrica de Evaluación: Examen Final (Integración en Juego y Breakdown 80.lv)</a>
+    </h3>
+    <span style="font-size: 11px; color: #6b7280; font-family: monospace;">Examen Semestral</span>
+  </div>
+  <p style="font-size: 12.5px; color: #4b5563; margin: 0 0 8px 0; line-height: 1.45;">
+    Pauta de 60 puntos (3D y 2D): Implementación de shaders y materiales en el juego (30%), Iluminación del nivel y guía al jugador (35%), Artículo/Breakdown técnico estilo 80.lv (20%) y Post-procesado, orden y rendimiento (15%).
+  </p>
+</div>
+
 </div>

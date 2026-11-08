@@ -121,8 +121,8 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Caso The Last of U
 </div>
 
 <div class="academic-card">
-<h3><a href="/iluminacion3D/clases/rubrica-entrega-02">Rúbricas de Evaluación</a></h3>
-<p>Pautas oficiales de evaluación del semestre: Entrega N°1 (3 Puntos y Shaders) y Entrega N°2 (Iluminación Interior y Moodboard).</p>
+<h3><a href="/iluminacion3D/clases/rubrica-entrega-03">Rúbricas de Evaluación</a></h3>
+<p>Pautas oficiales del semestre: Entrega 1 (3-Point), Entrega 2 (Interiores), Entrega 3 (LookDev y NPR) y Examen Final (Juego + Breakdown 80.lv).</p>
 </div>
 
 <div class="academic-card">

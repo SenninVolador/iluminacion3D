@@ -12,6 +12,9 @@ import NodeShaderViewer from './components/NodeShaderViewer.vue';
 import VolumetricFogViewer from './components/VolumetricFogViewer.vue';
 import InteriorLightingViewer from './components/InteriorLightingViewer.vue';
 import TLOUInteriorViewer from './components/TLOUInteriorViewer.vue';
+import NPRNormalsViewer from './components/NPRNormalsViewer.vue';
+import VertexColorViewer from './components/VertexColorViewer.vue';
+import ToonRampViewer from './components/ToonRampViewer.vue';
 import './custom.css';
 
 export default {
@@ -30,5 +33,8 @@ export default {
     app.component('VolumetricFogViewer', VolumetricFogViewer);
     app.component('InteriorLightingViewer', InteriorLightingViewer);
     app.component('TLOUInteriorViewer', TLOUInteriorViewer);
+    app.component('NPRNormalsViewer', NPRNormalsViewer);
+    app.component('VertexColorViewer', VertexColorViewer);
+    app.component('ToonRampViewer', ToonRampViewer);
   }
 };

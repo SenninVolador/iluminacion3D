@@ -6,7 +6,7 @@ layout: doc
 
 Docente: Daniel Rojas (UNIACC)
 
-Plataforma técnica de la asignatura de **Iluminación 3D y Shaders para Videojuegos**. Recursos de cátedra, fundamentación física PBR, laboratorios de iluminación en Unreal Engine 5 y simuladores interactivos en tiempo real.
+Plataforma técnica de la asignatura de **Iluminación 3D y Shaders para Videojuegos**. Recursos de cátedra, fundamentación física PBR, sombreado estilizado NPR, laboratorios de iluminación en Unreal Engine 5 y simuladores interactivos en tiempo real.
 
 ---
 
@@ -92,9 +92,27 @@ Conceptos: <span style="font-weight: normal; color: #4b5563;">Caso The Last of U
 </div>
 </div>
 
+<div class="class-item" style="border: 2px solid #111827; border-radius: 4px; padding: 14px 18px; background: #f9fafb;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 style="font-size: 15px; font-weight: 700; margin: 0;"><a href="/iluminacion3D/npr/" style="color: #111827; text-decoration: none;">Módulo Especial: NPR, Geometría de Normales y Vertex Color</a></h3>
+<span style="font-size: 11px; color: #111827; font-family: monospace; font-weight: 700;">Unidad NPR · 3 Laboratorios 3D</span>
+</div>
+<p style="font-size: 12.5px; color: #374151; margin: 0 0 8px 0; line-height: 1.45;">
+Fundamentos técnicos para la Entrega N°3 y Examen: Face Normals vs. Vertex Normals, Hard/Soft Edges, transferencia de normales para rostros anime (Guilty Gear / Genshin Impact), contornos Inverted Hull y empaquetado de 4 máscaras técnicas RGBA en Vertex Color.
+</p>
+<div style="font-size: 11px; color: #111827; font-weight: 600;">
+Conceptos: <span style="font-weight: normal; color: #4b5563;">Face vs. Vertex Normals · Normal Transfer · Inverted Hull Outline · Vertex Color RGBA · Cel Shading Ramp</span>
+</div>
+</div>
+
 </div>
 
 <div class="academic-nav-grid">
+<div class="academic-card">
+<h3><a href="/iluminacion3D/npr/">NPR, Normales y Vertex Color</a></h3>
+<p>Tres simuladores interactivos en tiempo real sobre transferencia de normales, Inverted Hull Outlines, rampas Toon y empaquetado de máscaras RGBA.</p>
+</div>
+
 <div class="academic-card">
 <h3><a href="/iluminacion3D/glosario">Glosario Interactivo</a></h3>
 <p>Definiciones de términos explicados con simuladores 3D interactivos en tiempo real (Temperatura Kelvin, Normal Maps, Atenuación, 3 Puntos, Sol y Sombras).</p>

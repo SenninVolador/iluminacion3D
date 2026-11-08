@@ -26,6 +26,7 @@ export default defineConfig({
           { text: "Rúbrica: Examen Final", link: "/clases/rubrica-examen" }
         ]
       },
+      { text: "NPR, Normales y Vertex Color", link: "/npr/" },
       {
         text: "Rúbricas",
         items: [
@@ -54,10 +55,22 @@ export default defineConfig({
             { text: 'Clase 05: Interiores, Brejon y Nomenclatura', link: '/clases/clase-05' },
             { text: 'Clase 06: Interiores, Análisis de Referencia y Réplica', link: '/clases/clase-06' },
             { text: 'Lectura: Lenguaje Visual y Guía al Jugador', link: '/clases/lenguaje-visual' },
+            { text: 'Módulo Especial: NPR, Normales y Vertex Color', link: '/npr/' },
             { text: 'Rúbrica: Entrega N°1 (3-Point & Shaders)', link: '/clases/rubrica-entrega-01' },
             { text: 'Rúbrica: Entrega N°2 (Iluminación de Interior)', link: '/clases/rubrica-entrega-02' },
             { text: 'Rúbrica: Entrega N°3 (LookDev & Prototipo NPR)', link: '/clases/rubrica-entrega-03' },
             { text: 'Rúbrica: Examen Final (Juego & Breakdown 80.lv)', link: '/clases/rubrica-examen' }
+          ]
+        }
+      ],
+      '/npr/': [
+        {
+          text: 'Unidad 3: NPR y Arte Técnico',
+          items: [
+            { text: 'NPR, Geometría de Normales y Vertex Color', link: '/npr/' },
+            { text: 'Rúbrica: Entrega N°3 (LookDev & Prototipo NPR)', link: '/clases/rubrica-entrega-03' },
+            { text: 'Rúbrica: Examen Final (Juego & Breakdown 80.lv)', link: '/clases/rubrica-examen' },
+            { text: '04. Matemáticas de Shaders (Fresnel, Lerp, Normales)', link: '/shaders/04-matematicas-shaders' }
           ]
         }
       ],
@@ -68,7 +81,8 @@ export default defineConfig({
             { text: '01. Fundamentos PBR y Mapas de Textura', link: '/shaders/01-fundamentos-pbr' },
             { text: '02. Master Materials e Instancias en Unreal', link: '/shaders/02-master-materials' },
             { text: '03. Modelos de Sombreado (Shading Models)', link: '/shaders/03-shading-models' },
-            { text: '04. Matemáticas de Shaders (Fresnel, Lerp, Normales)', link: '/shaders/04-matematicas-shaders' }
+            { text: '04. Matemáticas de Shaders (Fresnel, Lerp, Normales)', link: '/shaders/04-matematicas-shaders' },
+            { text: '05. NPR, Geometría de Normales y Vertex Color', link: '/npr/' }
           ]
         }
       ],
@@ -77,6 +91,7 @@ export default defineConfig({
           text: 'Documentación General',
           items: [
             { text: 'Índice de Clases', link: '/clases/' },
+            { text: 'NPR, Normales y Vertex Color', link: '/npr/' },
             { text: 'Atajos de Teclado y Nodos', link: '/recursos/shortcuts' },
             { text: 'Videos Tutoriales', link: '/recursos/videos' },
             { text: 'Glosario Técnico (Clase a Clase)', link: '/glosario' },

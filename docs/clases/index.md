@@ -106,6 +106,22 @@ Iluminación 3D · Docente Daniel Rojas (UNIACC)
   </div>
 </div>
 
+<!-- MODULO ESPECIAL NPR -->
+<div style="border: 2px solid #111827; border-radius: 4px; padding: 14px 18px; background: #f9fafb;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin: 0;">
+      <a href="/iluminacion3D/npr/" style="color: #111827; text-decoration: none;">Módulo Especial: NPR, Geometría de Normales y Vertex Color</a>
+    </h3>
+    <span style="font-size: 11px; color: #111827; font-family: monospace; font-weight: 700;">Unidad NPR · 3 Simuladores</span>
+  </div>
+  <p style="font-size: 12.5px; color: #374151; margin: 0 0 8px 0; line-height: 1.45;">
+    Guía técnica interactiva de estilización 3D y 2D: Face Normals vs. Vertex Normals, Hard y Soft Edges, transferencia de normales desde esfera proxy para rostros Cel Shading, contornos Inverted Hull y empaquetado de 4 máscaras RGBA en Vertex Color.
+  </p>
+  <div style="font-size: 11px; color: #111827; font-weight: 600;">
+    Simuladores: <span style="font-weight: normal; color: #4b5563;">Rampas Toon y Halftone · Inspector 3D de Face/Vertex Normals y Normal Transfer · Inspector RGBA de Vertex Color y Viento WPO</span>
+  </div>
+</div>
+
 <!-- LECTURA COMPLEMENTARIA -->
 <div style="border: 1px solid #d1d5db; border-radius: 4px; padding: 14px 18px; background: #ffffff;">
   <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
